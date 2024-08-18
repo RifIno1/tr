@@ -1,0 +1,207 @@
+<?php
+
+
+if ( $this->dataGame['club'] == '0' ) {
+echo'<h1>لم يتم تفعيل نادي الذهب</h1>
+<p></p>
+<p>لم تفعل نادي الذهب لكي تستمتع بهذه الميزة يجب تفعيل نادي الذهب نادي الذهب يكلف 100 ذهبه فقط لتفعيله فعله الان .</p>
+<p></p>
+';    
+} else {
+?>
+<h1 class="titleInHeader">خريطة القرية</h1>
+<div id="textmenu">
+ <a href="village4.php"<?php if ( $this->selectedTabIndex == 0 ) { echo " class=\"selected\""; } ?>>التحركات</a>
+ | <a href="village4.php?t=1"<?php if ( $this->selectedTabIndex == 1 ) { echo " class=\"selected\""; } ?>>الموارد</a>
+ | <a href="village4.php?t=2"<?php if ( $this->selectedTabIndex == 2 ) { echo " class=\"selected\""; } ?>>المخازن</a>
+ | <a href="village4.php?t=3"<?php if ( $this->selectedTabIndex == 3 ) { echo " class=\"selected\""; } ?>>الجيوش</a>
+</div>
+<?php if ( $this->selectedTabIndex == 0 ){ ?>
+<table class="rate_details lang_rtl lang_ar" cellpadding="1" cellspacing="1">
+        <thead>
+<tr>
+<th colspan="5">التحركات</th>
+</tr>
+
+                <tr>
+                        <td>قرية</td>
+                        <td>الهجمات</td>
+                        <td>بناء</td>
+                        <td>التعزيزات</td>
+                        <td>تجار</td>
+                </tr>
+        </thead>
+        <tbody>
+<?php foreach ($this->Villages as $vid) {?>
+                <tr<?php echo ($vid == $this->data['selected_village_id']) ? ' class="hl"' : '';?>>
+                   <td class="vil fc"><a href="village1.php?vid=<?php echo $vid; ?>"><?php echo $this->VillagesName[$vid]; ?></a></td>
+                   <td class="att"><span class="none">
+<?php if($this->Queue->AttInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER) > 0 || $this->Queue->AttFromInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER) > 0 ){
+        if($this->Queue->AttInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER) > 0) echo '<img class="att1" alt="هناك هجمات على القرية" title="هناك '.$this->Queue->AttInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER).' هجمات على القرية" src="assets/x.gif"> '; 
+        if($this->Queue->AttFromInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER) > 0) echo '<img class="att2" alt="هناك هجمات على القرية" title="هناك '.$this->Queue->AttFromInQueue($vid, QS_WAR_ATTACK, QS_WAR_ATTACK_PLUNDER).' هجمات من القرية" src="assets/x.gif">'; 
+        }else{ echo '-'; }?></span></td>
+                   <td class="bui"><span class="none"><?php echo ($this->Queue->BuildInQueue($vid, QS_BUILD_CREATEUPGRADE) > 0) ? '<img class="bau" alt="هناك اعمال بناء في القرية" title="هناك اعمال بناء في القرية" src="assets/default/img/a/bau.gif">' : '-';?></span></td>
+                   <td class="tro"><span class="none"><?php echo ($this->Queue->RainInQueue($vid, QS_WAR_REINFORCE) > 0) ? '<img class="def1" alt="هناك تعزيزات قادمة" title="هناك '.$this->Queue->RainInQueue($vid, QS_WAR_REINFORCE).' تعزيزات قادمة" src="assets/x.gif">' : '-';?></span></td>
+                   <td class="tra lc"><span class="none"><?php echo ($this->Queue->MarInQueue($vid, QS_MERCHANT_GO) > 0) ? '<img class="iReport iReport11" alt="هناك تجار قادمون" title="هناك '.$this->Queue->MarInQueue($vid, QS_MERCHANT_GO).' تجار قادمون" src="assets/x.gif">' : '-';?></span></td>
+           </tr>
+<?}?>
+        </tbody>
+</table>
+<?php } else if ( $this->selectedTabIndex == 1 ) { ?>
+<table class="rate_details lang_rtl lang_ar" cellpadding="1" cellspacing="1">
+        <thead>
+<tr>
+<th colspan="6">الموارد</th>
+</tr>
+
+                <tr>
+                        <td>قرية</td>
+                        <td><img alt="الخشب" src="assets/x.gif" class="r1"></td>
+                        <td><img alt="الطين" src="assets/x.gif" class="r2"></td>
+                        <td><img alt="الحديد" src="assets/x.gif" class="r3"></td>
+                        <td><img alt="القمح" src="assets/x.gif" class="r4"></td>
+                        <td></td>
+                </tr>
+        </thead>
+        <tbody>
+<?php 
+$totalr1Sum = $totalr2Sum = $totalr3Sum = $totalr4Sum = 0;
+foreach ($this->Villages as $vid) {
+$totalr1Sum += $this->resourcesArray->getVillageResources($vid,1);
+$totalr2Sum += $this->resourcesArray->getVillageResources($vid,2);
+$totalr3Sum += $this->resourcesArray->getVillageResources($vid,3);
+$totalr4Sum += $this->resourcesArray->getVillageResources($vid,4);
+?>
+                <tr<?php echo ($vid == $this->data['selected_village_id']) ? ' class="hl"' : '';?>>
+                        <td class="vil fc"><a href="village1.php?vid=<?php echo $vid; ?>"><?php echo $this->VillagesName[$vid]; ?></a></td>
+                        <td class="lum"><?php echo $this->resourcesArray->getVillageResources($vid,1); ?></td>
+                        <td class="clay"><?php echo $this->resourcesArray->getVillageResources($vid,2); ?></td>
+                        <td class="iron"><?php echo $this->resourcesArray->getVillageResources($vid,3); ?></td>
+                        <td class="crop"><?php echo $this->resourcesArray->getVillageResources($vid,4); ?></td>
+<?php 
+$resourcestime = $this->resourcesArray->getVillageResources($vid,1)+$this->resourcesArray->getVillageResources($vid,2)+$this->resourcesArray->getVillageResources($vid,3)+$this->resourcesArray->getVillageResources($vid,4);
+                $postfix = 0 < $resourcestime ? "" : "d";
+                $uurover=htmlspecialchars( sprintf($postfix == "d" ? "" : "".$resourcestime.""));
+if (0 < $resourcestime){
+echo "<td class=\"crop\">\n";
+echo "<span id=\"timer1\">\n";
+    echo WebHelper::secondstostring($uurover);
+echo "</span>\n";
+echo "</td>\n";
+    }
+    else
+    {
+echo "<td class=\"crop\">-</td>\n";
+}
+?>
+                </tr>
+<?}?>
+                <tr><td class="empty" colspan="6"></td></tr>
+                <tr class="sum">
+                        <th>المجموع</th>
+                                <td class="lum"><?php echo $totalr1Sum; ?></td>
+                                <td class="clay"><?php echo $totalr2Sum; ?></td>
+                                <td class="iron"><?php echo $totalr3Sum; ?></td>
+                                <td class="crop"><?php echo $totalr4Sum; ?></td>
+<?php 
+
+$resourcestimes = $totalr1Sum+$totalr2Sum+$totalr3Sum+$totalr4Sum;
+                $postfix = 0 < $resourcestimes ? "" : "d";
+                $uurover=htmlspecialchars( sprintf($postfix == "d" ? "" : "".$resourcestimes.""));
+if (0 < $resourcestimes){
+echo "<td class=\"crop\">\n";
+echo "<span id=\"timer1\">\n";
+    echo WebHelper::secondstostring($uurover);
+echo "</span>\n";
+echo "</td>\n";
+    }
+    else
+    {
+echo "<td class=\"crop\">-</td>\n";
+}
+?>
+                </tr>
+        </tbody>
+</table>
+<?php } else if ( $this->selectedTabIndex == 2 ) { ?>
+<table cellspacing="1" cellpadding="1" id="ressources">
+        <thead>
+<tr>
+<th colspan="5">المخازن</th>
+</tr>
+
+                <tr>
+                        <td>قرية</td>
+                        <td><img alt="الخشب" src="assets/x.gif" class="r1"></td>
+                        <td><img alt="الطين" src="assets/x.gif" class="r2"></td>
+                        <td><img alt="الحديد" src="assets/x.gif" class="r3"></td>
+                        <td><img alt="القمح" src="assets/x.gif" class="r4"></td>
+                </tr>
+        </thead>
+        <tbody>
+<?php 
+foreach ($this->Villages as $vid) {
+?>
+                <tr<?php echo ($vid == $this->data['selected_village_id']) ? ' class="hl"' : '';?>>
+                        <td class="vil fc"><a href="village1.php?vid=<?php echo $vid; ?>"><?php echo $this->VillagesName[$vid]; ?></a></td>
+                        <td class="lum"><?php echo round(($this->StoreArray->getVillageResources($vid, 1)*100)/($this->StoreArray->getVillageResources($vid, 1, 2))); ?>%</td>
+                        <td class="clay"><?php echo round(($this->StoreArray->getVillageResources($vid, 2)*100)/($this->StoreArray->getVillageResources($vid, 2, 2))); ?>%</td>
+                        <td class="iron"><?php echo round(($this->StoreArray->getVillageResources($vid, 3)*100)/($this->StoreArray->getVillageResources($vid, 3, 2))); ?>%</td>
+                        <td class="crop"><?php echo round(($this->StoreArray->getVillageResources($vid, 4)*100)/($this->StoreArray->getVillageResources($vid, 4, 2))); ?>%</td>
+                </tr>
+<?}?>
+        </tbody>
+</table>
+<?php } else if ( $this->selectedTabIndex == 3 ) { ?>
+<table cellspacing="1" cellpadding="1" id="troops">
+<?php 
+foreach ($this->Villages as $vid) {
+?>
+        <thead>
+<tr>
+<th colspan="11">القوات</th>
+</tr>
+
+                <tr>
+                        <th>قرية</th>
+                <?php foreach($this->TroopsArray->getVillageTroops($vid) as $tid=>$tnum){ ?>
+                        
+                        <td><img src="assets/x.gif" class="unit u<?php echo $tid;?>" alt="<?php echo constant ('troop_' . $tid);?>"></td>
+                
+                <?php } ?>
+                </tr>
+        </thead>
+<?php break;}?>
+<?php 
+foreach ($this->Villages as $vid) {
+?>
+        <tbody>
+                <tr<?php echo ($vid == $this->data['selected_village_id']) ? ' class="hl"' : '';?>>
+                        <th class="vil fc"><a href="village1.php?vid=<?php echo $vid; ?>"><?php echo $this->VillagesName[$vid]; ?></a></th>
+                <?php foreach($this->TroopsArray->getVillageTroops($vid) as $tid=>$tnum){
+                        if (isset ($total[$tid])) {
+                                $total[$tid] += $tnum;
+                        } else {
+                                $total[$tid] = $tnum;
+                        }
+                ?>
+                        <td<?php echo ($tnum == 0) ? ' class="none"' : '' ;?>><?php echo $tnum; ?></td>
+                <?php } ?>
+                </tr>
+<?}?>
+                <tr>
+                        <td class="empty" colspan="12"></td>
+                </tr>
+                <tr>
+                        <th>المجموع</th>
+                        <?php foreach($total as $tid=>$tnum){ ?>
+                        <td<?php echo ($tnum == 0) ? ' class="none"' : '' ;?>><?php echo $tnum; ?></td>
+                        <?php } ?>
+                </tr>
+        </tbody>
+
+</table>
+<?php
+ }
+ }
+?>

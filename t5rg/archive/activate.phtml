@@ -1,0 +1,169 @@
+<?php
+
+
+require( APP_PATH."config.php" );
+if (($this->appConfig['system']['startdate'] > date('m/d/Y')) || ($this->appConfig['system']['START_TIME'] > date('H:i'))){
+?>
+
+<!-- 
+<style>
+.counter{
+        width: 610px;
+}
+.counter ul.countdown{
+        list-style-type: none;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+}
+.counter ul.countdown li{
+        float: right;
+        background: url(assets/digit.png) no-repeat;
+        height:110px;
+        width: 105px;
+        padding-top: 35px;
+}
+.counter ul.countdown li div{
+        font-size: 10px;
+}
+.counter ul.countdown li div.countdown_num{
+        font-size: 20px;
+}
+.counter ul.countdown li.no_countdown{
+        padding-top:4px;
+        background:transparent;
+        height:110px;
+        width:180px;
+}
+</style>
+--><script language="JavaScript">
+timingnow = '<?php echo date('m/d/Y');?> <?php echo date('g:i:s A');?>';
+TargetDate = "<?php echo $this->appConfig['system']['startdate']; ?> <?php echo $this->appConfig['system']['START_TIME']; ?>";
+CountActive = true;
+CountStepper = -1;
+LeadingZero = true;
+DisplayFormat = "<br><br><br><br><center><p style='font-size:20px;'>بقي على انطلاق اللعب :</p><br><font style='font-size: 22px; color: orange; font-weight: bold; text-shadow: 1px 1px #000;'>%%D%%:%%H%%:%%M%%:%%S%%</font><br><br><br><b class='error'>لا يمكنك تفعيل الحساب قبل انطلاق اللعبة.<br><br>احتفظ بالرابط لحين بدأ اللعب<br><br>حتى يتمكن جميع اللاعبين من التفعيل في نفس الوقت</b></center>";
+FinishMessage = "<br><p><br><p><br><center><b>سوف يتم بدأ اللعب بتأريخ : <?php echo $this->appConfig['system']['startdate']; ?></b><p><br><p><br></center>";
+
+function calcage(secs, num1, num2) {
+ s = ((Math.floor(secs/num1))%num2).toString();
+ if (LeadingZero && s.length < 2)
+ s = "0" + s;
+ return "<b>" + s + "</b>";
+}
+function CountBack(secs) {
+ if (secs < 0) {
+ location.reload(true)
+ return;
+ }
+ DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000));
+ DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600,24));
+ DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+ DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+ document.getElementById("cntdwn").innerHTML = DisplayStr;
+ if (CountActive)
+ setTimeout("CountBack(" + (secs+CountStepper) + ")", SetTimeOutPeriod);
+}
+function putspan(backcolor, forecolor) {
+ document.write("<span id='cntdwn' style='background-color:" + backcolor + 
+ "; color:" + forecolor + "'></span>");
+}
+if (typeof(BackColor)=="undefined")
+ BackColor = "white";
+if (typeof(ForeColor)=="undefined")
+ ForeColor= "black";
+if (typeof(TargetDate)=="undefined")
+ TargetDate = "12/31/2020 5:00 AM";
+if (typeof(DisplayFormat)=="undefined")
+ DisplayFormat = "%%D%% Days, %%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+if (typeof(CountActive)=="undefined")
+ CountActive = true;
+if (typeof(FinishMessage)=="undefined")
+ FinishMessage = "";
+if (typeof(CountStepper)!="number")
+ CountStepper = -1;
+if (typeof(LeadingZero)=="undefined")
+ LeadingZero = true;
+CountStepper = Math.ceil(CountStepper);
+if (CountStepper == 0)
+ CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+putspan(BackColor, ForeColor);
+d = new Date();
+utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+var dthen = new Date(TargetDate);
+var dnow = new Date(timingnow);
+if(CountStepper>0)
+ ddiff = new Date(dnow-dthen);
+else
+ ddiff = new Date(dthen-dnow);
+gsecs = Math.floor(ddiff.valueOf()/1000);
+CountBack(gsecs);
+</script>
+</center>
+<?php
+
+}else{
+
+if ( $this->playerStatus == 0 - 1 )
+{
+    echo "<h6>";
+    echo LANGUI_ACTIVATE_T1;
+    echo "</h6>\r\n<p><b>";
+    echo LANGUI_ACTIVATE_T2;
+    echo "</b></p>\r\n<p class=\"f10 e b\">";
+    echo LANGUI_ACTIVATE_T3;
+    echo ":</p>\r\n<div class=\"f10\">\r\n\t<li><p>";
+    echo LANGUI_ACTIVATE_T4;
+    echo "</p></li>\r\n\t<li><p>";
+    echo LANGUI_ACTIVATE_T5;
+    echo "</p></li>\r\n\t<li><p>";
+    echo LANGUI_ACTIVATE_T6;
+    echo "</p></li>\r\n\t<li><p>";
+    echo LANGUI_ACTIVATE_T7;
+    echo "</p></li>\r\n</div>\r\n";
+    if ( 0 < $this->uid )
+    {
+        echo "<p><b><br><br>";
+        echo LANGUI_ACTIVATE_T8;
+        echo ".</b></p>\r\n<form action=\"activate.php?uid=";
+        echo $this->uid;
+        echo "\" method=\"post\">\r\n<table cellpadding=\"1\" cellspacing=\"1\">\r\n\t<tbody>\r\n\t\t<tr class=\"top\">\r\n\t\t\t<th>";
+        echo LANGUI_ACTIVATE_T9;
+        echo ":</th>\r\n\t\t\t<td class=\"name\">";
+        echo $this->uname;
+        echo "</td>\r\n\t\t</tr>\r\n\t\t<tr class=\"btm\">\r\n\t\t\t<th>";
+        echo LANGUI_ACTIVATE_T10;
+        echo "</th>\r\n\t\t\t<td><input class=\"text\" type=\"password\" name=\"pw\" maxlength=\"20\"></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<p class=\"btn\"><input type=\"image\" src=\"assets/x.gif\" class=\"dynamic_img \" id=\"btn_delete\" alt=\"";
+        echo LANGUI_ACTIVATE_T11;
+        echo "\" value=\"";
+        echo LANGUI_ACTIVATE_T11;
+        echo "\" name=\"delreports\"></p>\r\n</form>\r\n";
+    }
+}
+else if ( $this->playerStatus == 3 )
+{
+    echo "<p class=\"info2\">";
+    echo LANGUI_ACTIVATE_T12;
+    echo "</p>\r\n<p><a href=\"register.php\">";
+    echo LANGUI_ACTIVATE_T13;
+    echo "</a></p>\r\n";
+}
+else if ( $this->playerStatus == 1 )
+{
+    echo "<p class=\"f9\">";
+    echo LANGUI_ACTIVATE_T14;
+    echo ".</p>\r\n<p class=\"f9\">";
+    echo LANGUI_ACTIVATE_T15;
+    echo " <a href=\"index.php\">";
+    echo LANGUI_ACTIVATE_T16;
+    echo "</a></p>\r\n";
+}
+else if ( $this->playerStatus == 2 )
+{
+    echo "<p class=\"f9\">";
+    echo LANGUI_ACTIVATE_T17;
+    echo ".</p>\r\n";
+}
+}
+?>

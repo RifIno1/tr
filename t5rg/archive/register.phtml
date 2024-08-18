@@ -1,0 +1,251 @@
+<?php
+
+
+require( APP_PATH."config.php" );
+?>
+  <h1><img src="assets/x.gif" class="anmelden" alt="<?php echo LANGUI_REG_T1; ?>"></h1>
+
+  <h5><img src="assets/x.gif" class="img_u05" alt="<?php echo LANGUI_REG_T2; ?>"></h5>
+<?php
+require( APP_PATH."config.php" );
+$db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
+mysql_select_db($AppConfig['db']['database'], $db_connect);
+$query1 = mysql_query("SELECT * FROM g_summary");
+$data1  = mysql_fetch_array($query1);
+$start_time = (time()-$data1['server_start_time']);
+$regover = ($AppConfig['Game']['RegisterOver']*24*60*60);
+
+if ($start_time > $regover){
+?>
+هذا العالم بلغ به الحد الاقصى من اللاعبين. يمكنك ان <br> تسجيل نفسك في عالم آخر<br><br><a href="login.php">التسجيل <<</a>
+<?php
+} else {
+ if (!$this->success) {
+?>
+  <p><?php echo LANGUI_REG_T3; ?> 
+
+ <a href="#" onclick="return showManual(0,0);"><?php echo LANGUI_REG_T4; ?> </a>
+
+
+  <?php echo LANGUI_REG_T5; ?>
+
+  </p>
+  <form method="post" action="
+<?php if (isset ($_GET['ref'])) {
+echo "register.php?ref=".$_GET['ref'];
+} else {
+echo "register.php";
+} ?>" />
+  <table cellpadding="1" cellspacing="1" id="sign_input">
+  <tbody><tr class="top"><th><?php echo LANGUI_REG_T6; ?>:</td>
+  <td><input class="text" type="text" name="name" value="<?php
+      if (isset($_POST['name'])) {
+          echo htmlspecialchars(trim($_POST['name']));
+      } else if (isset($this->SNdata['user_name'])) {
+          echo $this->SNdata['user_name'];
+      } ?>" maxlength="15" />
+  <span class="error">
+  <?php echo $this->err[0]; ?>
+  </span></td></tr>
+  <tr><th><?php echo LANGUI_REG_T7; ?></th>
+  <td><input class="text" type="text" name="email" value="<?php
+      if (isset($_POST['email'])) {
+          echo trim($_POST['email']);
+      } else if (isset($this->SNdata['email'])) {
+          echo $this->SNdata['email'];
+      } ?>" maxlength="40" />
+  <span class="error">
+  <?php echo $this->err[1]; ?>
+  </span></td></tr>
+  <tr class="btm">
+  <th><?php echo LANGUI_REG_T8; ?></th>
+  <td><input class="text" type="password" name="pwd" value="<?php
+      if (isset($_POST['pwd'])) {
+          echo trim($_POST['pwd']);
+      } ?>" maxlength="20" />
+
+  <span class="error"><?php echo $this->err[2]; ?></span>
+<!-- code -->
+  </td></tr>
+<tr class="btm"><th>
+      <?php
+echo "ألكود الامني"; echo"<img border=0 src=captcha.php>";
+
+        echo "</th>\r\n\t\t\t<td><input class=\"text\" type=\"text\" name=\"Cap\" value=\"";
+    if ( isset( $_POST['Cap'] ) )
+    {
+        echo trim( $_POST['Cap'] );
+    }
+      echo "\" maxlength=\"20\" /> ";
+?>
+ <span class="error"><?php echo $this->err[5]; ?>
+</span></td></tr></tbody></table>
+<p>
+  <table cellpadding="1" cellspacing="1" id="sign_select">
+  <tbody>
+  <tr class="top">
+  <th><b>اختر القبيلة : </b></th>
+  <th colspan="2"><b>مكان الابتداء : </b></th></tr>
+  <tr>
+  <td class="nat"><label><input class="radio" type="radio" name="tid" value="1"
+ />&nbsp;الرومان  </label></td>
+  <td class="pos1"><label><input class="radio" type="radio" name="kid" value="0"
+checked="checked" />&nbsp;عشوائي  </label></td>
+  <td class="pos2">&nbsp;</td>
+  </tr>
+  <tr><td class="nat"><label><input class="radio" type="radio" name="tid" value="3"
+ />&nbsp;الإغريق  </label></td>
+  <td><label><input class="radio" type="radio" name="kid" value="1"
+ />&nbsp;شمال غربي  </label></td>
+  <td><label><input class="radio" type="radio" name="kid" value="2"
+ />&nbsp;شمال شرقي  </label></td>
+  </tr>
+  <tr>
+  <td><label><input class="radio" type="radio" name="tid" value="2"
+ />&nbsp;الجرمان  </label></td>
+  <td><label><input class="radio" type="radio" name="kid" value="3"
+ />&nbsp;جنوب غربي  </label></td>
+  <td><label><input class="radio" type="radio" name="kid" value="4"
+ />&nbsp;جنوب شرقي  </label></td></tr><tr><td></td><td rowspan="2"></td></tr><tr class="btm"><td></td><td rowspan="2"></td></tr>
+  </tbody></table>
+
+
+  <ul class="important"><?php echo $this->err[3]; ?></ul>
+  <ul class="important"><?php echo $this->err[4]; ?></ul>
+  <p>
+				<input class="check" type="checkbox" name="agb" value="1" checked="checked"  />
+  أصرح بقبولي 
+   <b><a href="terms.php" target="_blank">
+    لقوانين اللعبة</a></b>.
+			</p>
+	
+			<p class="btn"><input type="image" value="anmelden" name="s1" id="btn_signup" class="dynamic_img" src="assets/x.gif" alt="<?php echo LANGUI_REG_T16; ?>" /></p>
+  </form>
+<?php
+require( APP_PATH."config.php" );
+if ( ($this->appConfig['system']['startdate'] > date('m/d/Y')) || ($this->appConfig['system']['START_TIME'] > date('H:i'))){
+?>
+
+<!-- 
+<style>
+.counter{
+        width: 610px;
+}
+.counter ul.countdown{
+        list-style-type: none;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+}
+.counter ul.countdown li{
+        float: right;
+        background: url(assets/digit.png) no-repeat;
+        height:110px;
+        width: 105px;
+        padding-top: 35px;
+}
+.counter ul.countdown li div{
+        font-size: 10px;
+}
+.counter ul.countdown li div.countdown_num{
+        font-size: 20px;
+}
+.counter ul.countdown li.no_countdown{
+        padding-top:4px;
+        background:transparent;
+        height:110px;
+        width:180px;
+}
+</style>
+--><script language="JavaScript">
+timingnow = '<?php echo date('m/d/Y');?> <?php echo date('g:i:s A');?>';
+TargetDate = "<?php echo $this->appConfig['system']['startdate']; ?> <?php echo $this->appConfig['system']['START_TIME']; ?>";
+CountActive = true;
+CountStepper = -1;
+LeadingZero = true;
+DisplayFormat = "<center><p style='font-size:20px;'>بقي على انطلاق اللعب :</p><font style='font-size: 22px; color: orange; font-weight: bold; text-shadow: 1px 1px #000;'>%%D%%:%%H%%:%%M%%:%%S%%</font></center>";
+FinishMessage = "<br><p><br><p><br><center><b>سوف يتم بدأ اللعب بتأريخ : <?php echo $this->appConfig['system']['startdate']; ?></b><p><br><p><br></center>";
+
+function calcage(secs, num1, num2) {
+ s = ((Math.floor(secs/num1))%num2).toString();
+ if (LeadingZero && s.length < 2)
+ s = "0" + s;
+ return "<b>" + s + "</b>";
+}
+function CountBack(secs) {
+ if (secs < 0) {
+ location.reload(true)
+ return;
+ }
+ DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000));
+ DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600,24));
+ DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+ DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+ document.getElementById("cntdwn").innerHTML = DisplayStr;
+ if (CountActive)
+ setTimeout("CountBack(" + (secs+CountStepper) + ")", SetTimeOutPeriod);
+}
+function putspan(backcolor, forecolor) {
+ document.write("<span id='cntdwn' style='background-color:" + backcolor + 
+ "; color:" + forecolor + "'></span>");
+}
+if (typeof(BackColor)=="undefined")
+ BackColor = "white";
+if (typeof(ForeColor)=="undefined")
+ ForeColor= "black";
+if (typeof(TargetDate)=="undefined")
+ TargetDate = "12/31/2020 5:00 AM";
+if (typeof(DisplayFormat)=="undefined")
+ DisplayFormat = "%%D%% Days, %%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+if (typeof(CountActive)=="undefined")
+ CountActive = true;
+if (typeof(FinishMessage)=="undefined")
+ FinishMessage = "";
+if (typeof(CountStepper)!="number")
+ CountStepper = -1;
+if (typeof(LeadingZero)=="undefined")
+ LeadingZero = true;
+CountStepper = Math.ceil(CountStepper);
+if (CountStepper == 0)
+ CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+putspan(BackColor, ForeColor);
+d = new Date();
+utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+var dthen = new Date(TargetDate);
+var dnow = new Date(timingnow);
+if(CountStepper>0)
+ ddiff = new Date(dnow-dthen);
+else
+ ddiff = new Date(dthen-dnow);
+gsecs = Math.floor(ddiff.valueOf()/1000);
+CountBack(gsecs);
+</script>
+</center>
+<?php
+}else{
+
+}
+  } else {
+
+echo '
+        <p>مرحباً<b>
+'.((isset($_POST['name']))? trim($_POST['name']) : '').'</b>
+<br><br>
+ تم التسجيل والتفعيل التلقائى. <br><br>
+البريد المسجل به:
+  <span class="important">
+'.((isset($_POST['email']))? trim($_POST['email']) : '').'  </span></p>
+<b>يمكنك اللعب فورا فالسرفر في انتظارك , </b>
+';
+/*
+  <span class="important">
+<?php
+      if (isset($_POST['email'])) {
+          echo trim($_POST['email']);
+      } 
+  </span> */ ?></p>
+<?php
+  }
+  }
+?>

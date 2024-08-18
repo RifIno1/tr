@@ -1,0 +1,362 @@
+﻿<?php
+
+
+echo "<h1><p>";
+echo '<b>قائمة<font color="#71D000"> p</font><font color="#FF6F0F">l</font>u<font color="#71D000">s</font></b>';
+echo "</p></h1>\r\n<div id=\"textmenu\">\r\n   <a href=\"plus.php\"";
+  if ($this->selectedTabIndex == 0) {
+      echo " class=\"selected\"";
+  }
+  echo ">";
+  echo LANGUI_PLUS_T3;
+  echo "</a>\r\n | <a href=\"plus.php?t=2\"";
+  if ($this->selectedTabIndex == 2) {
+      echo " class=\"selected\"";
+  }
+  echo ">";
+  echo LANGUI_PLUS_T5;
+  echo "</a>\r\n | <a href=\"plus.php?t=3\"";
+  if ($this->selectedTabIndex == 3) {
+      echo " class=\"selected\"";
+  }
+  echo ">";
+  echo LANGUI_INVITE_T1;
+  echo "</a> | <a href=\"plus.php?t=4\"";
+  if ($this->selectedTabIndex == 4) {
+      echo " class=\"selected\"";
+  }
+  echo ">";
+  echo "تحويل الذهب";
+  echo "</a> | <a href='plus.php?t=1' ";
+  if ($this->selectedTabIndex == 1) {
+      echo " class=\"selected\"";
+  }
+echo ">البنوك </a></div>\r\n";
+  if ($this->selectedTabIndex == 1) {
+echo '<table class="rate_details lang_rtl lang_ar" cellpadding="1" cellspacing="1"><thead><tr><th colspan="2">طرق الدفع المتوفرة</th></tr><tr><td>طريقة الدفع</td><td>بيانات</td></tr></thead><tr><td><img style="width: 120px; height: 75px; " src="http://www.rh.net.sa/images/b-samba.jpg"></td><td><b>tatarswars :</b> لا يوجد للشراء راسل الادارة <br><b>رقم الحساب :</b> 2771788934</td></tr><tr><td><img style="width: 120px; height: 75px; " src="http://tatarwaruae.com/bank-1.gif"></td><td><b>رقم الحساب :</b> 620608010200582 </td></tr></table><br><font color="orange">* ...لا نتعامل مع البنوك.</font><center><h3><a href="msg.php?uid=1">للشراء ؟ راسل الادارة</a></h3></center>';
+ }
+  else
+  if ($this->selectedTabIndex == 0) {
+
+      if ($this->packageIndex < 0) {
+          echo "<div id=\"products\">\r\n\t";  
+          $_c = 0;
+          foreach ($this->appConfig['plus']['packages'] as $package) {
+              ++$_c;
+              echo "\t<table class=\"product lang_rtl lang_ar\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t\t<thead>\r\n\t\t\t<tr><th>";
+              echo $package['name'];
+              echo "</th></tr>\r\n\t\t</thead>\r\n        <tbody>\r\n\t\t\t<tr><td class=\"pic\"><a href=\"?id=";
+              echo $_c;
+              echo "\"><img src=\"assets/default/plus/";
+              echo htmlspecialchars($package['image']);
+              echo "\" style=\"width:100px;height:100px;\" alt=\"";
+              echo htmlspecialchars($package['name']);
+              echo "\"></a></td></tr>\r\n            <tr><td>";
+              echo $package['gold'];
+              echo "&nbsp;";
+              echo LANGUI_PLUS_T6;
+              echo "</td></tr>\r\n            <tr><td>";
+              echo $package['cost'];
+              echo "&nbsp;";
+              echo $package['currency'];
+              echo "</td></tr>\r\n\t\t\t<tr><td><a class='signUpButton' href=\"?id=";
+              echo $_c;
+              echo "\">";
+              echo LANGUI_PLUS_T7;
+              echo "</a></td></tr>\r\n\t\t</tbody>\r\n\t</table>\r\n\t";
+          }
+          echo "\t<div class=\"clear\"></div>\r\n</div>\r\n";
+      } else {
+          $_c = 0;
+          foreach ($this->appConfig['plus']['payments'] as $paymentKey => $payment) {
+              ++$_c;
+              echo "<table class=\"rate_details lang_rtl lang_ar\" cellpadding=\"1\" cellspacing=\"1\">\r\n    <thead>\r\n        <tr><th colspan=\"2\">";
+              echo $_c . ". " . $payment['name'];
+              echo "</th></tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr>\r\n            <td class=\"pic\">\r\n\t\t\t\t<img src=\"assets/default/plus/";
+              echo htmlspecialchars($this->appConfig['plus']['packages'][$this->packageIndex]['image']);
+              echo "\" style=\"width:100px;height:100px;\" alt=\"";
+              echo htmlspecialchars($this->appConfig['plus']['packages'][$this->packageIndex]['name']);
+              echo "\">\r\n                <div>";
+              echo text_period_lang;
+              echo ": ";
+              echo constant("payments_" . $paymentKey . "_period");
+              echo "</div>\r\n            </td>\r\n            <td class=\"desc\">\r\n                ";
+              echo constant("payments_" . $paymentKey . "_description");
+              echo "<p>\r\n                <a href=\"#\" onclick=\"window. open('payment.php?p=";
+              echo $paymentKey;
+              echo "&pg=";
+              echo $this->packageIndex;
+              echo "','tgpay','scrollbars=yes,status=yes,resizable=yes,toolbar=yes,width=800,height=600');return false;\">\r\n                <img src=\"assets/default/plus/";
+              echo htmlspecialchars($payment['image']);
+              echo "\" style=\"width:119px; height:58px;\" alt=\"";
+              echo htmlspecialchars($payment['name']);
+              echo "\"></a>";
+?>
+<p>لمزيد من المعلومات تفضل من  هنا<a href="#" onclick="window.open('https://www.cashu.com/site/en/findResellersInfo?lang=ar','external','scrollbars=yes,status=yes,resizable=yes,toolbar=yes,width=1000,height=650');return false;">المزيد من المعلومات</a></td>
+<?php
+echo "</tr>\r\n    </tbody>\r\n</table>\r\n";
+          }
+      }
+  } else if ($this->selectedTabIndex == 2) {
+      echo "<p>";
+      if (0 < $this->data['gold_num']) {
+          echo LANGUI_PLUS_T30;
+          echo "<b> ";
+          echo $this->data['gold_num'];
+          echo "</b> ";
+          echo LANGUI_PLUS_T31;
+      } else {
+          echo LANGUI_PLUS_T32;
+      }
+      echo "</p>\r\n<table class=\"plusFunctions\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<thead>\r\n\t\t<tr><th colspan=\"5\">";
+      echo LANGUI_PLUS_T33;
+      echo "</th></tr>\r\n\t\t<tr><td></td><td>";
+      echo LANGUI_PLUS_T34;
+      echo "</td><td>";
+      echo text_period_lang;
+      echo "</td><td>";
+      echo LANGUI_PLUS_T2;
+      echo "</td><td>";
+      echo LANGUI_PLUS_T35;
+      echo "</td></tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,0);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">\r\n\t\t\t\t<p><b><font color=\"#71D000\"> ";
+      echo LANGUI_PLUS_T36;
+      echo "  </p><br>\r\n\t\t\t\t";
+      echo "<s";
+      echo "pan class=\"run\">&nbsp;";
+      echo $this->getRemainingPlusTime(0);
+      echo "</span>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[0]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[0]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[0]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(0);
+      echo "</td>\r\n\t\t</tr>\t\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"5\" class=\"empty\"></td>\r\n\t\t</tr>\r\n\t\t\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,1);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">\r\n\t\t\t\t+<b>25</b>% <img class=\"r1\" src=\"assets/x.gif\" alt=\"";
+      echo item_title_1;
+      echo "\" title=\"";
+      echo item_title_1;
+      echo "\"> ";
+      echo LANGUI_PLUS_T39;
+      echo "<br>\r\n\t\t\t\t";
+      echo "<s";
+      echo "pan class=\"run\">&nbsp;";
+      echo $this->getRemainingPlusTime(1);
+      echo "</span>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[1]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[1]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[1]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(1);
+      echo "</td>\r\n\t\t</tr>\r\n\t\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,2);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">\r\n\t\t\t\t+<b>25</b>% <img class=\"r2\" src=\"assets/x.gif\" alt=\"";
+      echo item_title_2;
+      echo "\" title=\"";
+      echo item_title_2;
+      echo "\"> ";
+      echo LANGUI_PLUS_T40;
+      echo "<br>\r\n\t\t\t\t";
+      echo "<s";
+      echo "pan class=\"run\">&nbsp;";
+      echo $this->getRemainingPlusTime(2);
+      echo "</span>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[2]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[2]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[2]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(2);
+      echo "</td>\r\n\t\t</tr>\r\n\t\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,3);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">\r\n\t\t\t\t+<b>25</b>% <img class=\"r3\" src=\"assets/x.gif\" alt=\"";
+      echo item_title_3;
+      echo "\" title=\"";
+      echo item_title_3;
+      echo "\"> ";
+      echo LANGUI_PLUS_T41;
+      echo "<br>\r\n\t\t\t\t";
+      echo "<s";
+      echo "pan class=\"run\">&nbsp;";
+      echo $this->getRemainingPlusTime(3);
+      echo "</span>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[3]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[3]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[3]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(3);
+      echo "</td>\r\n\t\t</tr>\r\n\t\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,4);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">\r\n\t\t\t\t+<b>25</b>% <img class=\"r4\" src=\"assets/x.gif\" alt=\"";
+      echo item_title_4;
+      echo "\" title=\"";
+      echo item_title_4;
+      echo "\"> ";
+      echo LANGUI_PLUS_T42;
+      echo "<br>\r\n\t\t\t\t";
+      echo "<s";
+      echo "pan class=\"run\">&nbsp;";
+      echo $this->getRemainingPlusTime(4);
+      echo "</span>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[4]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[4]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[4]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(4);
+      echo "</td>\r\n\t\t</tr>\r\n\t\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"5\" class=\"empty\"></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,5);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">";
+      echo LANGUI_PLUS_T43;
+      echo "</td>\r\n\t\t\t<td class=\"dur\">";
+      echo $this->plusTable[5]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[5]['time'] . " " . LANGUI_PLUS_T38;
+      echo "</td>";
+
+echo "\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\" title=\"";
+      echo LANGUI_PLUS_T6;
+      echo "\">";
+      echo $this->plusTable[5]['cost'];
+      echo "</td>\r\n\t\t\t<td class=\"act\">";
+      echo $this->getPlusAction(5);
+      echo "</td>\r\n\t\t</tr>\t\r\n\t\t";
+echo "<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,7);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">";
+    echo LANGUI_PLUS_T44;
+    echo "</td>\r\n\t\t\t<td class=\"dur\">";
+    echo $this->plusTable[6]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[6]['time']." ".LANGUI_PLUS_T38;
+    echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\" title=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\">";
+    echo $this->plusTable[6]['cost'];
+    echo "</td>\r\n\t\t\t<td class=\"act\">";
+    echo $this->getPlusAction( 6 );
+    echo "</td>\r\n\t\t</tr>";
+
+
+
+    echo "\t\r\n\t</tbody>\r\n</table>\r\n";
+    echo "</p>\r\n";
+echo '<table class="plusFunctions" cellpadding="1" cellspacing="1"><thead><tr><th colspan="5"> </th></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></thead><tbody><tr><td class="man"><a href="#" onclick="return showManual(5,0);"><img class="help" src="assets/x.gif" alt="" title=""></a></td><td class="desc"><b></b>عند شرائك الذهب<br><span style="font-size:9px;"><br>تخفيضات بنسبة 30%</span></td><td class="dur"></td><td class="cost"><img src="assets/x.gif" class="gold" alt="" title="">'.$plus8.'</td><td class="act">';
+$club = $this->dataGame['club'];  
+if ( $club == '1' ) {
+echo "<span class='none'></span>";
+}
+else if ( $this->data['gold_num'] < $plus8) {
+echo '<span class="none"></span>'; 
+}
+else if ($club == '0'){
+echo "<a href='?club' name='club'></a>"; 
+}
+else {
+echo "<span class='none'></span>"; 
+}
+echo '</td></tr></table>';
+
+}else if ($this->selectedTabIndex == 3) { ?>
+<h2>قم بدعوة اصدقائك واحصل على كمية من الذهب مجانا</h2>
+<p>اذا قام اللاعب الذي قمت بدعوته بانشاء قرية جديدة سوف يتم اضافة كمية الذهب الى رصيدك. يمكنك استعمال هذا الذهب في مزايا البلاس.
+<br>
+<br>
+اذا اردت دعوة احد اللاعبين يمكنك استعمال الرابط الخاص بك الموجود في الاسفل.</p>
+<h2>كيف ذلك ؟</h2>
+
+
+<h3 style="clear:both;"><?php echo LANGUI_INVITE_T2; ?></h3>
+
+<span class="notice"><?php echo LANGUI_INVITE_T3; ?></span><br />
+<?php $domain = WebHelper::getdomain(); ?>
+<span class="link"><?php echo "http://".$domain."register.php?ref=".$this->player->playerId; ?></span>
+<h3>2) قم بنشر الرابط الخاص بك على صفحات الفيس بوك او تويتر</h3>
+<a href="http://www.facebook.com/sharer.php?u=<?php echo "http://".$domain."register.php?ref=".$this->player->playerId; ?>" target="_blank"><img src="assets/facebook-icon.png"></a>
+<a href="http://www.twitter.com/home?status=<?php echo "http://".$domain."register.php?ref=".$this->player->playerId; ?>" target="_blank"><img src="assets/twitter.png"></a>
+
+
+<h3 style="clear:both;"><?php echo LANGUI_INVITE_T4; ?></h3>
+<p>اذا تمكن اللاعب من بناء  <b>2</b> قرى, سوف تضاف <b>1000</b> <img src="assets/x.gif" class="gold"> ذهبة الى رصيدك <br> ويشترط ان لا يكون من نفس الجهاز.</p>
+
+<table class="rate_details lang_rtl lang_ar" cellpadding="11" cellspacing="1">
+
+
+<thead>
+<tr>
+                <th colspan="6"><center><?php echo LANGUI_INVITE_T6; ?></center></th>
+</tr>
+<tr>
+                <td><?php echo LANGUI_INVITE_T7; ?></td>
+                <td><?php echo LANGUI_INVITE_T8; ?></td>
+                <td><?php echo LANGUI_INVITE_T9; ?></td>
+                <td><?php echo LANGUI_INVITE_T10; ?></td>
+</tr>
+</thead>
+<tbody>
+<?php
+$last_ip = $this->dataGame['last_ip'];
+$found = false;
+while ($this->dataList->next()) {
+$found = true;
+?>
+<tr>
+<td><center><?php echo $this->dataList->row['id']; ?></center></td>
+<td><center><a href='profile.php?uid=<?php echo $this->dataList->row['id']; ?>'><?php echo $this->dataList->row['name']; ?></a><?php if ($this->dataList->row['last_ip'] == $last_ip) { echo "(<font color='red'><b>مخالف</b></font>)"; } ?></center></td>
+<td><center><?php echo $this->dataList->row['total_people_count']; ?></center></td>
+<td><center><?php echo $this->dataList->row['villages_count']; ?></center></td>
+</tr>
+<?php
+
+}
+
+
+if (!$found) {
+?>
+<tr><td class="none" colspan="6"><?php echo LANGUI_INVITE_T11; ?></td></tr>
+<?php
+}
+echo"</tbody></table>"; 
+}  else if ($this->selectedTabIndex == 4) { 
+$t7 = $this->data['gold_num'] - 1000;
+?>
+يمكنك تحويل <b><?php if ($t7 <= 0) {echo "0";} else {echo $t7;} ?></b> من الذهب<br>
+<form action="plus.php?t=4" method="post">
+<table class="rate_details lang_rtl lang_ar" cellpadding="1" cellspacing="1">
+<thead>
+<tr>
+                <th colspan="2">يمكنك تحويل الذهب من هنا الى لاعب اخر في نفس السيرفر</th>
+</tr>
+</thead>
+<tbody>
+<tr class="top">
+                <td><?php echo LANGUI_TRANS_T3; ?></td>
+                <td><input class="text" type="text" name="name" maxlength="20" value=""></td>
+</tr>
+<tr>
+                <td><?php echo LANGUI_TRANS_T4; ?></td>
+                <td><input class="text" type="text" name="gold" maxlength="10" value=""></td>
+</tr>
+<tr class="btm">
+                <td><?php echo LANGUI_TRANS_T5; ?></td>
+                <td><input class="text" type="password" name="pass" maxlength="25" value=""></td>
+</tr>
+</tbody>
+</table>
+<p class="btn"><center>
+<input type="image" value="" name="s1" id="btn_send" class="dynamic_img" src="assets/x.gif">                        
+</center></p>
+</form>
+<?php
+if ( $this->errorTable != NULL ) { ?>
+<p class="error"><? echo $this->errorTable;?></p>
+<?php
+ }
+ }
+?>

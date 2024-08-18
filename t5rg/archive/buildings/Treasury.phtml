@@ -1,0 +1,235 @@
+<?php
+
+
+
+require( LANG_PATH."lang.php" );
+require( APP_PATH."config.php" );
+$db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
+mysql_select_db($AppConfig['db']['database'], $db_connect);
+$buildingMetadata = $this->gameMetadata['items'][$this->buildProperties['building']['item_id']];
+$bLevel = $this->buildings[$this->buildingIndex]['level'];
+$this->selectedTabIndex = isset( $_GET['t'] ) && is_numeric( $_GET['t'] ) && 0 <= intval( $_GET['t'] ) && intval( $_GET['t'] ) <= 2 ? intval( $_GET['t'] ) : 0;
+?>
+
+<div id="textmenu">
+<a href="build.php?id=<?php echo $this->buildingIndex; ?>" <?php
+if ( $this->selectedTabIndex == 0 )
+{
+echo " class=\"selected\"";
+} ?> ">التحف</a>
+| <a href="build.php?id=<?php echo $this->buildingIndex; ?>&t=2" <?php
+if ( $this->selectedTabIndex == 2 )
+{
+echo " class=\"selected\"";
+}
+?>
+">التحف الخاصه بي</a>
+</div>
+<?php
+if (is_numeric ($_GET['show'])) {
+
+$show = strip_tags(addslashes($_GET['show']));
+$a = mysql_query("select * from  p_villages where is_artefact= 1");
+$num = mysql_num_rows($a);
+if ($num > 0) {
+$query = "select * from  p_villages where is_artefact= 1 and id = ".$show."";
+$result = mysql_query($query);
+while ($name = mysql_fetch_array($result)){
+$distance = WebHelper::getDistance($name['rel_x'], $name['rel_y'], $name['rel_x'], $name['rel_y'], $this->setupMetadata['map_size']/2);
+echo '<div class="artefact image-'.$name['type'].'"><table id="art_details" cellpadding="1" cellspacing="1"><thead><tr><th colspan="2"><b><a href="map.php?id='.$show.'">';
+switch ($name['artefact_name']) {
+case 1:
+echo "تحفة تسريع حركة القوات";
+break;
+case 2:
+echo "تحفة استهلاك القمح";
+break;
+case 3:
+echo "تحفة تسريع تدريب القوات";
+break;
+case 4:
+echo "تحفة تسريع وقت البناء";
+break;
+case 5:
+echo "تحفة حرب التتار";
+break;
+}
+echo '</a></b></th></tr></thead><tbody><tr><td colspan="2" class="desc"><span class="detail">';
+switch ($name['artefact_name']) {
+case 1:
+echo "تحفة تسريع حركة القوات للقرية تمكنك من تسريع حركة قواتك التي تستحل فيها التحفة وتحتاج الخزنه المستوى 10 ";
+break;
+case 2:
+echo "تحفة تقليل استهلاك القمح تمكنك من تقليل أستهلاك القمح لقواتك وهي احد التحف ذات الشهرة العالية في حرب التتار";
+break;
+case 3:
+echo "تحفة تسريع تدريب القوات تمكنك من تسريع تدريب القوات أسرع بكثير من قبل";
+break;
+case 4:
+echo "تحفة تسريع مدة البناء تمكنك من تسريع مدة البناء في قريتك وهي احد التحف ذات الشهرة العالية في حرب التتار";
+break;
+case 5:
+echo "تحفة حرب التتار";
+break;
+}
+echo '</span></td></tr><tr><th>المالك</th><td> ';
+
+
+if ($name['player_name'] == NULL) { echo '<b>'.tribe_5.'</b>';
+} else {
+echo ' <a href="profile.php?uid='.$name['player_id'].'">'.$name['player_name'].'</a>';
+}
+echo "</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>التحالف</th>
+                        <td>";
+if ($name['alliance_name'] == NULL) { echo '<b>-</b>'; } else { ?> <a href="alliance.php?uid=<?php echo $name['alliance_id']; ?>"><?php echo $name['alliance_name']; ?></a><? } ?></a> </td>
+                    </tr>
+                    <tr>
+                        <th>ألقريه</th>
+                        <td>
+<?php 
+if ($name['parent_id'] !== '') {
+#$mm = new VillageModel( );
+#$t = $mm->getVillageName( $name['parent_id'] );
+}
+?>
+<a href="map.php?id=<?php echo $name['parent_id']; ?>">  <?php if ($name['parent_id'] !== '') {echo $t;} ?></a></b></a>
+                        </td>
+                    </tr>
+
+
+
+ 
+                     <tr>
+                    <th>التأثير</th>
+                    <td><b> <?php if ($name['type'] == '1') {
+echo ' عضوية';
+} else {
+echo ' قرية';
+}
+echo '</b></td></tr> <tr> <th>مستوى الخزنة</th><td>الخزنة <b>10</b></td></tr></tbody></table></div>';
+}
+}
+}else 
+if ( $this->selectedTabIndex == 0 )
+{
+require( APP_PATH."config.php" );
+$m = new BuildModel();
+?>
+<table cellspacing="1" cellpadding="1" id="near">
+        <thead>
+                <tr>
+                        <th colspan="5">القطع الاثرية</th>
+                </tr>
+                <tr>
+                        <td></td>
+                        <td>الاسم</td>
+                        <td>المالك</td>
+                        <td>التحالف</td>
+                        <td>المسافة</td>
+                </tr>
+        </thead>
+        <tbody>
+<?php
+$a = mysql_query("select * from  p_villages where is_artefact= 1");
+$num = mysql_num_rows($a);
+if ($num > 0) {
+$query = "select * from  p_villages where is_artefact= 1";
+$result = mysql_query($query);
+while ($name = mysql_fetch_array($result)){
+  $distance = WebHelper::getDistance($resultx['rel_x'], $resultx['rel_y'], $name['rel_x'], $name['rel_y'], $this->setupMetadata['map_size']/2);
+?>
+                </tr>
+                <tr>
+                        <td class="icon"><img title="" alt="" src="assets/x.gif" class="artefact_icon_<?echo $name['type'];?>"></td>
+<td class="nam"><a href="build.php?id=<?php echo $this->buildingIndex; ?>&show=<?php echo $name['id']; ?>"><font size="2"><?
+$e = $name['artefact_name'];
+switch ($e) {
+case 1:
+echo "تحفة تسريع حركة القوات";
+break;
+case 2:
+echo "تحفة استهلاك القمح";
+break;
+case 3:
+echo "تحفة تسريع تدريب القوات";
+break;
+case 4:
+echo "تحفة تسريع وقت البناء";
+break;
+case 5:
+echo "تحفة حرب التتار";
+break;
+}
+?></font></a> <div class="info"><div class="info">الخزنه: <b><?
+if ($name['type'] == '1') {
+echo '10';
+} else {
+echo '10';
+}
+?></b>, التأثير:<b>
+<?
+if ($name['type'] == '1') {
+echo ' عضوية';
+} else if ($name['type'] == '3') {
+echo "تحالف";
+}else {
+echo ' قرية';
+} ?></b></div></div></td>
+                        <td class="pla"><? if ($name['player_name'] == NULL) { echo '<b>
+'.tribe_5.'
+</b>'; } else { ?> <a href="profile.php?uid=<?php echo $name['player_id']; ?>">  <?php echo $name['player_name']; ?></a><? } ?></b></a></td>
+                        <td class="pla"><? if ($name['alliance_name'] == NULL) { echo '<b>-</b>'; } else { ?> <a href="alliance.php?uid=<?php echo $name['alliance_id']; ?>"><?php echo $name['alliance_name']; ?></a><? } ?></a></td>
+                        <td class="dist"><? echo "" . round(WebHelper::getDistance($resultx['rel_x'], $resultx['rel_y'], $name['rel_x'], $name['rel_y'], $this->setupMetadata['map_size']/2)) . ""; ?></td>
+                </tr>
+
+<?
+  }
+  } else {
+echo '<tr><td colspan="5"><span class="none"><center>لم تنزل التحف الى الان</center></span></td></tr></tbody></table>';
+}
+echo "</tbody></table>";
+} else if ( $this->selectedTabIndex == 2 ) {
+echo '
+<table cellspacing="1" cellpadding="1" id="near"><thead><tr><th colspan="5">التحف الخاصه بي</th></tr><tr><td></td><td>نوع التحفه</td><td>القريه</td></tr></thead><tbody>';
+$a = mysql_query("select * from  p_villages where is_artefact= 1 AND player_id='".$this->player->playerId."'");
+$num = mysql_num_rows($a);
+if ($num > 0) {
+$query = "select * from  p_villages where is_artefact= 1 AND player_id='".$this->player->playerId."'";
+$result = mysql_query($query);
+while ($name = mysql_fetch_array($result)){
+$distance = WebHelper::getDistance($name['rel_x'], $name['rel_y'], $name['rel_x'], $name['rel_y'], $this->setupMetadata['map_size']/2);
+echo '</tr><tr><td class="icon"><img title="" alt="" src="assets/x.gif" class="artefact_icon_'.$name['type'].'"></td><td class="nam"><a href="build.php?id='.$this->buildingIndex.'&show='.$name['id'].'">';
+switch ($name['artefact_name']) {
+case 1:
+echo "<font size='2'>تحفة تسريع حركة القوات</font>";
+break;
+case 2:
+echo "<font size='2'>تحفة استهلاك القمح</font>";
+break;
+case 3:
+echo "<font size='2'>تحفة تسريع تدريب القوات</font>";
+break;
+case 4:
+echo "<font size='2'>تحفة تسريع وقت البناء</font>";
+break;
+case 5:
+echo "<font size='2'>تحفة حرب التتار</font>";
+break;
+}
+echo '</a> </td><td class="pla">';
+$mm = new VillageModel( );
+$t = $mm->getVillageName( $name['parent_id'] );
+if ($name['player_name'] == NULL) { echo '<b>'.tribe_5.'</b>';
+} else {
+ echo '<a href="map.php?id='.$name['parent_id'].'">'; echo $t; echo "</a>"; } echo "</b></a></td></tr>";
+} } else {
+echo '<tr><td colspan="5"><span class="none"><center>لم تحتل تحف </center></span></td></tr></tbody></table>';
+}
+echo "</tbody></table>";
+
+}
+?>

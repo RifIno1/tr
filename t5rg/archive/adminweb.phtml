@@ -1,0 +1,445 @@
+<?php
+
+echo "<h1>لوحة التحكم</h1>\n";
+echo "\r<div id=\"textmenu\">\r   <a href=\"adminweb.php\"";
+if ( $this->selectedTabIndex == 0 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "الاخبار";
+echo "</a>\r | <a href=\"adminweb.php?t=1\"";
+if ( $this->selectedTabIndex == 1 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "خبر جديد\n";
+echo "</a>\n";
+echo "</a>\r | <a href=\"adminweb.php?t=2\"";
+if ( $this->selectedTabIndex == 2 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "الاعلانات\n";
+echo "</a>\n";
+echo "</a>\r | <a href=\"adminweb.php?t=3\"";
+if ( $this->selectedTabIndex == 3 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "فلتر الكلمات\n";
+echo "</a>\n";
+echo "</a>\r | <a href=\"adminweb.php?t=4\"";
+if ( $this->selectedTabIndex == 4 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "الذهب\n";
+echo "</a>\n | <a href='adminweb.php?t=5' ";
+if ( $this->selectedTabIndex == 5 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "المشتريات </a>";
+echo " | <a href='adminweb.php?t=6' ";
+if ( $this->selectedTabIndex == 6 )
+{
+    echo " class=\"selected\"";
+}
+echo ">";
+echo "MSN </a>";
+echo "\r</div>\r\r";
+if ( $this->selectedTabIndex == 0 )
+{
+echo "\r\n<form method=\"post\" action=\"adminweb.php\">\r\n<div id=\"block\">\r\n\t<textarea name=\"news\" id=\"notice\">";
+echo $this->siteNews;
+echo "</textarea>\r\n\t<p class=\"btn\">\r\n\t\t<input id=\"btn_save\" type=\"image\" value=\"\" name=\"s1\" src=\"assets/x.gif\" class=\"dynamic_img\" alt=\"";
+echo text_save_lang;
+echo "\"><br/>\r\n\t\t";
+if ( $this->saved )
+{
+    echo text_newssaved_lang;
+}
+echo "\t</p>\r\n</div>\r\n</form>";
+}
+if ( $this->selectedTabIndex == 1 )
+{
+echo "\r\n<form method=\"post\" action=\"adminweb.php?t=1\">\r\n<div id=\"block\">\r\n\t<textarea name=\"news\" id=\"notice\">";
+echo $this->siteNews;
+echo "</textarea>\r\n\t<p class=\"btn\">\r\n\t\t<input id=\"btn_save\" type=\"image\" value=\"\" name=\"s1\" src=\"assets/x.gif\" class=\"dynamic_img\" alt=\"";
+echo text_save_lang;
+echo "\"><br/>\r\n\t\t";
+if ( $this->saved )
+{
+    echo text_newssaved_lang;
+}
+echo "\t</p>\r\n</div>\r\n</form>";
+}
+if ( $this->selectedTabIndex == 2 )
+{
+echo "<s";
+echo "cript type=\"text/javascript\">\r\n<!--\r\nvar Advs = new Array();\r\nfunction edit(id){\r\n\t_('advtitle').innerHTML \t= '";
+echo LANGUI_ADV_T2;
+echo "';\r\n\t_('doID').value \t\t\t= 'edit';\r\n\t_('IDID').value \t\t\t= id;\r\n\t_('nameID').value \t\t\t= Advs[id].name;\r\n\t_('imageID').value \t\t\t= Advs[id].img;\r\n\t_('urlID').value \t\t\t= Advs[id].url;\r\n\t_('catID').value \t\t\t= Advs[id].cat;\r\n}\r\nfunction resetForm(){\r\n\t_('advtitle').innerHTML  \t= '";
+echo LANGUI_ADV_T3;
+echo "';\r\n\t_('doID').value \t\t\t= 'add';\r\n\t_('IDID').value \t\t\t= 0;\r\n\t_('nameID').value \t\t\t= '';\r\n\t_('imageID').value \t\t\t= '';\r\n\t_('urlID').value \t\t\t= '';\r\n\t_('catID').value \t\t\t= 1;\r\n}\r\n-->\r\n</script>\r\n<form action=\"adminweb.php?t=2\" method=\"POST\">\r\n<input type=\"hidden\" name=\"do\" value=\"add\" id=\"doID\" />\r\n<input type=\"hidden\" name=\"ID\" value=\"0\" id=\"IDID\" />\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"overview\" class=\"row_table_data\">\r\n\t";
+echo "<thead>\r\n\t\t<tr>\r\n\t\t\t<th colspan=\"2\">\r\n            ";
+echo "<s";
+echo "amp style=\"float:right\"><a href=\"#\" onclick=\"javascript:resetForm(); return false;\"><img title=\"";
+echo LANGUI_ADV_T4;
+echo "\" alt=\"";
+echo LANGUI_ADV_T4;
+echo "\" src=\"assets/default/img/f/plus.gif\" border=\"0\" /></a></samp>\r\n            ";
+echo "<s";
+echo "amp id=\"advtitle\">";
+echo LANGUI_ADV_T3;
+echo "</samp></th>\r\n\t\t</tr>\r\n    </thead>\r\n\t<tbody>\r\n    \t<tr>\r\n        \t<td>";
+echo LANGUI_ADV_T5;
+echo "</td>\r\n            <td><input class=\"text\" type=\"text\" name=\"name\" value=\"\" id=\"nameID\" maxlength=\"150\"></td>\r\n        </tr>\r\n        <tr>\r\n        \t<td>";
+echo LANGUI_ADV_T6;
+echo " &nbsp;<a href=\"#\" onclick=\"alert('";
+echo LANGUI_ADV_T7;
+echo "'); return false;\"><img class=\"help\" src=\"assets/x.gif\" alt=\"";
+echo LANGUI_ADV_T21;
+echo "\" title=\"";
+echo LANGUI_ADV_T21;
+echo "\"></a></td>\r\n            <td><input class=\"text\" type=\"text\" name=\"image\" value=\"\" id=\"imageID\" maxlength=\"150\"></td>\r\n        </tr>\r\n        <tr>\r\n        \t<td>";
+echo LANGUI_ADV_T8;
+echo "</td>\r\n            <td><input class=\"text\" type=\"text\" name=\"url\" value=\"\" id=\"urlID\" maxlength=\"150\"></td>\r\n        </tr>\r\n        <tr>\r\n        \t<td>";
+echo LANGUI_ADV_T9;
+echo "</td>\r\n            <td>";
+echo "<s";
+echo "elect class=\"text\" name=\"cat\" id=\"catID\">\r\n            \t<option value=\"1\">";
+echo LANGUI_ADV_T10;
+echo "</option>\r\n                <option value=\"2\">";
+echo LANGUI_ADV_T11;
+echo "</option>\r\n            </select></td>\r\n        </tr>\r\n        <tr>\r\n        \t<td colspan=\"2\"><div class=\"btn\"><input type=\"image\" value=\"\" name=\"s1\" id=\"btn_ok\" class=\"dynamic_img\" src=\"assets/x.gif\" title=\"";
+echo LANGUI_ADV_T20;
+echo "\" alt=\"";
+echo LANGUI_ADV_T20;
+echo "\"></div></td>\r\n        </tr>\r\n    </tbody>\r\n</table><br />\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"overview\" class=\"row_table_data\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th colspan=\"6\">";
+echo LANGUI_ADV_T12;
+echo "</th>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>";
+echo LANGUI_ADV_T13;
+echo "</td>\r\n            <td>";
+echo LANGUI_ADV_T5;
+echo "</td>\r\n            <td>";
+echo LANGUI_ADV_T14;
+echo "</td>\r\n            <td>";
+echo LANGUI_ADV_T15;
+echo "</td>\r\n            <td>";
+echo LANGUI_ADV_T9;
+echo "</td>\r\n            <td>";
+echo LANGUI_ADV_T16;
+echo "</td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t";
+$_c = 0;
+while ( $this->Advertisings->next( ) )
+{
+    ++$_c;
+    $c = $_c + $this->pageIndex * $this->pageSize;
+    echo "              ";
+    echo "<s";
+    echo "cript type=\"text/javascript\">\r\n\t\t\t  <!--\r\n\t\t\t  Advs[";
+    echo htmlspecialchars( $this->Advertisings->row['ID'] );
+    echo "] = {\r\n\t\t\t\t  name:'";
+    echo htmlspecialchars( $this->Advertisings->row['name'] );
+    echo "',\r\n\t\t\t\t  url:'";
+    echo htmlspecialchars( $this->Advertisings->row['url'] );
+    echo "',\r\n\t\t\t\t  img:'";
+    echo htmlspecialchars( $this->Advertisings->row['image'] );
+    echo "',\r\n\t\t\t\t  cat:'";
+    echo htmlspecialchars( $this->Advertisings->row['cat'] );
+    echo "'\r\n\t\t\t\t  };\r\n\t\t\t  -->\r\n\t\t\t  </script>\r\n\t\t<tr>\r\n\t\t\t<td class=\"nr\">";
+    echo $c++;
+    echo "</td>\r\n\t\t\t<td class=\"link\"><a href=\"";
+    echo htmlspecialchars( $this->Advertisings->row['url'] );
+    echo "\" target=\"_blank\">";
+    echo htmlspecialchars( $this->Advertisings->row['name'] );
+    echo "</a></td>\r\n            <td class=\"nam\">";
+    echo htmlspecialchars( $this->Advertisings->row['visit'] );
+    echo "</td>\r\n            <td class=\"nam\">";
+    echo htmlspecialchars( $this->Advertisings->row['view'] );
+    echo "</td>\r\n            <td class=\"nam\">";
+    echo $this->Advertisings->row['cat'] == 1 ? LANGUI_ADV_T10 : LANGUI_ADV_T11;
+    echo "</td>\r\n\t\t\t<td class=\"link\">\r\n            <a href=\"";
+    echo htmlspecialchars( $this->Advertisings->row['image'] );
+    echo "\" target=\"_blank\"><img border=\"0\" src=\"assets/default/img/a/external.gif\" title=\"";
+    echo LANGUI_ADV_T17;
+    echo "\" alt=\"";
+    echo LANGUI_ADV_T17;
+    echo "\" /></a>\r\n            &nbsp;\r\n            <a href=\"adminweb.php?t=2&DAdv=";
+    echo htmlspecialchars( $this->Advertisings->row['ID'] );
+    echo "\"><img border=\"0\" src=\"assets/default/img/a/del.gif\" title=\"";
+    echo LANGUI_ADV_T18;
+    echo "\" alt=\"";
+    echo LANGUI_ADV_T18;
+    echo "\" /></a>\r\n            &nbsp;\r\n            <a href=\"#\" onclick=\"javascript:edit(";
+    echo htmlspecialchars( $this->Advertisings->row['ID'] );
+    echo "); return false;\"><img border=\"0\" src=\"assets/default/img/f/edit.gif\" title=\"";
+    echo LANGUI_ADV_T19;
+    echo "\" alt=\"";
+    echo LANGUI_ADV_T19;
+    echo "\" /></a>\r\n            </td>\r\n\t\t</tr>\r\n\t\t";
+}
+echo "        <tr>\r\n            <td colspan=\"5\" class=\"table_body\"><div align=\"center\">";
+echo $this->getPreviousLink( );
+echo " &nbsp; | &nbsp; ";
+echo $this->getNextLink( );
+echo "</div></td>\r\n            <td class=\"table_body\"><div align=\"center\">\r\n\t\t\t";
+echo "<s";
+echo "elect name=\"p\" onchange=\"window.location.href=('adminweb.php?t=2&p='+this.value)\">\r\n            ";
+$i = 1;
+$c = 0;
+while ( $i <= $this->pageCount )
+{
+    echo "            \t<option value=\"";
+    echo $c;
+    echo "\"";
+    if ( isset( $_GET['p'] ) && $_GET['p'] == $c )
+    {
+        echo " selected=\"selected\"";
+    }
+    echo ">";
+    echo $i;
+    echo "</option>\r\n            ";
+    ++$i;
+    ++$c;
+}
+echo "            </select>\r\n            </div></td>\r\n        </tr>\r\n\t</tbody>\r\n</table>\r\n</form>";
+}
+if ( $this->selectedTabIndex == 3 )
+{
+
+echo "\r\n<form action=\"adminweb.php?t=3\" method=\"POST\">\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"overview\" class=\"row_table_data\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th colspan=\"2\">";
+echo LANGUI_BADWORDS_T2;
+echo "</th>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>";
+echo LANGUI_BADWORDS_T3;
+echo "</td>\r\n            <td>";
+echo LANGUI_BADWORDS_T4;
+echo "</td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n   ";
+$i = 1;
+while ( $i <= 10 )
+{
+    echo "\t\t<tr>\r\n\t\t\t<td class=\"nr\">";
+    echo $i;
+    echo "</td>\r\n\t\t\t<td class=\"nam\"><input class=\"text\" type=\"text\" name=\"words[]\" value=\"\" maxlength=\"150\"></td>\r\n\t\t</tr>\r\n        ";
+    ++$i;
+}
+echo "        <tr>\r\n        \t<td colspan=\"2\"><div class=\"btn\"><input type=\"image\" value=\"\" name=\"s1\" id=\"btn_ok\" class=\"dynamic_img\" src=\"assets/x.gif\" title=\"";
+echo LANGUI_BADWORDS_T8;
+echo "\" alt=\"";
+echo LANGUI_BADWORDS_T8;
+echo "\"></div></td>\r\n        </tr>\r\n    </tbody>\r\n</table><br />\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"overview\" class=\"row_table_data\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th colspan=\"3\">";
+echo LANGUI_BADWORDS_T5;
+echo "</th>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>";
+echo LANGUI_BADWORDS_T3;
+echo "</td>\r\n            <td>";
+echo LANGUI_BADWORDS_T4;
+echo "</td>\r\n            <td>";
+echo LANGUI_BADWORDS_T6;
+echo "</td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t";
+$_c = 0;
+while ( $this->BadWords->next( ) )
+{
+    ++$_c;
+    $c = $_c + $this->pageIndex * $this->pageSize;
+    echo "\t\t<tr>\r\n\t\t\t<td class=\"nr\">";
+    echo $c++;
+    echo "</td>\r\n\t\t\t<td class=\"nam\">";
+    echo htmlspecialchars( $this->BadWords->row['word'] );
+    echo "</td>\r\n\t\t\t<td class=\"link\"><a href=\"adminweb.php?t=3&Dword=";
+    echo htmlspecialchars( $this->BadWords->row['ID'] );
+    echo "\"><img alt=\"";
+    echo LANGUI_BADWORDS_T7;
+    echo "\" title=\"";
+    echo LANGUI_BADWORDS_T7;
+    echo "\" border=\"0\" src=\"assets/default/img/a/del.gif\" /></a></td>\r\n\t\t</tr>\r\n\t\t";
+}
+echo "        <tr>\r\n            <td colspan=\"2\" class=\"table_body\"><div align=\"center\">";
+echo $this->getPreviousLink( );
+echo " &nbsp; | &nbsp; ";
+echo $this->getNextLink( );
+echo "</div></td>\r\n            <td class=\"table_body\"><div align=\"center\">\r\n\t\t\t";
+echo "<s";
+echo "elect name=\"p\" onchange=\"window.location.href=('adminweb.php?t=3&p='+this.value)\">\r\n            ";
+$i = 1;
+$c = 0;
+while ( $i <= $this->pageCount )
+{
+    echo "            \t<option value=\"";
+    echo $c;
+    echo "\"";
+    if ( isset( $_GET['p'] ) && $_GET['p'] == $c )
+    {
+        echo " selected=\"selected\"";
+    }
+    echo ">";
+    echo $i;
+    echo "</option>\r\n            ";
+    ++$i;
+    ++$c;
+}
+echo "            </select>\r\n            </div></td>\r\n        </tr>\r\n\t</tbody>\r\n</table>\r\n</form>";
+}
+if ( $this->selectedTabIndex == 4 )
+{
+echo "\r\n        </tr>\r\n    </tbody>\r\n</table><br />\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"overview\" class=\"row_table_data\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th colspan=\"6\">";
+echo LANGUI_MEBER_T1;
+echo "</th>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>";
+echo LANGUI_MEBER_T2;
+echo "</td>\r\n            <td>";
+echo LANGUI_MEBER_T3;
+echo "</td>\r\n            <td>";
+echo LANGUI_MEBER_T4;
+echo "</td><td>\n";
+echo LANGUI_MEBER_T5;
+echo "</td>\r\n            <td>";
+echo LANGUI_MEBER_T9;
+echo "</td>\r\n            <td>";
+echo "";
+echo "</td>\n";
+echo "</td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t";
+$_c = 0;
+while ( $this->Meber->next( ) )
+{
+    ++$_c;
+    $c = $_c + $this->pageIndex * $this->pageSize;
+    echo "\t\t<tr>\r\n\t\t\t<td class=\"nr\">";
+    echo $c++;
+echo "</td>\n";
+    echo "\r\n\t\t\t<td class=\"nam\">";
+echo "<a href=\"profile.php?uid=".$this->Meber->row['id']."\">".$this->Meber->row['name']."</a>\n";
+echo "</td>\n";
+    echo "\r\n\t\t\t<td class=\"nam\">";
+    echo htmlspecialchars( $this->Meber->row['last_login_date'] );
+echo "</td>\n";
+    echo "\r\n\t\t\t<td class=\"nam\">";
+                                if ( $this->Meber->row['gold_num'] > 1 ) {
+echo "<b>&nbsp;&nbsp;&nbsp;<img src=\"assets/default/img/a/gold.gif\">&nbsp;&nbsp;".$this->Meber->row['gold_num']."</b>\n";
+}
+    if ( $this->Meber->row['gold_num'] == 0 ) {
+echo "&nbsp;&nbsp;&nbsp;<img src=\"assets/default/img/a/gold_g.gif\">&nbsp;&nbsp;<span class=\"notice\">".$this->Meber->row['gold_num']."</span>\n";
+}
+echo "</td>\n";
+    echo "\r\n\t\t\t<td class=\"nam\">";
+    echo constant( "tribe_".$this->Meber->row['tribe_id'] );
+echo "</td>\n";
+    echo "\r\n\t\t\t<td class=\"nam\">";
+$Blocked = $this->Meber->row['is_blocked'];
+$id = $this->Meber->row['id'];
+    if ( $Blocked == 0 ) {echo "<a href=\"adminweb.php?t=3&blookedyes=".$id."\"><img class=\"online2\" src=\"assets/x.gif\" alt=\"".LANGUI_MEBER_T7."\" title=\"".LANGUI_MEBER_T7."\">\n";}
+    if ( $Blocked == 1 ) {echo "<a href=\"adminweb.php?t=3&blookedno=".$id."\"><img class=\"online4\" src=\"assets/x.gif\" alt=\"".LANGUI_MEBER_T8."\" title=\"".LANGUI_MEBER_T8."\">\n";}
+echo "</td>\n";
+$id = $this->Meber->row['id'];
+        if ($_GET['blookedyes'] == $id) {
+header("Location: adminweb.php?t=3");
+ mysql_query("UPDATE p_players SET is_blocked='1' WHERE id='$id'");
+}
+        if ($_GET['blookedno'] == $id) {
+header("Location: adminweb.php?t=3");
+ mysql_query("UPDATE p_players SET is_blocked='0' WHERE id='$id'");
+}
+}
+echo "        <tr>\r\n            <td colspan=\"5\" class=\"table_body\"><div align=\"center\">";
+echo $this->getPreviousLink( );
+echo " &nbsp; | &nbsp; ";
+echo $this->getNextLink( );
+echo "</div></td>\r\n            <td class=\"table_body\"><div align=\"center\">\r\n\t\t\t";
+echo "<s";
+echo "elect name=\"p\" onchange=\"window.location.href=(adminweb.php?t=4&p='+this.value)\">\r\n            ";
+$i = 1;
+$c = 0;
+while ( $i <= $this->pageCount )
+{
+    echo "            \t<option value=\"";
+    echo $c;
+    echo "\"";
+    if ( isset( $_GET['p'] ) && $_GET['p'] == $c )
+    {
+        echo " selected=\"selected\"";
+    }
+    echo ">";
+    echo $i;
+    echo "</option>\r\n            ";
+    ++$i;
+    ++$c;
+}
+echo "            </select>\r\n            </div></td>\r\n        </tr>\r\n\t</tbody>\r\n</table>\r\n</form>";
+}
+if ( $this->selectedTabIndex == 5 )
+{
+
+?>
+<br>
+        <table id="brought_in" cellpadding="3" cellspacing="1">
+        <thead>
+                <tr>
+                        <th colspan="5"><?php echo LANGUI_BAY_T4;?></th>
+                </tr>
+                <tr>
+                        <td><?php echo LANGUI_BAY_T5;?></td>
+                        <td><?php echo LANGUI_BAY_T6;?></td>
+                        <td><?php echo LANGUI_BAY_T7;?></td>
+                        <td><?php echo LANGUI_BAY_T8;?></td>
+                        <td><?php echo LANGUI_BAY_T9;?></td>
+                </tr>
+        </thead>
+<?php
+$found = false;
+while ($this->dataList->next()) {
+$m = new Payhis();
+$playerName = $this->dataList->row['usernam'];
+$userid = $m->getPlayerDataByName($playerName);
+$found = true;
+?>
+        <tr>
+            <td><center><?php echo $this->dataList->row['transID'];?></center></td>
+                <td><center><a href="profile.php?uid=<?php echo $userid['id'];?>"><?php  echo $this->dataList->row['usernam']; ?></a></center></td>
+                <td><center><?php echo $this->dataList->row['golds'];?></center></td>
+                <td><center><?php echo $this->dataList->row['money'];?></center></td>
+                <td><center><?php echo $this->dataList->row['currency'];?></center></td>
+        </tr>
+<?php
+ } 
+if (!$found) {
+?>
+<tr><td class="none" colspan="5"><center><?php echo LANGUI_BAY_T30; ?></center></td></tr>
+<?php
+}
+?>
+</table>
+<?php
+$m = new Payhis(); $payhistotal = $m->getTotalMoney(); ?>
+<table class="rate_details lang_rtl lang_ar" cellpadding="3" cellspacing="1">
+<thead>
+<tr><th colspan="2"><?php echo LANGUI_BAY_T1;?></th></tr>
+</thead>
+<tbody>
+<tr><td class="pic"><?php echo LANGUI_BAY_T2;?></td>
+<td class="pic"><?php echo $payhistotal['total_gold'];?></td>
+</tr>
+<tr><td class="pic"><?php echo LANGUI_BAY_T24;?></td>
+<td class="pic"><?php echo $payhistotal['total_cashu'];?></td>
+</tr>
+</tbody>
+</table>
+<p><p><?php
+
+}
+if ( $this->selectedTabIndex == 6 )
+{
+require( APP_PATH."config.php" );
+$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+$result = mysql_query("SELECT email FROM p_players");
+while($row = mysql_fetch_array($result))
+{
+  echo "" . $row['email'] . "</br>";
+}
+}
+?>

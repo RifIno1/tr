@@ -1,0 +1,7 @@
+
+AuthType basic
+    AuthUserFile "/home/sites/tatarmi.com/public_html/t5rg/.htpasswd"
+    AuthGroupFile /dev/null
+    AuthName "Secure directory"
+    Require valid-user
+    

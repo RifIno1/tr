@@ -1,0 +1,31 @@
+﻿<?php
+
+
+require( APP_PATH."config.php" );
+$db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
+mysql_select_db($AppConfig['db']['database'], $db_connect);
+
+$Id = $this->player->playerId;
+$a = mysql_query("SELECT * FROM p_players  WHERE id='$Id'");
+$this->data = mysql_fetch_array($a);
+if ( $this->data['blocked_time'] > time() ){
+$time =  $this->data['blocked_time'];
+$name =  $this->data['name'];
+$timeout =  date('Y/n/d  - h:i:s',$time);
+
+?><h2>      <p><br><p>
+أهلا وسهلآ بك : (<font color="red"><?php echo $name; ?></font>)
+</h2>.
+<font color="green"><b>لقد تم حضرك بسبب <font color="blue"><?php echo $this->data['blocked_reason']; ?></font>
+<p>
+الرجاء منك قراءة  <a href="terms.php">قواعد اللعبة</a> </font>.
+<p>
+سيتم رفع الحضر عنك بتاريخ : <?php echo $timeout; ?> 
+<br><br>
+لمناقشه امر الحظر نرجو منك مراسله <a href="profile.php?uid=1">الادارة. راسل الادراة لتفهم اسباب الحظر وتفاصيلها</a>
+</p>
+<?php 
+
+}
+
+?>

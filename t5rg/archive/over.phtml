@@ -1,0 +1,45 @@
+<?php
+
+
+echo "<h2>";
+echo "أعزائي لاعبي حرب التتار ";
+echo "</h2>\r\n<br>\r\n\r\n<table border=0 cellspacing=0 cellpadding=0>\r\n\t<tr>\r\n\t\t<td><img src=\"assets/default/img/g/g40_5.gif\" border=\"0\" alt=\"";
+echo LANGUI_OVER_T2;
+echo "\"></td>\r\n\t\t<td>";
+?>
+ <p class="custDir">
+وبعد أيام طويلة من الجهد والتعب والعمل بتفانٍ، قام أحد العمّال في "<?php echo $this->Wine['win_village_id']; ?>" في تمام الساعة </b>"<?php echo $this->Wine['wintime']; ?>"</b> من يوم </b><?php echo $this->Wine['windata']; ?></b> بوضع الحجرة الأخيرة لأروع بناء عرفه الناس في حرب التتار!
+ </p>
+ <p class="custDir"> 
+نتيجة التنسيق الجيد، والعمل الجماعي ورصّ الصفوف، استطاع <b>"<?php
+ if ( 0 < intval( $this->playerData['alliance_id'] ) )
+{
+    echo $this->playerData['alliance_name'];
+}
+?>"</b> أن يبنوا معجزتهم التي نافسهم عليها بقية اللاعبين، حيث رصدوا لها الملايين من الموارد#
+</p>
+<br>
+ <p class="custDir">
+ وبذا استحق <b>"<?php echo $this->playerData['name']; ?>"</b> لقب الفائز في هذا السيرفر#
+ </p>
+ <p class="custDir">
+ نستطيع الان ان نقول بأن ( <b><?php echo $this->TopPop['name']; ?></b> ) هو الحاكم المطلق والأقوى لأكبر امبراطورية في اللعبة.
+ </p>
+ <p class="custDir">
+ وقام ( <b><?php echo $this->TopOff['name']; ?></b> ) بمهاجمة الأعداء و ذبحهم اكثر من اي شخص آخر، لذلك يعتبر القائد الأقوى.
+ </p>
+ <p class="custDir">
+ اما ( <b><?php echo $this->TopDef['name']; ?></b> ) ،فقد كان المدافع الأعظم فقد قام بذبح اعدائه المهاجمين وصبغ الارض حول قراه بدمهم.
+ </p>
+ </td>
+</tr>
+</table>
+<br>
+نحن فريق <b>حرب التتار </b> نحب ان نشكر كل من واصل العب حتى النهاية بأخلاص
+<p class="f16" align="center">
+<a href="village1.php">
+<?php
+echo text_gotonext_lang;
+?>
+</a>
+</p>

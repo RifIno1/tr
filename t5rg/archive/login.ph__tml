@@ -1,0 +1,121 @@
+<?php
+
+
+if (isset($_GET['aaaaaa'])) {
+echo date('m/d/Y');
+echo "------";
+echo date('H:i');
+}
+
+?>
+        <div id="content" class="login"><h1><img src="assets/x.gif" class="img_login" alt="تسجيل الدخول للعبه" /></h1>
+<div align="center">
+</div> <h5><img class="img_u04" src="assets/x.gif" alt="التسجيل" /></h5>
+<p><?php echo LANGUI_INDX_T3; ?></p>
+<head><font color="000000">الوقت المتبقي لافتـتاح اللعب , يمكنك فقط مشاهدةالسرفر والحماية ثابتة الى حين افتتاحه</font>';<head>
+
+<html>
+<head>
+<script language="JavaScript">
+
+TargetDate = "7/31/2013 00:00 PM UTC+0300";
+DisplayFormat = "%%D%% &#1610;&#1608;&#1605;, %%H%% &#1587;&#1575;&#1593;&#1607;, %%M%% &#1583;&#1602;&#1610;&#1602;&#1607;, %%S%% &#1579;&#1575;&#1606;&#1610;&#1607;";
+CountStepper = -1;
+LeadingZero = true;
+FinishMessage = "It is finally here!";
+
+function calcage(secs, num1, num2) {
+  s = ((Math.floor(secs/num1))%num2).toString();
+  if (LeadingZero && s.length < 2)
+    s = "0" + s;
+  return "<b>" + s + "</b>";
+}
+
+function CountBack(secs) {
+  if (secs < 0) {
+    document.getElementById('countbox').innerHTML = FinishMessage;
+    return;
+  }
+  DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000));
+  DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600,24));
+  DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+  DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+
+  document.getElementById('countbox').innerHTML = DisplayStr;
+  if (CountActive)
+    setTimeout("CountBack(" + (secs+CountStepper) + ")", SetTimeOutPeriod);
+}
+var CountActive=1;
+if (CountStepper == 0)
+  CountActive = false;
+  
+if (CountStepper == 0)
+  CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+var dthen = new Date(TargetDate);
+var dnow = new Date();
+if(CountStepper>0)
+  ddiff = new Date(dnow-dthen);
+else
+  ddiff = new Date(dthen-dnow);
+gsecs = Math.floor(ddiff.valueOf()/1000);
+
+
+</script>
+</head>
+<body onload="CountBack(gsecs)">
+<div id="countbox"></div>
+</body>
+</html>
+
+<form action="login.php" method="post" name="login">
+<table cellpadding="1" cellspacing="1" id="login_form">
+<tbody>
+<tr class="top"><th><?php echo LANGUI_INDX_T1;  ?>:</th><td><input class="text" maxlength="15" name="name" type="text" title="<?php echo LANGUI_INDX_T1;  ?>" value="<?php   echo $this->name; ?>"><span class="error"><?php echo $this->err[0]; ?></span></td></tr>
+<tr class="btm"><th><?php echo LANGUI_INDX_T2;  ?>:</th><td><input class="text" name="password" type="password" title="<?php echo LANGUI_INDX_T2;  ?>" value="<?php   echo $this->password;  ?>" /><span class="error"><?php echo $this->err[1]; ?></span></td></tr>
+</tbody>
+</table>
+<p class="btn"><input id="btn_login" class="dynamic_img" type="image" onClick="this.style.visibility='hidden';" alt="????" src="assets/x.gif" name="s1" value="anmelden">
+<span class="error"> <?php if ($this->error != "") { echo $this->error; } ?></span><br>
+
+
+<?php
+echo '<span style="font-family: tahoma, geneva, sans-serif; "><blink></b/><b/><center>
+<font color="000000">عدد اللاعبين : </font>';
+echo $this->data['players_count'];
+echo '<br><span style="font-family: tahoma, geneva, sans-serif; "><blink></b/><b/><center>
+<font color="660000">اللاعبون الموجودون حالياً : </font>';
+echo $this->data['online_players_count'];
+?>
+
+</form>
+<table cellpadding="1" cellspacing="1"><thead>
+        <tr><th colspan="1">للاعلان راسل الادارة:الاعلانات</th></tr></thead>
+
+<tbody><tr>
+<td>
+  <center>
+<?php
+if ( 0 < sizeof( $this->banner ) )
+    {
+        if ( $this->banner['type'] == "image" )
+        {
+            echo "<a target=\"_blank\" href=\"".$this->banner['url']."\"> \r\n\t\t<img src=\"".$this->banner['image']."\" border=\"0\" width=\"500\" height=\"90\" title=\"".$this->banner['name']."\"  alt=\"".$this->banner['name']."\"></a> ";
+        }
+        else
+        {
+            echo "<embed width=\"120\" height=\"450\" onclick=\"window.location.href('banner.php?url=".base64_encode( $this->banner['ID'] )."')\" title=\"".$this->banner['name']."\" src=\"".$this->banner['image']."\" />";
+        }
+}else {
+echo '<img title="مساحة أعلانية" src="http://i73.servimg.com/u/f73/13/23/95/58/banne410.gif">';
+}
+     ?> 
+ </center>
+    </td>
+    </tr>
+    </tbody></table>
+<p>
+
+
+<div id="fb-root"></div>
+</div>

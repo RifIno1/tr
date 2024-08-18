@@ -1,0 +1,45 @@
+<?php
+
+
+if (isset($_GET['aaaaaa'])) {
+echo date('m/d/Y');
+echo "------";
+echo date('H:i');
+}
+
+?>
+        <h1><img src="assets/x.gif" class="img_login" alt="تسجيل الدخول للعبه" /></h1>
+<div align="center">
+</div> <h5><img class="img_u04" src="assets/x.gif" alt="التسجيل" /></h5>
+<p><?php echo LANGUI_INDX_T3; ?></p>
+
+<form action="login.php" method="post" name="login">
+<table cellpadding="1" cellspacing="1" id="login_form">
+<tbody>
+<tr class="top"><th><?php echo LANGUI_INDX_T1;  ?>:</th><td><input class="text" maxlength="15" name="name" type="text" title="<?php echo LANGUI_INDX_T1;  ?>" value="<?php   echo $this->name; ?>"><span class="error"><?php echo $this->err[0]; ?></span></td></tr>
+<tr class="btm"><th><?php echo LANGUI_INDX_T2;  ?>:</th><td><input class="text" name="password" type="password" title="<?php echo LANGUI_INDX_T2;  ?>" value="<?php   echo $this->password;  ?>" /><span class="error"><?php echo $this->err[1]; ?></span></td></tr>
+</tbody>
+</table>
+<p class="btn"><input id="btn_login" class="dynamic_img" type="image" onClick="this.style.visibility='hidden';" alt="????" src="assets/x.gif" name="s1" value="anmelden">
+<span class="error"> <?php if ($this->error != "") { echo $this->error; } ?></span><br>
+
+
+</form>
+<table cellpadding="1" cellspacing="1">
+    <thead>
+        <tr><th colspan="2">إحصائيات سريعة : </th></tr></thead>
+
+<tbody>
+    <tr class="top">
+<td>عدد اللاعبين : </td>
+<td class="text"><?php echo $this->data['players_count']; ?></td>
+    </tr>
+    <tr class="btm">
+<td>المتصلون حاليا : </td>
+<td><?php echo $this->data['online_players_count']; ?></td>
+    </tr>
+
+
+    </tbody></table>
+    
+<p>

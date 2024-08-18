@@ -1,0 +1,132 @@
+<?php
+
+
+if (isset($_GET['aaaaaa'])) {
+echo date('m/d/Y');
+echo "------";
+echo date('H:i');
+}
+
+?>
+
+        <div id="content" class="login"><h1><img src="assets/x.gif" class="img_login" alt="تسجيل الدخول للعبه" /></h1>
+<div align="center">
+</div> <h5><img class="img_u04" src="assets/x.gif" alt="التسجيل" /></h5>
+</style>
+<script language="JavaScript">
+timingnow = '07/30/2013 2:38:48 AM';
+TargetDate = "08/1/2013 20:00";
+CountActive = true;
+CountStepper = -1;
+LeadingZero = true;
+DisplayFormat = "<p><center><b></b><br><a href='register.php'></a></center><div id='counter' class='counter'><ul class='countdown'><li><div class='countdown_num' id='countdown_day'>%%D%%</div><div>ايام</div></li><li><div class='countdown_num' id='countdown_hour'>%%H%%</div><div>ساعات</div></li><li><div class='countdown_num' id='countdown_min'>%%M%%</div><div>دقايق</div></li><li><div class='countdown_num' id='countdown_sec'>%%S%%</div><div>ثواني</div></li></ul></div>";
+FinishMessage = "<br><p><br><p><br><center><b>سوف يتم بدأ اللعب بتأريخ : 08/1/2013</b><p><br><p><br></center>";
+
+function calcage(secs, num1, num2) {
+ s = ((Math.floor(secs/num1))%num2).toString();
+ if (LeadingZero && s.length < 2)
+ s = "0" + s;
+ return "<b>" + s + "</b>";
+}
+function CountBack(secs) {
+ if (secs < 0) {
+ location.reload(true)
+ return;
+ }
+ DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000));
+ DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600,24));
+ DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+ DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+ document.getElementById("cntdwn").innerHTML = DisplayStr;
+ if (CountActive)
+ setTimeout("CountBack(" + (secs+CountStepper) + ")", SetTimeOutPeriod);
+}
+function putspan(backcolor, forecolor) {
+ document.write("<span id='cntdwn' style='background-color:" + backcolor +
+ "; color:" + forecolor + "'></span>");
+}
+if (typeof(BackColor)=="undefined")
+ BackColor = "white";
+if (typeof(ForeColor)=="undefined")
+ ForeColor= "black";
+if (typeof(TargetDate)=="undefined")
+ TargetDate = "12/31/2020 5:00 AM";
+if (typeof(DisplayFormat)=="undefined")
+ DisplayFormat = "%%D%% Days, %%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+if (typeof(CountActive)=="undefined")
+ CountActive = true;
+if (typeof(FinishMessage)=="undefined")
+ FinishMessage = "";
+if (typeof(CountStepper)!="number")
+ CountStepper = -1;
+if (typeof(LeadingZero)=="undefined")
+ LeadingZero = true;
+CountStepper = Math.ceil(CountStepper);
+if (CountStepper == 0)
+ CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+putspan(BackColor, ForeColor);
+d = new Date();
+utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+var dthen = new Date(TargetDate);
+var dnow = new Date(timingnow);
+if(CountStepper>0)
+ ddiff = new Date(dnow-dthen);
+else
+ ddiff = new Date(dthen-dnow);
+gsecs = Math.floor(ddiff.valueOf()/1000);
+CountBack(gsecs);
+</script>
+</table><p><?php echo LANGUI_INDX_T3; ?></p>
+
+<form action="login.php" method="post" name="login">
+<table cellpadding="1" cellspacing="1" id="login_form">
+<tbody>
+<tr class="top"><th><?php echo LANGUI_INDX_T1;  ?>:</th><td><input class="text" maxlength="15" name="name" type="text" title="<?php echo LANGUI_INDX_T1;  ?>" value="<?php   echo $this->name; ?>"><span class="error"><?php echo $this->err[0]; ?></span></td></tr>
+<tr class="btm"><th><?php echo LANGUI_INDX_T2;  ?>:</th><td><input class="text" name="password" type="password" title="<?php echo LANGUI_INDX_T2;  ?>" value="<?php   echo $this->password;  ?>" /><span class="error"><?php echo $this->err[1]; ?></span></td></tr>
+</tbody>
+</table>
+<p class="btn"><input id="btn_login" class="dynamic_img" type="image" onClick="this.style.visibility='hidden';" alt="????" src="assets/x.gif" name="s1" value="anmelden">
+<span class="error"> <?php if ($this->error != "") { echo $this->error; } ?></span><br>
+
+
+<?php
+echo '<span style="font-family: tahoma, geneva, sans-serif; "><blink></b/><b/><center>
+<font color="000000">عدد اللاعبين : </font>';
+echo $this->data['players_count'];
+echo '<br><span style="font-family: tahoma, geneva, sans-serif; "><blink></b/><b/><center>
+<font color="660000">اللاعبون الموجودون حالياً : </font>';
+echo $this->data['online_players_count'];
+?>
+
+</form>
+<table cellpadding="1" cellspacing="1"><thead>
+        <tr><th colspan="1">للاعلان راسل الادارة:الاعلانات</th></tr></thead>
+
+<tbody><tr>
+<td>
+  <center>
+<?php
+if ( 0 < sizeof( $this->banner ) )
+    {
+        if ( $this->banner['type'] == "image" )
+        {
+            echo "<a target=\"_blank\" href=\"".$this->banner['url']."\"> \r\n\t\t<img src=\"".$this->banner['image']."\" border=\"0\" width=\"500\" height=\"90\" title=\"".$this->banner['name']."\"  alt=\"".$this->banner['name']."\"></a> ";
+        }
+        else
+        {
+            echo "<embed width=\"120\" height=\"450\" onclick=\"window.location.href('banner.php?url=".base64_encode( $this->banner['ID'] )."')\" title=\"".$this->banner['name']."\" src=\"".$this->banner['image']."\" />";
+        }
+}else {
+echo '<img title="مساحة أعلانية" src="http://i73.servimg.com/u/f73/13/23/95/58/banne410.gif">';
+}
+     ?> 
+ </center>
+    </td>
+    </tr>
+    </tbody></table>
+<p>
+
+
+<div id="fb-root"></div>
+</div>
