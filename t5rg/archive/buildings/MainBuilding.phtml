@@ -1,7 +1,5 @@
 <?php
 
-
-
 echo "<h2>";
 echo LANGUI_CUSTBU_M_DROP;
 echo ":</h2>\r\n<p>";
@@ -16,7 +14,7 @@ if ( isset( $this->queueModel->tasksInQueue[QS_BUILD_DROP] ) )
     echo $qtask['id'];
     echo "&k=";
     echo $this->data['update_key'];
-    echo "\"><img class=\"del\" src=\"assets/x.gif\" title=\"";
+    echo "\"><img class=\"del\" src=\"ftd-style/x.gif\" title=\"";
     echo LANGUI_CUSTBU_M_CANCEL;
     echo "\" alt=\"";
     echo LANGUI_CUSTBU_M_CANCEL;
@@ -62,7 +60,13 @@ else
         echo "</option>\r\n\t\t";
         ++$i;
     }
-    echo "\t</select>\r\n\t<input id=\"btn_demolish\" name=\"ok\" class=\"dynamic_img\" type=\"image\" src=\"assets/x.gif\" alt=\"";
+    echo "\t</select>\r\n\t";
+if ($this->data['gold_num'] >= 20) {
+?>
+<input checked class="check" id="troop_escape_active" name="full" value="0" type="checkbox"><b class="none"> 20 <img src="assets/x.gif" class="gold" alt="ذهب" title="ذهب"> التدمير كاملاَ</b>
+<?php
+}
+echo "<input id=\"btn_demolish\" name=\"ok\" class=\"dynamic_img\" type=\"image\" src=\"assets/x.gif\" alt=\"";
     echo LANGUI_CUSTBU_M_DROPBTN;
     echo "\">\r\n</form>\r\n</div>\r\n";
 }

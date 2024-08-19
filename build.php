@@ -296,24 +296,43 @@ $newTask->tag = $buildingMetadata['resources'];
 $this->queueModel->addTask ($newTask);
 }
 }
-function handleMainBuilding ()
-{
-if ((((((((($this->isPost () AND isset ($_POST['drbid'])) AND 19 <= intval ($_POST['drbid'])) AND intval ($_POST['drbid']) <= sizeof ($this->buildings)) AND isset ($this->buildings[$_POST['drbid']])) AND 0 < $this->buildings[$_POST['drbid']]['level']) AND !isset ($this->queueModel->tasksInQueue[QS_BUILD_DROP])) AND !$this->isGameTransientStopped ()) AND !$this->isGameOver ()))
-{
-$item_id = $this->buildings[$_POST['drbid']]['item_id'];
-$calcConsume = intval ($this->gameMetadata['items'][$item_id]['levels'][$this->buildings[$_POST['drbid']]['level'] - 1]['time_consume'] / $this->gameSpeed * ($this->data['time_consume_percent'] / 400));
-$newTask = new QueueTask (QS_BUILD_DROP, $this->player->playerId, $calcConsume);
-$newTask->villageId = $this->data['selected_village_id'];
-$newTask->buildingId = $item_id;
-$newTask->procParams = $this->buildings[$_POST['drbid']]['index'];
-$this->queueModel->addTask ($newTask);
-return null;
-}
-if ((((((((isset ($_GET['qid']) AND is_numeric ($_GET['qid'])) AND isset ($_GET['k'])) AND $_GET['k'] == $this->data['update_key']) AND isset ($_GET['d'])) AND isset ($this->queueModel->tasksInQueue[QS_BUILD_DROP])) AND !$this->isGameTransientStopped ()) AND !$this->isGameOver ()))
-{
-$this->queueModel->cancelTask ($this->player->playerId, intval ($_GET['qid']));
-}
-}
+function handleMainBuilding()
+    {
+        if ((((((((($this->isPost() AND isset($_POST['drbid'])) AND 19 <= intval($_POST['drbid'])) AND intval($_POST['drbid']) <= sizeof($this->buildings)) AND isset($this->buildings[$_POST['drbid']])) AND 0 < $this->buildings[$_POST['drbid']]['level']) AND !isset($this->queueModel->tasksInQueue[QS_BUILD_DROP])) AND !$this->isGameTransientStopped()) AND !$this->isGameOver())) {
+            if (isset($_POST['full']) && $this->data['gold_num'] > 19) {
+                $qj   = new QueueModel();
+                $gold = 20;
+                $qj->provider->executeQuery2("UPDATE p_players SET gold_num =gold_num-" . $gold . " WHERE id = '" . $this->player->playerId . "'");
+                
+                $buildingArr = explode(",", $this->data['buildings']);
+                $c           = 0;
+                foreach ($buildingArr as $buildingItem) {
+                    ++$c;
+                    list($item_id, $level, $update_state) = explode(" ", $buildingItem);
+                    if ($c == $this->buildings[$_POST['drbid']]['index']) {
+                        $dropLevels = $level + $update_state;
+                        while (0 < $dropLevels--) {
+                            $mq = new QueueJobModel();
+                            $mq->upgradeBuilding($this->data['selected_village_id'], $c, $item_id, TRUE);
+                        }
+                    }
+                }
+                $this->redirect('build.php?bid=15');
+            } else {
+                $item_id             = $this->buildings[$_POST['drbid']]['item_id'];
+                $calcConsume         = intval($this->gameMetadata['items'][$item_id]['levels'][$this->buildings[$_POST['drbid']]['level'] - 1]['time_consume'] / $this->gameSpeed * ($this->data['time_consume_percent'] / 400));
+                $newTask             = new QueueTask(QS_BUILD_DROP, $this->player->playerId, $calcConsume);
+                $newTask->villageId  = $this->data['selected_village_id'];
+                $newTask->buildingId = $item_id;
+                $newTask->procParams = $this->buildings[$_POST['drbid']]['index'];
+                $this->queueModel->addTask($newTask);
+            }
+            return null;
+        }
+        if ((((((((isset($_GET['qid']) AND is_numeric($_GET['qid'])) AND isset($_GET['k'])) AND $_GET['k'] == $this->data['update_key']) AND isset($_GET['d'])) AND isset($this->queueModel->tasksInQueue[QS_BUILD_DROP])) AND !$this->isGameTransientStopped()) AND !$this->isGameOver())) {
+            $this->queueModel->cancelTask($this->player->playerId, intval($_GET['qid']));
+        }
+    }
 function handleRallyPoint ()
 {
 if (isset ($_GET['d']))
