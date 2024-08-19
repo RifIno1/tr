@@ -35,7 +35,7 @@ parent::load( );
 $this->selectedTabIndex = isset( $_GET['t'] ) && is_numeric( $_GET['t'] ) && 0 <= intval( $_GET['t'] ) && intval( $_GET['t'] ) <= 4 ? intval( $_GET['t'] ) : 0;
 $plus8=100;
 $m = new Puls(); 
-if (isset($_GET['club']) && $this->data['gold_num'] >= $plus8){
+if (isset($_GET['t']) && $this->data['gold_num'] >= $plus8){
 $m->Playerclub($plus8,$this->player->playerId);
 $this->redirect ('plus.php?t=2');
 return null;
@@ -130,8 +130,40 @@ $this->redirect ('village1.php');
 return null;
 
 }
+if (isset($_GET['backtroops0'])) {
+$gback = $GLOBALS['AppConfig']['Game']['plus9'];
+$tatarg = new QueueModel();
+$vid = $this->data['selected_village_id'];
+$gq = 0;
+$result = $this->queueModel->provider->fetchResultSet ("SELECT * FROM `p_queue` WHERE to_village_id = '".$vid."' AND proc_type='12'");
+$this->queueModel->provider->executeQuery2("UPDATE p_players SET gold_num =gold_num - ".$gback." WHERE id='".$this->player->playerId."'");
+$k = 0;
+while ($result->next())
+{
+$k++;
+$end = strtotime($result->row['end_date']);
+$time = date('Y-m-d G:i:s', strtotime("-144000 seconds"));
+echo $end-$time."-";
+if ($end-$time <= 30) {
+continue;
+}else {
+$t = (30+(3*$k));
+$in_end = date('Y-m-d G:i:s', strtotime("-144000 seconds"));
+$this->queueModel->provider->executeQuery( "UPDATE p_queue set end_date='".$in_end."' WHERE id = '".$result->row['id']."'");
+echo "ok";
+}
+}
 
+//start pgold
+$tatarzx = new QueueModel();
+$d = date('Y/m/d H:i:s');
+$n = $this->data['name'];
+$tatarzx->provider->executeQuery("INSERT INTO `p_plus` (`pid`, `date`, `gold`, `where`) VALUES ('".$n."', '".$d."', '".$gq."', 'انهاء التعزيزات فوراً');"); 
+//end pgold
+$this->redirect ('village1.php');
+}
     }
+	
 
     public function preRender()
     {
