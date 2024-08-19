@@ -33,13 +33,7 @@ class GPage extends SecureGamePage
     {
 parent::load( );
 $this->selectedTabIndex = isset( $_GET['t'] ) && is_numeric( $_GET['t'] ) && 0 <= intval( $_GET['t'] ) && intval( $_GET['t'] ) <= 4 ? intval( $_GET['t'] ) : 0;
-$plus8=100;
-$m = new Puls(); 
-if (isset($_GET['t']) && $this->data['gold_num'] >= $plus8){
-$m->Playerclub($plus8,$this->player->playerId);
-$this->redirect ('plus.php?t=2');
-return null;
- }  
+
                 if ( $this->selectedTabIndex == 3 )
         {
             $m = new Puls();  
