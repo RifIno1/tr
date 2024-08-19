@@ -203,7 +203,7 @@ echo '        <map name="rx" id="rx">
                         $troopName = htmlspecialchars(constant("troop_".$k));echo '
                         <tr>
                                 <td class="ico"><a href="build.php?id=39"><img class="unit u'.$k.'" src="assets/x.gif" alt="'.$troopName.'" title="'.$troopName.'"></a></td>
-                                <td class="num">'.$v.'</td>
+                                <td class="num">'.number_format($v).'</td>
                                 <td class="un">'.$troopName.'</td>
                         </tr>';
                         }

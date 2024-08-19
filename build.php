@@ -1766,7 +1766,7 @@ return 5;
 }
 function getNextLink ()
 {
-
+    $text = "»";
 if ($this->pageIndex + 1 == $this->pageCount)
 {
 return $text;
@@ -1786,7 +1786,7 @@ return '<a href="' . $link . '">' . $text . '</a>';
 }
 function getPreviousLink ()
 {
-
+$text = "«";
 if ($this->pageIndex == 0)
 {
 return $text;
