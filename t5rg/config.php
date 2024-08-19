@@ -1,26 +1,34 @@
 <?php
-
+// Report only errors, hide warnings and notices
+error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
 $AppConfig = array (
         'db'                                         => array (
-                'host'                                => 'localhost',
-                'user'                                => 'root',
-                'password'                        => '',
-                'database'                        => 'tatar',
+
+                /*
+                'host'                                => 'php56-db',
+                'user'                                => 'Anwar123',
+                'password'                        => 'Anwar123',
+                'database'                        => 'Anwar123',
+                */
+                'host'                                => 'php56-db',
+                'user'                                => 'Anwar123',
+                'password'                        => 'Anwar123',
+                'database'                        => 'Anwar123',
         ),
-
-
                 'Game'                         => array (
-                'speed'                      => '1000', // سرعة اللعبه
+                'speed'                      => '10000', // سرعة اللعبه
                 'map'                      => '801', // حجم الخريطه
-                'attack'        => '10', // سرعه الهجوم
+                'attack'        => '5000', // سرعه الهجوم
                 'protection'        => '1', // الحمايه بالساعات , ضف الساعه فقط 120 = 5 ايام فقط 
                 'protectionx'        => '0', // تدبيل الحمايه يفضل 0
                 'X'                 => '1328827643', // لاتغير الرقم
-                'capacity'      => '1000', // المخازن 
-                'cranny'        => '1000', // المخبأ وسعته
+                'capacity'      => '10000', // المخازن 
+                'cranny'        => '50000', // المخبأ وسعته
                 'cp'            => '10', // ولاء القرية الجديده
-                'market'        => '5000', // حمولة التجار
+                'market'        => '10000', // حمولة التجار
                 //قائمة بلاس 
                 'plus1'          => '3', // مده قائمة بلاس باليوم
                 'plus2'          => '3', // مدة زياده الموارد
@@ -64,7 +72,9 @@ $AppConfig = array (
                 'installkey'                 => 'achraf',
                 'calltatar'                 => 'tatar',
                 'artefact'                 => 'tohaf',
-                'total_players'                 => '1000'
+                'total_players'                 => '1000',
+                'startdate'             => '', //09/20/2012 05/20/2013------17:22
+                'START_TIME'            => '' //00:00
         ),
         'plus'                        => array (
                 'packages'        => array (

