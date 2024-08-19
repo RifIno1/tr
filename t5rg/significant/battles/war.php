@@ -690,27 +690,7 @@ $numberOfOwnedOasesart = mysql_num_rows(mysql_query($query1));
           }
         }
         }
-        //get artefacts
-        $artefactResult = '';
-        if ( $procInfo['troopsArray']['hasHero'] && $toVillageRow['artefacts'] != '' && !$warResult['all_attack_killed'] && $warResult['all_defense_killed'] && $toVillageRow['player_id'] != $fromVillageRow['player_id'] && 10 <= $TreasuryLevel ){
-            
-            $checkToVillageRow = $this->_getVillageInfo( $taskRow['to_village_id'] );
-            $b27_exists = FALSE;
-            $bStr = trim( $checkToVillageRow['buildings'] );
-            
-            if ($bStr != '') {
-                $bStrArr = explode (',', $bStr);
-                foreach ( $bStrArr as $b2Str ){
-                    list( $item_id, $level, $update_state ) = explode( ' ', $b2Str );
-                    if ( $level > 0 && $item_id == 27 ){
-                        $b27_exists = TRUE;
-                        break;
-                    }
-                }
-            }
-            
-
-        }
+        
         // -----------------------------------------------------------
         // generate report
         $newTroops = '';
