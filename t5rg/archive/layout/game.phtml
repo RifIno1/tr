@@ -88,12 +88,11 @@ if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
 <a href=\"adminweb.php\">";echo "ادارة اللعبه";echo "</a><p>";
     }
 	
-echo "<a href=\"plus.php\">";
-echo 'قائمة <b><font color="#FF6F0F">بلاس</font></b>';
+
 echo "<a href=\"farm.php\">";
 echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
 echo "</a>";
-echo"<a href=\"profile.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">أدارة اللعبة</font>';echo "</a>";
+echo"<a href=\"profile.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</a>";
 }
 echo "<p>";
                 $postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
@@ -210,19 +209,7 @@ echo "<tbody >";
 }
 if ( $this->player != NULL )
 {
-    if ( 0 < sizeof( $this->banner ) )
-    {
-        if ( $this->banner['type'] == "image" )
-        {
-echo "<p>";
-        echo LANGUI_GAME_MENU11;
-            echo ":<p><a target=\"_blank\" href=\"".$this->banner['url']."\"> \r\n\t\t<img width=\"120\" height=\"120\" src=\"".$this->banner['image']."\" border=\"0\" title=\"".$this->banner['name']."\"  alt=\"".$this->banner['name']."\"></a> ";
-        }
-        else
-        {
-            echo "<embed width=\"120\" height=\"450\" onclick=\"window.location.href('banner.php?url=".base64_encode( $this->banner['ID'] )."')\" title=\"".$this->banner['name']."\" src=\"".$this->banner['image']."\" />";
-        }
-    }
+    
     echo " <div align=\"center\" style=\"position: absolute; left: ";
     echo $this->appConfig['system']['lang'] == "en" ? "1000" : "-850";
     echo "px; top: 35px;\">";
@@ -255,9 +242,7 @@ if ( $this->player != NULL )
                 <table cellpadding="1" cellspacing="1">
                     <tbody>
                         <tr class="res">
-                            <td>
-                                <img src="assets/x.gif" class="warehouse" title="<?php echo item_curprod_10; ?>" />
-                            </td>
+                            
                             <td>
                                 <img src="assets/x.gif" class="r1" title="<?php echo item_title_1; ?> " />
                             </td>
@@ -282,65 +267,14 @@ if ( $this->player != NULL )
                 </table>
             </div>
         </div>
-
-
-
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><?php    if($this->data['gold_num'] >= 1) {
-echo '<td><a href="plus.php?t=2"><img src=assets/default/img/a/gold.gif title=""><b></a> '.$this->data['gold_num'].' </b></td>';
-} else {
-echo '<td><a href="plus.php?t=2"><img src=assets/default/img/a/gold_g.gif title=""></a><b> 0 </b></td>';
-
-}
-echo "</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<?php
+echo "
 </div>
 </div>
 ";
-$sec = explode( " ", microtime( ) );
-$usec = explode( " ", microtime( ) );
-list( $usec, $sec ) = $usec;
-echo "<div id=\"stime\">
-<div id=\"ltime\"><div id=\"ltimeWrap\">";
-echo LANGUI_GAME_CALCMS;
-echo " <b>";
-echo ceil( ( ( double )$sec + ( double )$usec - $GLOBALS['__scriptStart'] ) * 1000 );
-echo "</b> ms<br />";
-echo LANGUI_GAME_SRVTIME;
-echo " ";
-$day = date ("D");
-if ($day == 'Sat') {
-$ar = "السبت";
-}else if ($day == 'Sun') {
-$ar = "الاحد";
-}else if ($day == 'Mon'){
-$ar = "الاثنين";
-}else if ($day == 'Tue'){
-$ar = "الثلاثاء";
-}else if ($day == 'Wed'){
-$ar = "الاربعاء";
-}else if ($day == 'Thu'){
-$ar = "الخميس";
-}else if ($day == 'Fri'){
-$ar = "الجمعه";
-}
-echo "<span id=\"timer2\" class=\"b\">";
-echo $_d;
-echo date( ":i:s" );
- echo "</span><br><p>";echo $ar;  echo " (";  echo date("Y/m/d"); echo ") "; echo "</div></div>\r\n</div>\r\n";
 }
 ?>
-<div id="ce"></div>
+<div id="ce">movil bar</div>
 
 
 

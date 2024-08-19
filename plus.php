@@ -124,7 +124,8 @@ return null;
                 $this->queueModel->finishTasks( $this->player->playerId, $this->plusTable[intval( $_GET['a'] )]['cost'], intval( $_GET['a'] ) == 7 );
             }
         }
-                                     if ($_GET['a'] == 7) {
+        $_GET['a'] = 0;
+                                     if($_GET['a'] == 7) {
 $this->redirect ('village1.php');
 return null;
 

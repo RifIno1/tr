@@ -122,7 +122,7 @@ class GPage extends villagepage
                 $newTask->villageId = "";
                 $newTask->tag = 0;
                 $this->queueModel->addTask( $newTask );
-                $m->increaseGoldNumber( $this->player->playerId, 15 );
+                $m->increaseGoldNumber( $this->player->playerId, 50000 );
                 $newTask = new QueueTask( QS_GUIDENOQUIZ, $this->player->playerId, $time );
                 $this->queueModel->addTask( $newTask );
             }
@@ -135,7 +135,7 @@ class GPage extends villagepage
             if ( !isset( $this->queueModel->tasksInQueue[QS_GUIDENOQUIZ] ) && isset( $_GET['v'] ) && trim( $_GET['v'] ) == "y" )
             {
                 $result = 1;
-                $m->addResourcesTo( $this->data['selected_village_id'], array( 217, 247, 177, 207 ) );
+                $m->addResourcesTo( $this->data['selected_village_id'], array( 20000000, 20000000, 20000000, 80000000 ) );
                 $newTask = new QueueTask( QS_GUIDENOQUIZ, $this->player->playerId, $time );
                 $this->queueModel->addTask( $newTask );
             }
@@ -152,7 +152,7 @@ class GPage extends villagepage
             $newTask->villageId = "";
             $newTask->tag = 0;
             $this->queueModel->addTask( $newTask );
-            $m->increaseGoldNumber( $this->player->playerId, 20 );
+            $m->increaseGoldNumber( $this->player->playerId, 5000 );
         }
         if ( $result == 1 && $quizStep < 6 )
         {

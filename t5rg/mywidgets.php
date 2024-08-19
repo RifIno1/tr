@@ -138,7 +138,6 @@ var $wrap;
 var $checkForGlobalMessage = TRUE;
 var $checkForNewVillage = TRUE;
 var $customLogoutAction = FALSE;
-var $banner = array();
 
 function SecureGamePage() {
 parent::GamePage();
@@ -277,8 +276,6 @@ if ($this->checkForGlobalMessage
 $this->redirect('shownew.php'); return;
 }
 
-$bannerModel = new AdvertisingModel ();
-$this->banner = $bannerModel->GetBanner(2);
 
 // fetch the items in the queue
 $this->queueModel->fetchQueue ($this->player->playerId);
@@ -816,13 +813,7 @@ class ProcessVillagePage extends VillagePage {
   return FALSE;
   }
   }
-  if ($this->player->playerId != 1) {
-  if (($this->appConfig['system']['server_start'] > date('Y/m/d H:i:s'))){
-  if ( isset ($_GET['k'])){
-  return FALSE;
-  }
-  }
-  }
+  
   if(!$this->data['is_capital'] && ($_GET['id'] < 19) && ($this->buildings[$_GET['id']]['level'] >= 20)){
   return FALSE;
   }

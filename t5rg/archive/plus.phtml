@@ -247,21 +247,6 @@ echo "<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(
 
     echo "\t\r\n\t</tbody>\r\n</table>\r\n";
     echo "</p>\r\n";
-echo '<table class="plusFunctions" cellpadding="1" cellspacing="1"><thead><tr><th colspan="5"> </th></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></thead><tbody><tr><td class="man"><a href="#" onclick="return showManual(5,0);"><img class="help" src="assets/x.gif" alt="" title=""></a></td><td class="desc"><b></b>عند شرائك الذهب<br><span style="font-size:9px;"><br>تخفيضات بنسبة 30%</span></td><td class="dur"></td><td class="cost"><img src="assets/x.gif" class="gold" alt="" title="">'.$plus8.'</td><td class="act">';
-$club = $this->dataGame['club'];  
-if ( $club == '1' ) {
-echo "<span class='none'></span>";
-}
-else if ( $this->data['gold_num'] < $plus8) {
-echo '<span class="none"></span>'; 
-}
-else if ($club == '0'){
-echo "<a href='?club' name='club'></a>"; 
-}
-else {
-echo "<span class='none'></span>"; 
-}
-echo '</td></tr></table>';
 
 }else if ($this->selectedTabIndex == 3) { ?>
 <h2>قم بدعوة اصدقائك واحصل على كمية من الذهب مجانا</h2>

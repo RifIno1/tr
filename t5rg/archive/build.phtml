@@ -52,7 +52,7 @@ if ( !$this->buildProperties['emptyPlace'] )
                 echo " ";
                 echo $this->buildProperties['nextLevel'];
                 echo ":</th>\r\n\t\t\t\t<td><b>";
-                echo $this->buildProperties['level']['value'];
+                echo number_format($this->buildProperties['level']['value']);
                 echo "</b> ";
                 echo constant( "item_unit_".$this->buildProperties['building']['item_id'] );
                 echo "</td>\r\n\t\t\t</tr>\r\n\t\t\t";
