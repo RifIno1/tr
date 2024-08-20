@@ -1,5 +1,4 @@
 <?php
-
 require('.' . DIRECTORY_SEPARATOR . 't5rg' . DIRECTORY_SEPARATOR . 'boot.php');
 require_once(MODEL_PATH . 'alliance.php');
 class GPage extends SecureGamePage
@@ -13,6 +12,7 @@ class GPage extends SecureGamePage
     var $invitesResult = -1;
     var $contracts = null;
     var $bbCodeReplacedArray = array();
+    
     function GPage()
         {
         parent::securegamepage();
