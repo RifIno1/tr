@@ -69,7 +69,7 @@ function render() {
             e = Math.floor(d.v + parseFloat(a / 3600 * d.r));
         e > d.x && (e = d.x);
         d.cv = e;
-        d.e.innerHTML = e
+        d.e.innerHTML = e.toLocaleString()
     }
 
     // Print the resource value to the console
