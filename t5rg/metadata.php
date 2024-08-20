@@ -5782,7 +5782,7 @@ array(
 
 'for_tribe_id' => array( '1' => 1, '2' => 1, '3' => 1, '4' => 1, '6' => 1, '7' => 1 ),
 
-'pre_requests' => array( '15' => 3, '10' => 1, '11' => 1 ),
+'pre_requests' => array( '15' => 3 ),
 
 'levels'=> array(
 
