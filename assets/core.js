@@ -71,6 +71,11 @@ function render() {
         d.cv = e;
         d.e.innerHTML = e
     }
+
+    // Print the resource value to the console
+    //console.log("Resource " + (b + 1) + ": " + e + " / " + d.x);
+
+
     b = 0;
     for (c = elems.length; b < c; b++) {
         d = elems[b];
