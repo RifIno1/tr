@@ -1,273 +1,196 @@
 <?php
+require(APP_PATH . "config.php");
 
+$link = mysql_connect($AppConfig['db']['host'], $AppConfig['db']['user'], $AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'], $link) or die(mysql_error());
 
-require( APP_PATH."config.php" );
-$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
-mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
-?>
-
-<?php
 $Id = $this->player->playerId;
-$result = mysql_query("SELECT club FROM p_players where id='".$Id."'");
-while($row = mysql_fetch_array($result))
-  {
-$club = $row['club'];
-  }
-if ( $club == '0' ) {
-echo'<h1>لم تفعل نادي الذهب</h1>
+$result = mysql_query("SELECT club FROM p_players WHERE id='" . $Id . "'");
+while ($row = mysql_fetch_array($result)) {
+    $club = $row['club'];
+}
+
+if ($club == '0') {
+    echo '<h1>لم تفعل نادي الذهب</h1>
 <p></p>
 <p>لم تفعل نادي الذهب لكي تستمتع بهذه الميزة يجب تفعيل نادي الذهب نادي الذهب يكلف 100 ذهبه فقط لتفعيله 
 <a href="plus.php?t=2#club">أضغط هنا</a> .</p>
-<p></p>
-'; } else {
-?>
-<? if(isset($_GET['add'])){?>
-<form method="POST" action="">
-<h4 class="round">اضافة مزرعة جديدة</h4>
-<?
-switch($this->data['tribe_id']){
-        case 1:
-                $farmTroops = array(1,2,3,5,6);
-                break;
-        case 2:
-                $farmTroops = array(11,12,13,15,16);
-                break;
-        case 3:
-                $farmTroops = array(21,22,24,25,26);
-                break;
-        case 6:
-                $farmTroops = array(51,52,53,55,56);
-                break;
-      case 7:
-                                $farmTroops = array(100,101,102,104,105);
-                        break;
-}
-
-if(isset($_GET['id']) && is_numeric($_GET['id'])){
-        $vid = intval ($_GET['id']);
-        echo '<b class="error">'; echo ".اختر عدد القوات ونوعها واضغط اضافة المزرعه"; echo '</b>';
-        if ( $vid < 1 ) {
-                $vid = 1;
-        }
-echo '<input type="hidden" name="vid" value="'.$vid.'">'; } ?>
-<table id="plusFunctions" cellpadding="1" cellspacing="1">
-<thead>
-<tr>
-<th colspan="4"><center>اضافة مزرعه</center></th>
-</tr>
-</thead>
-<tr>
-<td><center>x</center></td>
-<td><center><input type="text" maxlength="4" value="<? echo (isset($_POST['x']) && is_numeric($_POST['x'])) ? $_POST['x'] : ''; ?>" name="x" class="text" value="<?php echo $_POST['x']; ?>"></center></td>
-<td><center>y</center></td>
-<td><center><input type="text" maxlength="4" value="<? echo (isset($_POST['y']) && is_numeric($_POST['y'])) ? $_POST['y'] : ''; ?>" name="y" class="text" value="<?php echo $_POST['y']; ?>"></center></td>
-</tr>
-<tr>
-<td><center>عدد القوات</center></td>
-<td><center>
-<select name="tid">
-<? 
-foreach($farmTroops as $tid){
-foreach($this->troops as $troopId=>$troopNum){
-        if($tid == $troopId){$num = $troopNum;}
-}
-$troopName = htmlspecialchars ( constant ( 'troop_' . $tid ) );
-?>
-<option value="<? echo $tid; ?>"><? echo $troopName; ?></option>
-<? } ?>
-</select>
-<input type="text" maxlength="6" value="2" name="tnum" class="text" size="5"></center></td>
-<td colspan="2"><center><button class="text" name="add" type="submit" value="اضافة مزرعة" name="s1" id="btn_ok"><div class="button-container"><div class="button-position"><div class="btl"><div class="btr"><div class="btc"></div></div></div><div class="bml"><div class="bmr"><div class="bmc"></div></div></div><div class="bbl"><div class="bbr"><div class="bbc"></div></div></div></div><div class="button-contents">اضافة مزرعة</div></div></button></center></td>
-</tr>
-</table>
-</form>
-<div class="clear"></div>
-<br>
-<? if($this->error != ''){?><b class="error"><? echo $this->error; ?></b> <? } ?>
-<div class="clear"></div>
-<br>
-<br>
-<a href="farm.php" style="float:left;">العودة الى قائمة المزارع</a>
-</form>
-<? } else {?>
-<form name="farm">
-<h2 class="round">قائمة المزارع</h2><br>
-قائمة المزارع يمكنك من خلالها اضافة اكبر عدد ممكن من المزارع والهجوم عليهم بضغطة زر أبدأ الان بتجميع مزارعك والهجوم عليها خلال ثانيه بضغطه زر واحده .
-
-<script src="assets/jquery.js" type="text/javascript"></script>
-<script type="text/javascript">
-var tid = null;
-var i = null;
-var ii = null;
-function CheckAll(checked) {
-  var e= document.farm.elements.length;
-  var cnt=0;
-  for(cnt=0;cnt<e;cnt++)
-  {
-    if(document.farm.elements[cnt].name=="list[]")
-    {
-     document.farm.elements[cnt].checked=checked;
-    }
-  }
-}
-function farming() {
-document.getElementById('farming').innerHTML = '<font color="#FF6F0F"><br>الرجاء الانتظار بينما يتم الهجوم</font><div class="clear"></div><br><div style="width: 0%; height: 10px; background-color: rgb(255, 0, 0);" id="loading"></div>';
-i = 1;
-tid = setTimeout(farming1, 1);
-}
-function farming1() {
-  var e= document.farm.elements.length;
-  var cnt=0;
-  var not=true;
-  var farmingdata = null;
-  ii = 0;
-  for(cnt=0;cnt<e;cnt++)
-  {
-    if(document.farm.elements[cnt].name=="list[]")
-    {
-     if(document.farm.elements[cnt].checked)
-     {
-        ii += 1
-     }
-    }
-  }
-farming2();
-}
-function farming2() {
-  var troop = null;
-  var e= document.farm.elements.length;
-  var cnt=0;
-  var not=true;
-  var farmingdata = null;
-  for(cnt=0;cnt<e;cnt++)
-  {
-    if(document.farm.elements[cnt].name=="list[]")
-    {
-     if(document.farm.elements[cnt].checked)
-     {
-        not = false;
-        document.farm.elements[cnt].checked = false;
-                document.getElementById('loading').style.width=((i/ii)*100)+'%';
-        farmingdata = document.farm.elements[cnt].value.split("|");
-
-                if(farmingdata[1] == 1) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[1]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 2) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[2]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 3) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[3]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 4) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[4]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 5) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[5]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 6) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[6]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 11) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[11]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 12) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[12]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 13) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[13]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 14) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[14]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 15) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[15]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 16) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[16]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 21) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[21]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 22) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[22]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 23) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[23]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 24) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[24]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 25) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[25]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 26) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[26]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 51) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[51]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 52) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[52]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 53) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[53]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 54) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[54]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 55) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[55]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 56) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[56]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 61) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[61]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 62) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[62]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 63) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[63]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 64) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[64]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 65) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[65]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 66) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[66]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 71) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[71]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 72) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[72]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 73) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[73]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 74) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[74]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 75) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[75]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 76) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[76]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 100) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[100]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 101) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[101]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 102) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[102]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 103) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[103]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 104) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[104]':farmingdata[2],'farm':'1'}); };
-        if(farmingdata[1] == 105) { post_to_url("v2v.php",{'id':farmingdata[0],'c':'4','t[105]':farmingdata[2],'farm':'1'}); };
-                i += 1;
-        tid = setTimeout(farming2, 500);
-        break;
-     }
-    }
-  }
-  if(not==true) {
-  farming3();
-  }
-}
-function farming3() {
-clearTimeout(tid);
-}
-function post_to_url(path, params) { 
-$.post(path, params).complete(function() {tid = setTimeout(farming2, 2000);});
-}
-</script>
-<div id="farming"></div>
-<table id="plusFunctions" cellpadding="1" cellspacing="1">
-
-        <thead>
-<tr>
-                <th colspan="6">المزارع</th>
-</tr>
-                <tr>
-                        <td width: 10%><input type="checkbox" onclick="CheckAll(this.checked)"></td>
-                        <td class="name">القرية</td>
-                        <td width: 10%>السكان</td>
-                        <td width: 10%>المسافة</td>
-                        <td width: 10%>القوات</td>
-                        <td width: 10%>حذف</td>
-                </tr>
-        </thead>
-        <tbody>
-        <?php
-require( APP_PATH."config.php" );
-         $link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
-         mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
-         $Id = $this->data['selected_village_id'];
-         $a = mysql_query("SELECT * FROM p_farms  WHERE from_village_id='$Id'");
-         $num = mysql_num_rows($a);
+<p></p>';
+} else {
+    if (isset($_GET['add'])) {
         ?>
-        <?      if ($num > 0) {
-                while ($this->dataList->next ()) {
-                $m = new FarmList();
-                $this->farmInfo = $m->getVillageDataById($this->dataList->row['to_village_id']);
-                $troops_num = trim($this->dataList->row['troops']);
-                if($troops_num != ''){
-                        list($tid,$tnum) = explode(' ', $troops_num);
-                        $echo = '<img src="assets/x.gif" class="unit u'.$tid.'"> '.$tnum;
+        <form method="POST" action="">
+            <h4 class="round">اضافة مزرعة جديدة</h4>
+            <?php
+            switch ($this->data['tribe_id']) {
+                case 1:
+                    $farmTroops = array(1, 2, 3, 5, 6);
+                    break;
+                case 2:
+                    $farmTroops = array(11, 12, 13, 15, 16);
+                    break;
+                case 3:
+                    $farmTroops = array(21, 22, 24, 25, 26);
+                    break;
+                case 6:
+                    $farmTroops = array(51, 52, 53, 55, 56);
+                    break;
+                case 7:
+                    $farmTroops = array(100, 101, 102, 104, 105);
+                    break;
+            }
+
+            if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                $vid = intval($_GET['id']);
+                echo '<b class="error">.اختر عدد القوات ونوعها واضغط اضافة المزرعه</b>';
+                if ($vid < 1) {
+                    $vid = 1;
                 }
-        ?>
+                echo '<input type="hidden" name="vid" value="' . $vid . '">';
+            }
+            ?>
+            <table id="plusFunctions" cellpadding="1" cellspacing="1">
+                <thead>
+                    <tr>
+                        <th colspan="4"><center>اضافة مزرعه</center></th>
+                    </tr>
+                </thead>
                 <tr>
-                        <td style="text-aligne:center;width:4%;">
-                                <input type="checkbox" value="<? echo $this->farmInfo['id'].'|'.$tid.'|'.$tnum; ?>" name="list[]" class="check">
-                        </td>
-                        <td class="name"><a href="village3.php?id=<? echo $this->farmInfo['id']; ?>" target="_blank"> (<? echo $this->farmInfo['rel_x'];?><span class="coordinatePipe"> | </span><? echo $this->farmInfo['rel_y'];?>)  <? echo ($this->farmInfo['village_name'] != '') ? $this->farmInfo['village_name'] : 'واحة';?></a></td>
-                        <td class="inhabitants"><? echo !$this->farmInfo['is_oasis'] ? $this->farmInfo['people_count'] : '-'; ?></td>
-                        <td class="inhabitants"><? echo round(WebHelper::getDistance($this->data['rel_x'], $this->data['rel_y'], $this->farmInfo['rel_x'], $this->farmInfo['rel_y'], $this->setupMetadata['map_size']/2),1); ?></td>
-                        <td class="inhabitants">
-                        <? echo $echo; ?>
-                        </td>
-                        <td style="text-aligne:center;width:4%;"><a href="farm.php?del&id=<? echo $this->dataList->row['id']; ?>"><img src="assets/x.gif" class="del" title="حذف هذه المزرعة"></a></td>
+                    <td><center>x</center></td>
+                    <td><center><input type="text" maxlength="4" value="<?php echo isset($_POST['x']) && is_numeric($_POST['x']) ? $_POST['x'] : ''; ?>" name="x" class="text"></center></td>
+                    <td><center>y</center></td>
+                    <td><center><input type="text" maxlength="4" value="<?php echo isset($_POST['y']) && is_numeric($_POST['y']) ? $_POST['y'] : ''; ?>" name="y" class="text"></center></td>
                 </tr>
-        <? }
-        } else {
-         echo "<tr><td colspan='6'><center>لم تقم باضافة اي مزرعه</center></td></tr>";
-        } ?>
-        </tbody>
-</table>
-<div class="clear"></div>
-<div style="float:left;margin-top:10px;">
-<button type="button" value="اضافة مزرعة" class="build" onclick="window.location.href = 'farm.php?add'; return false"><div class="button-container"><div class="button-position"><div class="btl"><div class="btr"><div class="btc"></div></div></div><div class="bml"><div class="bmr"><div class="bmc"></div></div></div><div class="bbl"><div class="bbr"><div class="bbc"></div></div></div></div><div class="button-contents">اضافة مزرعة</div></div></button>
-</div>
-<div style="float:right;margin-top:10px;">
-<button type="button" value="بدأ النهب" class="button" onClick="javascript:farming();"><div class="button-container"><div class="button-position"><div class="btl"><div class="btr"><div class="btc"></div></div></div><div class="bml"><div class="bmr"><div class="bmc"></div></div></div><div class="bbl"><div class="bbr"><div class="bbc"></div></div></div></div><div class="button-contents">بدأ النهب</div></div></button>
-</div>
-</form>
-<? } } ?>
+                <tr>
+                    <td><center>عدد القوات</center></td>
+                    <td><center>
+                        <select name="tid">
+                            <?php
+                            foreach ($farmTroops as $tid) {
+                                foreach ($this->troops as $troopId => $troopNum) {
+                                    if ($tid == $troopId) {
+                                        $num = $troopNum;
+                                    }
+                                }
+                                $troopName = htmlspecialchars(constant('troop_' . $tid));
+                                ?>
+                                <option value="<?php echo $tid; ?>"><?php echo $troopName; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <input type="text" maxlength="6" value="2" name="tnum" class="text" size="5"></center>
+                    </td>
+                    <td colspan="2"><center><button class="text" name="add" type="submit" value="اضافة مزرعة" id="btn_ok"><div class="button-container"><div class="button-position"><div class="btl"><div class="btr"><div class="btc"></div></div></div><div class="bml"><div class="bmr"><div class="bmc"></div></div></div><div class="bbl"><div class="bbr"><div class="bbc"></div></div></div></div><div class="button-contents">اضافة مزرعة</div></div></button></center></td>
+                </tr>
+            </table>
+        </form>
+        <div class="clear"></div>
+        <br>
+        <?php if ($this->error != '') { ?><b class="error"><?php echo $this->error; ?></b> <?php } ?>
+        <div class="clear"></div>
+        <br>
+        <br>
+        <a href="farm.php" style="float:left;">العودة الى قائمة المزارع</a>
+        <?php
+    } else {
+        ?>
+        <form name="farm">
+            <h2 class="round">قائمة المزارع</h2><br>
+            قائمة المزارع يمكنك من خلالها اضافة اكبر عدد ممكن من المزارع والهجوم عليهم بضغطة زر أبدأ الان بتجميع مزارعك والهجوم عليها خلال ثانية بضغطه زر واحده .
+
+            <script src="assets/jquery.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                var tid = null;
+                var i = null;
+                var ii = null;
+
+                function CheckAll(checked) {
+                    var e = document.farm.elements.length;
+                    var cnt = 0;
+                    for (cnt = 0; cnt < e; cnt++) {
+                        if (document.farm.elements[cnt].name == "list[]") {
+                            document.farm.elements[cnt].checked = checked;
+                        }
+                    }
+                }
+
+                function farming() {
+                    document.getElementById('farming').innerHTML = '<font color="#FF6F0F"><br>الرجاء الانتظار بينما يتم الهجوم</font><div class="clear"></div><br><div style="width: 0%; height: 10px; background-color: rgb(255, 0, 0);" id="loading"></div>';
+                    i = 1;
+                    tid = setTimeout(farming1, 1);
+                }
+
+                function farming1() {
+                    var e = document.farm.elements.length;
+                    var cnt = 0;
+                    var not = true;
+                    var farmingdata = null;
+                    ii = 0;
+                    for (cnt = 0; cnt < e; cnt++) {
+                        if (document.farm.elements[cnt].name == "list[]") {
+                            if (document.farm.elements[cnt].checked) {
+                                ii += 1;
+                            }
+                        }
+                    }
+                    farming2();
+                }
+
+                function farming2() {
+                    var troop = null;
+                    var e = document.farm.elements.length;
+                    var cnt = 0;
+                    var not = true;
+                    var farmingdata = null;
+                    for (cnt = 0; cnt < e; cnt++) {
+                        if (document.farm.elements[cnt].name == "list[]") {
+                            if (document.farm.elements[cnt].checked) {
+                                not = false;
+                                document.farm.elements[cnt].checked = false;
+                                document.getElementById('loading').style.width = ((i / ii) * 100) + '%';
+                                farmingdata = document.farm.elements[cnt].value.split("|");
+
+                                post_to_url("v2v.php", {
+                                    'id': farmingdata[0],
+                                    'c': '4',
+                                    't[' + farmingdata[1] + ']': farmingdata[2],
+                                    'farm': '1'
+                                });
+
+                                i += 1;
+                                tid = setTimeout(farming2, 500);
+                                break;
+                            }
+                        }
+                    }
+                    if (not == true) {
+                        farming3();
+                    }
+                }
+
+                function farming3() {
+                    clearTimeout(tid);
+                }
+
+                function post_to_url(path, params) {
+                    $.post(path, params).complete(function () {
+                        // Optional callback
+                    });
+                }
+            </script>
+            <div id="farming"></div>
+            <center>
+                <input type="button" class="text" value="هجوم على المزارع" onclick="farming(); return false;">
+                <input type="button" class="text" value="تحديد الكل" onclick="CheckAll(true); return false;">
+                <input type="button" class="text" value="إلغاء الكل" onclick="CheckAll(false); return false;">
+            </center>
+        </form>
+        <?php
+        $result = mysql_query("SELECT * FROM p_farms WHERE player_id='" . $Id . "'");
+        while ($row = mysql_fetch_array($result)) {
+            echo '<div class="li"><input type="checkbox" name="list[]" value="' . $row['id'] . '|' . $row['type'] . '|' . $row['number'] . '"> <a href="village.php?id=' . $row['id'] . '">' . $row['id'] . '</a> ' . constant('troop_' . $row['type']) . ' (' . $row['number'] . ')</div>';
+        }
+    }
+}
+?>
