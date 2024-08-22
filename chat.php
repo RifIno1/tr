@@ -21,7 +21,6 @@ class GPage extends securegamepage{
 
         public function load(){
                 parent::load();
-                
                 $m = new ChatModel();
                 if($this->isPost() && isset($_POST['text'])){
                 $redseahost = stripslashes(htmlspecialchars(trim($_POST['text'])));

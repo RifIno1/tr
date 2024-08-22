@@ -7,19 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<?php
-/**
-* @   PROJECT WAS MADE FOR SMART SERVS
-* @   WHATS APP : 00966501494220 
-* @   VISIT : WWW.REDSEA-H.COM
-* @   ALL COPY RIGHTS RESERVED PROGRAMMED BY RED SEA HOST 
-* @   THIS PROJECT WAS MADE BY THE REGISTERED RED SEA HOST UNDER THE NAME OF WWW.REDSEA-H.COM
-**/
-echo "<h1>";
-echo "الدردشة";
-echo "</h1>\r\n";
-echo '<s';
-echo 'tyle type="text/css">
+    <h1>الدردشة</h1>
+
+<style type="text/css">
 #chatbox {
 	text-align:left;
 	margin:0 auto;
@@ -36,12 +26,12 @@ echo 'tyle type="text/css">
 	border:1px solid #71D000;
 }
 #submit { width: 60px; }
-.msgln { margin:0 0 2px 0;direction:ltr }
+.msgln { margin:0 0 2px 0;direction:ltr;padding: 10px;position: relative; }
 
 #chatbox {
     background: #def5ff40;
     width: 95%;
-    height: 150px!important;
+    height: 280px!important;
     min-height: 150px;
     border: 1px solid blue;
     text-align: right;
@@ -51,22 +41,6 @@ echo 'tyle type="text/css">
     border-right: 1px solid silver;
     border-left: 1px solid silver;
 }
-
-
-.y0 .x1 {
-    border-radius: 0 6px 6px 0;
-    padding: 2px 5px;
-    width: 100px;
-    max-width: 100px;
-    text-align: center;
-    display: inline-block;
-    /*height: 100%;*/
-    vertical-align: middle;
-    font-size: 15px;
-    font-weight: 900 !important;
-}
-
-
 
 #usermsg {
     margin: 4px 0 0 0;
@@ -100,134 +74,114 @@ option, input[type=radio], input[type=checkbox], input[type=tel], input[type=ema
     background: #e6e1e8;
     font-weight: 900;
     font-family: Helvetica,Arial,Verdana,sans-serif;
-}
-
-.y0 .x1 {
-    background-color: #e6e6e6;
-    word-break: break-all;
-}
-.y0 .x1 {
-    border-radius: 0 6px 6px 0;
-    padding: 2px 5px;
-    width: 104px;
-    max-width: 104px;
-    text-align: center;
-    display: inline-block;
-    /*height: 100%;*/
-    vertical-align: middle;
-    font-size: 15px;
-    font-weight: 900 !important;
+    margin-top: 20px;
 }
 
 
-.y0 .x0 {
-	float: left;
-    border-radius: 10px 0 0 10px;
-    padding: 2px 8px;
-    width: 375px;
-    max-width: 375px;
-    text-align: right;
-    display: inline-block;
-    */height: 100%;*/
-    background: #f2f2f2;
-    vertical-align: middle;
-    word-wrap: break-word;
-    border-right: 0;
-    font-size: 15px;
-    font-weight: 900 !important;
-}
-.ScrollBar_v1::-webkit-scrollbar {
-    width: 15px;
+
+*::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #e3e3e3;
 }
 
-.ScrollBar_v1::-webkit-scrollbar-thumb {
-    background: #888;
+*::-webkit-scrollbar-thumb
+{
+	background-color: #868484;
 }
 
-.ScrollBar_v1::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
 </style>
-';
-echo '<s';
-echo 'cript type="text/javascript" src="tcex-style/jquery.min.js';
-echo $this->getAssetVersion(  );
-echo '"></script>
-';
-echo '<s';
-echo 'cript type="text/javascript">
-// jQuery Document
-$(document).ready(function(){
-	$("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
-	//If user submits the form
-	function SendMsg(){
-		var clientmsg = $("#usermsg").val();
-		if(clientmsg != \'\'){
-			$.post("chat.php", {text: clientmsg});
-			$("#usermsg").attr("value", "");
-		}
-		$("#usermsg").focus();
-	}
-	$("#submitmsg").click(function(){
-		SendMsg();
-		return false;
-	});
-	//Load th';
-echo 'e file containing the chat log
-	function loadLog(){
-		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20;
-		$.ajax({
-			url: "ajaxchat.php",
-			cache: false,
-			success: function(html){
-				$("#chatbox").html( html); //Insert chat log into the #chatbox div
-				var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20;
-				if(newscrollHeight > oldscrollHeight){
-					$(';
-echo '"#chatbox").animate({ scrollTop: newscrollHeight }, \'normal\'); //Autoscroll to bottom of div
-				}
-		  	},
-		});
-	}
-	setInterval (loadLog, 2500);	//Reload file every 2.5 seconds
-	$(\'#usermsg\').bind(\'keypress\', function(e) {
-		//alert(e.keyCode);
-		var code = (e.keyCode ? e.keyCode : e.which);
-		 if(code == 13) { //Enter keycode
-		   	SendMsg();
-			return false;
-		 }
-	});
-});
-</sc';
-echo 'ript>
+
 <div id="chatbox" class="ScrollBar_v1">
-';
+<?php
 $storCtat = array( );
 while ( $this->chats->next( ) )
 {
-    $redseahost = $this->Filter->FilterWords( $this->chats->row['text'] );
     $storCtat[$this->chats->row['ID']] = array(
-        date( "g:i A", $this->chats->row['date'] ),
+        $dateTime = date("d/m H:i", $this->chats->row['date']),
         $this->chats->row['username'],
-        $redseahost,
+        $this->chats->row['text'] /*  words filter needs to be added  */,
         $this->chats->row['userid']
     );
 }
 ksort( $storCtat );
 foreach ( $storCtat as $ChatLine )
 {
-    echo "<div class=\"msgln\">(".$ChatLine[0].") <b><a href=\"profile.php?uid=".$ChatLine[3]."\" target=\"_blank\">".$ChatLine[1]."</a></b>: ".$ChatLine[2]."<br></div>";
-}
+    echo '
+    <div class="msgln">
+        <span>' . $ChatLine[2] . '</span> :
+        <b>
+            <a href="profile.php?uid="'. $ChatLine[1] .'" target="_blank">
+                '. $ChatLine[1] .'
+            </a>
+        </b> 
+        <span style="position: absolute;left:0;top:0;border-bottom: 1px solid green; color: green; font-size: 12px;">'. $ChatLine[0] .'</span>
+        <br>
+    </div>';
+    }
 echo '</div>
 <div>
 <form name="message" action="">
   <input name="usermsg" class="text" type="text" id="usermsg" size="63" />
   <center><input name="submitmsg" type="button" id="submitmsg" value="';
-echo LANGUI_CHAT_T2;
+echo 'ارسال';
 echo '" /></center>
 </form>
 </div>';
+
 ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const chatbox = document.getElementById("chatbox");
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+    // Function to send the message
+    function SendMsg() {
+        const usermsg = document.getElementById("usermsg");
+        const clientmsg = usermsg.value;
+        if (clientmsg !== '') {
+            fetch("chat.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({ text: clientmsg }),
+            });
+            chatbox.scrollTop = chatbox.scrollHeight;
+            usermsg.value = "";
+        }
+        usermsg.focus();
+    }
+
+    // Event listener for the submit button
+    document.getElementById("submitmsg").addEventListener("click", function(event) {
+        SendMsg();
+        event.preventDefault();
+    });
+
+    // Function to load the chat log
+    function loadLog() {
+        const oldscrollHeight = chatbox.scrollHeight - 20;
+        fetch("ajaxchat.php", { cache: "no-store" })
+            .then(response => response.text())
+            .then(html => {
+                chatbox.innerHTML = html;
+                chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    }
+
+    // Reload the chat log every 2.5 seconds
+    setInterval(loadLog, 1500);
+
+    // Event listener for Enter key in the input field
+    document.getElementById("usermsg").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            SendMsg();
+            e.preventDefault();
+        }
+    });
+});
+
+</script>
 </body>
 </html>
