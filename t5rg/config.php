@@ -6,17 +6,17 @@ ini_set('display_startup_errors', 1);
 
 $AppConfig = array (
         'db'                                         => array (
-/* 
+
                 'host'                                => 'php56-db',
                 'user'                                => 'Anwar123',
                 'password'                        => 'Anwar123',
                 'database'                        => 'Anwar123',
-               */
+               /* 
                 'host'                                => 'localhost',
                 'user'                                => 'root',
                 'password'                        => '',
                 'database'                        => 'tatar',
-                
+                */
         ),
                 'Game'                         => array (
                 'speed'                      => '10000', // سرعة اللعبه
