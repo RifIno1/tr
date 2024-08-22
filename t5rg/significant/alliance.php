@@ -618,10 +618,6 @@ $this->provider->executeQuery( "UPDATE p_villages p SET p.alliance_name='%s' WHE
 
 
 
-
-
-
-
  public function getAllianceId( $allianceName )
  {
  return $this->provider->fetchScalar( "SELECT a.id FROM p_alliances a WHERE a.name='%s'", array(
