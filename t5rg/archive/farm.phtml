@@ -406,16 +406,9 @@ foreach($troops as $troopId=>$troopNum){
 }
 ?><label>
 
-<select name="t[<?php echo $tid; ?>]">
-<option value="0">0</option>
-<option value="<?php echo $num*0.001;  ?>"><?php echo webhelper::fn($num*0.01) ; ?></option>
-<option value="<?php echo $num*0.005;  ?>"><?php echo webhelper::fn($num*0.05) ; ?></option>
-<option value="<?php echo $num*0.010; ?>"><?php echo webhelper::fn($num*0.10) ; ?></option>
-<option value="<?php echo $num*0.015; ?>"><?php echo webhelper::fn($num*0.15) ; ?></option>
-<option value="<?php echo $num*0.025;  ?>"><?php echo webhelper::fn($num*0.25) ; ?></option>
+<input type="number" name="t[<?php echo $tid; ?>]" value="0">
 
 
-</select>
 
 <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo webhelper::fn($num); ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
 </div>
