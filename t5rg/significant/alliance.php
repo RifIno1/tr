@@ -1,5 +1,9 @@
 <?php
-
+##############################
+##    Coded By Alabhawi     ##
+##    Skype :  Alabhawi     ##
+##    Phone : 0551602924    ##
+##############################
 class AllianceModel extends ModelBase
 {
 
@@ -39,7 +43,7 @@ return $this->provider->fetchScalar( "SELECT a.name FROM p_alliances a WHERE a.i
 
 
 public function allianceExists( $allianceName ){
-return 0 < intval( $this->provider->fetchScalar( "SELECT a.id FROM p_alliances a WHERE a.name='%s'", array( $allianceName ) ) );
+return 0 < addslashes( $this->provider->fetchScalar( "SELECT a.id FROM p_alliances a WHERE a.name='%s'", array( $allianceName ) ) );
 }
 public function editalliancename( $name, $name2, $id ){
 $this->provider->executeQuery( "UPDATE p_alliances a SET a.%s='%s' WHERE a.id=%s", array( $name, $name2, $id ) );
@@ -184,7 +188,6 @@ $this->provider->executeQuery( "UPDATE p_villages p SET p.alliance_name='%s' WHE
  p.id,
  p.name,
  p.total_people_count,
- p.color_name,
  p.alliance_roles,
  p.villages_count,
  floor(TIME_TO_SEC(TIMEDIFF(NOW(), p.last_login_date))/3600) lastLoginFromHours
@@ -610,6 +613,10 @@ $this->provider->executeQuery( "UPDATE p_villages p SET p.alliance_name='%s' WHE
  $allianceId1
  ) );
  }
+
+
+
+
 
 
 
