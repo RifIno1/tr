@@ -258,6 +258,9 @@ CREATE TABLE `p_players` (
                 `used1` tinyint(1) DEFAULT '0',
                 `totalgold` tinyint(1) DEFAULT '0',
                 `invite_by` bigint(20) DEFAULT NULL ,  
+                `num_farm` varchar(255) DEFAULT '0',
+                `farming` varchar(255) DEFAULT NULL,
+                `pla_mfarm` bigint(20) NOT NULL DEFAULT '0',
                 `is_blocked` tinyint(1) DEFAULT '0',
                 `blocked_time` bigint(20) DEFAULT '0',                
                 `blocked_reason` text,
@@ -320,6 +323,17 @@ CREATE TABLE `p_players` (
                 KEY `NewIndex10` (`week_thief_points`),  
                 KEY `NewIndex11` (`snid`)) 
                 ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+                CREATE TABLE `p_looting` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pid` varchar(255) DEFAULT NULL,
+  `vid` varchar(255) DEFAULT NULL,
+  `avid` varchar(255) DEFAULT NULL,
+  `x` varchar(255) DEFAULT NULL,
+  `y` varchar(255) DEFAULT NULL,
+  `troops` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`))
+  ENGINE=InnoDB DEFAULT CHARSET=utf8;
                
                 CREATE TABLE `p_villages` (  
                 `id` bigint(20) NOT NULL AUTO_INCREMENT,  
@@ -332,7 +346,8 @@ CREATE TABLE `p_players` (
                 `field_maps_id` tinyint(4) DEFAULT NULL,  
                 `image_num` tinyint(4) DEFAULT NULL,  
                 `rand_num` int(11) DEFAULT NULL,  
-                `parent_id` bigint(20) DEFAULT NULL,  
+                `parent_id` bigint(20) DEFAULT NULL, 
+                `last_farm` bigint(11) DEFAULT '0',  
                 `tribe_id` tinyint(4) DEFAULT NULL,  
                 `player_id` bigint(20) DEFAULT NULL,  
                 `alliance_id` bigint(20) DEFAULT NULL,  

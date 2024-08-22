@@ -242,17 +242,13 @@ else if ( $this->pageState == 2 )
         }
     }
  echo "</td></tr>\r\t\t";
-if ( $club == '0' ) {
-echo "\t\t<tr><td class=\"none\">";
-echo "» اضافه الى المزارع (لم يتم تفعيل نادي الذهب)";
-echo "</td></tr>\r\t\t";
-} else {
+
 echo "\t\t<tr><td class=\"none\">";
 ?>
 <a href='farm.php?add&id=<?php echo $this->mapItemData['id']; ?>'>» اضافه الى المزارع</a>
 <?php
 echo "</td></tr>\r\t\t";
-}
+
     echo "\t</tbody>\r</table>\r";
 
 
@@ -389,17 +385,13 @@ echo "تحفة مملوكة";
     }
 if ($this->mapItemData['image_num'] == 99) {
 }else {
-if ( $club == '0' ) {
-echo "\t\t<tr><td class=\"none\">";
-echo "» اضافه الى المزارع (لم يتم تفعيل نادي الذهب)";
-echo "</td></tr>\r\t\t";
-} else {
+
 echo "\t\t<tr><td class=\"none\">";
 ?>
 <a href='farm.php?add&id=<?php echo $this->mapItemData['id']; ?>'>» اضافه الى المزارع</a>
 <?php
 echo "</td></tr>\r\t\t";
-}}
+}
 
     echo "\t</tbody>\r</table>\r";
 }
@@ -518,17 +510,13 @@ if ($this->mapItemData['image_num'] == 99) {
     }
 }
 if ($this->mapItemData['image_num'] != 99) {
-if ( $club == '0' ) {
-echo "\t\t<tr><td class=\"none\">";
-echo "» اضافه الى المزارع (لم يتم تفعيل نادي الذهب)";
-echo "</td></tr>\r\t\t";
-} else {
+
 echo "\t\t<tr><td class=\"none\">";
 ?>
 <a href='farm.php?add&id=<?php echo $this->mapItemData['id']; ?>'>» اضافه الى المزارع</a>
 <?php
 echo "</td></tr>\r\t\t";
-}}
+}
     echo "\t\t\r\t</tbody>\r</table>\r";
 }
 ?>

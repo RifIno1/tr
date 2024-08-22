@@ -11,6 +11,27 @@ class WebHelper
         return mail( $to, $subject, $message, $headers );
     }
 
+    public function fn( $n )
+    {
+$txt = "";
+$ret = "";
+if ($n>= 1000000000000000) {
+return round($n/1000000000000000, 1).' بليار';
+}else if ($n>= 1000000000000) {
+return round($n/1000000000000, 1).' بليون';
+}else if ($n>= 1000000000) {
+return round($n/1000000000, 1).' مليار';
+}else if ($n>= 1000000) {
+return round($n/1000000, 1).' مليون';
+}else if ($n>= 1000) {
+return round($n/1000, 1).' ألف';
+}else {
+return $n;
+}
+    }
+
+
+
     public function getDomain( )
     {
         $surl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
