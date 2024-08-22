@@ -94,7 +94,8 @@ if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
 echo "<a href=\"farm.php\">";
 echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
 echo "</a>";
-echo"<a href=\"profile.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</a>";
+echo"<a href=\"profile.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
+echo"<a href=\"chat.php\">الشات</a>"; 
 }
 echo "<p>";
                 $postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
