@@ -13,22 +13,9 @@ class WebHelper
 
     public function fn( $n )
     {
-$txt = "";
-$ret = "";
-if ($n>= 1000000000000000) {
-return round($n/1000000000000000, 1).' بليار';
-}else if ($n>= 1000000000000) {
-return round($n/1000000000000, 1).' بليون';
-}else if ($n>= 1000000000) {
-return round($n/1000000000, 1).' مليار';
-}else if ($n>= 1000000) {
-return round($n/1000000, 1).' مليون';
-}else if ($n>= 1000) {
-return round($n/1000, 1).' ألف';
-}else {
-return $n;
+return (int)$n;
 }
-    }
+    
 
 
 
