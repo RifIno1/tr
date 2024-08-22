@@ -14,6 +14,7 @@ if ( !$this->hasAlliance )
 }
 else
 {
+
     echo "<h1>";
     echo $this->allianceData['name'];
     echo " - ";
@@ -152,41 +153,34 @@ echo "\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"profile\">\r\n\t<t
         echo ":</td>\r\n\t\t\t<td>";
         echo LANGUI_ALLIANCE_T9;
         echo "</td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr><td class=\"empty\"></td><td class=\"empty\"></td></tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"details\">\r\n\t\t\t\t<table cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>";
-        echo LANGUI_ALLIANCE_T10;
+        echo "رمز التحالف";
         echo ":</th>\r\n\t\t\t\t\t\t\t<td>";
         echo $this->allianceData['name'];
         echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>";
         echo LANGUI_ALLIANCE_T11;
         echo ":</th>\r\n\t\t\t\t\t\t\t<td>";
         echo $this->allianceData['name2'];
-        echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t<tr><td colspan=\"2\" class=\"empty\"></td></tr>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>";
+        echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>";
         echo LANGUI_ALLIANCE_T14;
         echo ":</th>\r\n\t\t\t\t\t\t\t<td>";
         echo $this->allianceData['player_count'];
-        echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t<tr><td colspan=\"2\" class=\"empty\"></td></tr>\r\n\t\t\t\t\t\t";
-         foreach ( $this->allianceData['players'] as $player )
-        {
-            if ( trim( $player['alliance_roles'] ) == "" )
-            {
-                continue;
-            }
-            $roleName = explode( " ", trim( $player['alliance_roles'] ), 2 );
-            $roleNumber = explode( " ", trim( $player['alliance_roles'] ), 2 );
+        echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t";
+        echo "<tr>\r\n\t\t\t\t\t\t\t<th>";
+        echo "النقاط";
+        echo ":</th>\r\n\t\t\t\t\t\t\t<td>";
+        echo $this->allianceData['rating'];
+        echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t";
 
-            list( $roleNumber, $roleName ) = $roleNumber;
-            $roleName = trim( $roleName );
-            if ( $roleName == "" || $roleName == "." )
-            {
-                continue;
-            }
-            echo "\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<th>";
-            echo $roleName;
-            echo "</th>\r\n\t\t\t\t\t\t\t<td><a href=\"profile.php?uid=";
-            echo $player['id'];
-            echo "\">";
-            echo $player['name'];
-            echo "</a></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t";
-        }
+
+        echo "<tr><th>مؤسس التحالف:</th><td>";
+        echo "<a href=\"profile.php?uid=";
+        echo $this->allianceData['creator_player_id'];
+        echo "\">";
+        echo $this->GetNamePlayer( $this->allianceData['creator_player_id'] );
+        echo "</a></td></tr>\r\n\t\t\t\t\t\t<tr><th>تاريخ الانشاء:</th><td>";
+        echo $this->allianceData['creation_date'];
+        echo "</td></tr>\r\n\t\t\t\t\t\t";
+        
         echo "\t\t\t\t\t\t<tr><td colspan=\"2\" class=\"empty\"></td></tr>\r\n\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td class=\"desc2\" colspan=\"2\">";
         echo $this->getAllianceDescription( $this->allianceData['description2'] );
         echo "</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"desc1\">";
@@ -217,14 +211,17 @@ echo "\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"profile\">\r\n\t<t
         }
         echo "\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t";
         $_c = 1;
-        foreach ( $this->allianceData['players'] as $player )
+        
+        $players = $this->allianceData['players_ids'];
+        $players = explode( ",", $players );
+        foreach ( $players as $player )
         {
             echo "\t\t<tr>\r\n\t\t\t<td class=\"ra\">";
             echo $_c++;
             echo ".</td>\r\n\t\t\t<td class=\"pla\"><a href=\"profile.php?uid=";
-            echo $player['id'];
+            echo $player;
             echo "\">";
-            echo $player['name'];
+            echo $this->GetNamePlayer( $player );
             echo "</a></td>\r\n\t\t\t<td class=\"hab\">";
             echo $player['total_people_count'];
             echo "</td>\r\n\t\t\t<td class=\"vil\">";
@@ -235,7 +232,7 @@ echo "\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"profile\">\r\n\t<t
                 echo "\t\t\t<td class=\"on\">";
                 echo $this->getOnlineStatus( $player['lastLoginFromHours'] );
                 echo "</td>\r\n\t\t\t";
-                /*
+                
 if ( $this->hasAllianceRemovePlayerRole( ) )
                 {
                     echo "\t\t\t<td class=\"on\">";
@@ -250,18 +247,9 @@ if ( $this->hasAllianceRemovePlayerRole( ) )
                         echo "\"></a>";
                     }
                     echo "</td>\r\n\t\t\t";
-                }*/
-                echo "\t\t\t";
-                if ( $this->hasAllianceSetRoles( ) )
-                {
-                    echo "\t\t\t<td class=\"on\"><a href=\"#\" onclick=\"return showAllianceRole(";
-                    echo $player['id'];
-                    echo ");\"><img class=\"def_c\" src=\"assets/x.gif\" alt=\"";
-                    echo LANGUI_ALLIANCE_T20;
-                    echo "\" title=\"";
-                    echo LANGUI_ALLIANCE_T20;
-                    echo "\"></a></td>\r\n\t\t\t";
                 }
+                echo "\t\t\t";
+                
                 echo "\t\t\t\r\n\t\t\t";
             }
             echo "\t\t</tr>\r\n\t\t";

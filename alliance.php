@@ -299,11 +299,22 @@ if ((isset($_POST['a_name']) && trim($_POST['a_name']) != '' && $_POST['dipl'] =
         $n = $m->getAllianceName($aid);
         return (trim($n) != '' ? $n : '[?]');
         }
+    function GetNamePlayer($playerId)
+        {
+        $m = new AllianceModel();
+        return $m->GetNamePlayer($playerId);
+        }
     function getAllianceDataFor($playerId)
         {
         $m = new AllianceModel();
         return $m->getAllianceDataFor($playerId);
         }
+        function getPlayerName($playerId)
+        {
+        $m = new AllianceModel();
+        return $m->getPlayerName($playerId);
+        }
+        
     function isMemberOfAlliance($playerId)
         {
         $players_ids = trim($this->allianceData['players_ids']);
