@@ -173,14 +173,11 @@ else if ( $this->reportData['rpt_cat'] == 1 )
     }
     else
     {
-        echo "<s";
-        echo "pan class=\"none\">";
-        echo $this->reportData['from_player_name'];
-        echo "</span> ";
-        echo LANGUI_RPT_T12;
-        echo " ";
-        echo "<s";
-        echo "pan class=\"none\">[?]</span>";
+        echo " <a href=\"village3.php?id=";
+        echo $this->reportData['to_village_id'];
+        echo "\">";
+        echo "واحة";
+        echo "</a>";
     }
     echo "</td>\r\t\t\t\t\t</tr>\r\t\t\t\t</thead>\r\t\t\t\t<tbody>\r\t\t\t\t\t<tr>\r\t\t\t\t\t\t<th>";
     echo LANGUI_RPT_T13;
@@ -251,14 +248,11 @@ else if ( $this->reportData['rpt_cat'] == 2 )
     }
     else
     {
-        echo "<s";
-        echo "pan class=\"none\">";
-        echo $this->reportData['from_player_name'];
-        echo "</span> ";
-        echo LANGUI_RPT_T12;
-        echo " ";
-        echo "<s";
-        echo "pan class=\"none\">[?]</span>";
+        echo " <a href=\"village3.php?id=";
+        echo $this->reportData['to_village_id'];
+        echo "\">";
+        echo "واحة";
+        echo "</a>";
     }
     echo "</td>\r\t\t\t\t\t</tr>\r\t\t\t\t</thead>\r\t\t\t\t<tbody class=\"units\">\r\t\t\t\t\t<tr>\r\t\t\t\t\t\t<td>&nbsp;</td>\r\t\t\t\t\t\t";
     foreach ( $this->reportData['troopsTable']['troops'] as $tid => $tnum )
@@ -358,14 +352,11 @@ else if ( $this->reportData['rpt_cat'] == 3 )
     }
     else
     {
-        echo "<s";
-        echo "pan class=\"none\">";
-        echo $this->reportData['from_player_name'];
-        echo "</span> ";
-        echo LANGUI_RPT_T12;
-        echo " ";
-        echo "<s";
-        echo "pan class=\"none\">[?]</span>";
+        echo " <a href=\"village3.php?id=";
+        echo $this->reportData['to_village_id'];
+        echo "\">";
+        echo "واحة";
+        echo "</a>";
     }
     echo "</td>\r\t\t\t\t</tr>\r\t\t\t</thead>\r\t\t\t<tbody class=\"units\">\r\t\t\t\t<tr>\r\t\t\t\t<td>&nbsp;</td>\r\t\t\t\t";
     foreach ( $this->reportData['attackTroopsTable']['troops'] as $tid => $tprop )
@@ -586,14 +577,11 @@ else if ( $this->reportData['rpt_cat'] == 3 )
                 }
                 else
                 {
-                    echo "<s";
-                    echo "pan class=\"none\">";
-                    echo $this->reportData['to_player_name'];
-                    echo "</span> ";
-                    echo LANGUI_RPT_T12;
-                    echo " ";
-                    echo "<s";
-                    echo "pan class=\"none\">[?]</span>";
+                    echo " <a href=\"village3.php?id=";
+                    echo $this->reportData['to_village_id'];
+                    echo "\">";
+                    echo "واحة";
+                    echo "</a>";
                 }
                 echo "\t\t\t\t";
             }
@@ -731,14 +719,11 @@ else if ( $this->reportData['rpt_cat'] == 4 )
     }
     else
     {
-        echo "<s";
-        echo "pan class=\"none\">";
-        echo $this->reportData['from_player_name'];
-        echo "</span> ";
-        echo LANGUI_RPT_T12;
-        echo " ";
-        echo "<s";
-        echo "pan class=\"none\">[?]</span>";
+        echo " <a href=\"village3.php?id=";
+        echo $this->reportData['to_village_id'];
+        echo "\">";
+        echo "واحة";
+        echo "</a>";
     }
     echo "</td>\r\t\t\t\t</tr>\r\t\t\t</thead>\r\t\t\t<tbody class=\"units\">\r\t\t\t\t<tr>\r\t\t\t\t<td>&nbsp;</td>\r\t\t\t\t";
     foreach ( $this->reportData['attackTroopsTable']['troops'] as $tid => $tprop )
@@ -896,14 +881,11 @@ else if ( $this->reportData['rpt_cat'] == 4 )
                 }
                 else
                 {
-                    echo "<s";
-                    echo "pan class=\"none\">";
-                    echo $this->reportData['to_player_name'];
-                    echo "</span> ";
-                    echo LANGUI_RPT_T12;
-                    echo " ";
-                    echo "<s";
-                    echo "pan class=\"none\">[?]</span>";
+                    echo " <a href=\"village3.php?id=";
+                    echo $this->reportData['to_village_id'];
+                    echo "\">";
+                    echo "واحة";
+                    echo "</a>";
                 }
                 echo "\t\t\t\t";
             }
@@ -1044,14 +1026,11 @@ echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
     }
     else
     {
-        echo "<s";
-        echo "pan class=\"none\">";
-        echo $this->reportData['to_player_name'];
-        echo "</span> ";
-        echo LANGUI_RPT_T12;
-        echo " ";
-        echo "<s";
-        echo "pan class=\"none\">[?]</span>";
+        echo " <a href=\"village3.php?id=";
+        echo $this->reportData['to_village_id'];
+        echo "\">";
+        echo "واحة";
+        echo "</a>";
     }
             echo "</td>\r\t\t\t\t</tr>\r\t\t\t</thead>\r\t\t\t<tbody class=\"units\">\r\t\t\t\t<tr>\r\t\t\t\t<td>&nbsp;</td>\r\t\t\t\t";
     foreach ( $this->reportData['attackTroopsTable']['troops'] as $tid => $tprop )
@@ -1209,14 +1188,11 @@ echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
                 }
                 else
                 {
-                    echo "<s";
-                    echo "pan class=\"none\">";
-                    echo $this->reportData['to_player_name'];
-                    echo "</span> ";
-                    echo LANGUI_RPT_T12;
-                    echo " ";
-                    echo "<s";
-                    echo "pan class=\"none\">[?]</span>";
+                    echo " <a href=\"village3.php?id=";
+                    echo $this->reportData['to_village_id'];
+                    echo "\">";
+                    echo "واحة";
+                    echo "</a>";
                 }
                 echo "\t\t\t\t";
             }

@@ -244,7 +244,7 @@ else if ( $this->pageState == 2 )
  echo "</td></tr>\r\t\t";
 
 echo "\t\t<tr><td class=\"none\">";
-echo "<tr><td><a href=\"farm.php?t=2&x=".$this->mapItemData['rel_x']."&y=".$this->mapItemData['rel_y']."";
+echo "<tr><td><a href=\"farm.php?t=1&x=".$this->mapItemData['rel_x']."&y=".$this->mapItemData['rel_y']."";
 echo "\">";
             echo "» اضافه المزارع";
             echo "</a>";
@@ -388,9 +388,10 @@ if ($this->mapItemData['image_num'] == 99) {
 }else {
 
 echo "\t\t<tr><td class=\"none\">";
-?>
-<a href='farm.php?add&id=<?php echo $this->mapItemData['id']; ?>'>» اضافه الى المزارع</a>
-<?php
+echo "<tr><td><a href=\"farm.php?t=1&x=".$this->mapItemData['rel_x']."&y=".$this->mapItemData['rel_y']."";
+echo "\">";
+            echo "» اضافه المزارع";
+            echo "</a>";
 echo "</td></tr>\r\t\t";
 }
 
@@ -513,9 +514,10 @@ if ($this->mapItemData['image_num'] == 99) {
 if ($this->mapItemData['image_num'] != 99) {
 
 echo "\t\t<tr><td class=\"none\">";
-?>
-<a href='farm.php?add&id=<?php echo $this->mapItemData['id']; ?>'>» اضافه الى المزارع</a>
-<?php
+echo "<tr><td><a href=\"farm.php?t=1&x=".$this->mapItemData['rel_x']."&y=".$this->mapItemData['rel_y']."";
+echo "\">";
+            echo "» اضافه المزارع";
+            echo "</a>";
 echo "</td></tr>\r\t\t";
 }
     echo "\t\t\r\t</tbody>\r</table>\r";

@@ -486,7 +486,7 @@ $toVillageRow = mysql_fetch_array($active);
 
     public function getVillageName( $playerId, $villageName )
     {
-        return 0 < intval( $playerId ) ? $villageName : "<span class=\"none\">[?]</span>";
+        return 0 < intval( $playerId ) ? $villageName : "واحة";
     }
 
     public function preRender( )

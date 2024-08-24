@@ -120,18 +120,7 @@ if($this->player != NULL && $this->isPlayerInDeletionProgress()){
 echo " </div></b>
 <div id=\"content\" class=\"";echo $this->contentCssClass;echo "\"><div class=\"top\"></div>";$this->printContent();echo "</div>
 <div id=\"side_info\">";
-if ( $this->data['guide_quiz'] != GUIDE_QUIZ_COMPLETED && $this->player != NULL )
-{
-    echo " <div id=\"anm\" style=\"width:118px; height:142px; visibility: hidden;\"></div>
-<div id=\"qge\"><img onclick=\"showTask();\" src=\"assets/x.gif\" id=\"qgei\" class=\"";
-    echo $this->getGuideQuizClassName( );
-    echo "\" title=\"";
-    echo LANGUI_GAME_LMENU1;
-    echo "\" alt=\"";
-    echo LANGUI_GAME_LMENU1;
-    echo "\"></div>
-";
-}
+
 if ( $this->player != NULL )
 {
     if ( 1 < sizeof( $this->playerVillages ) )

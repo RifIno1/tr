@@ -1,14 +1,4 @@
-<?php
 
-
-if ( $this->dataGame['club'] == '0' ) {
-echo'<h1>لم يتم تفعيل نادي الذهب</h1>
-<p></p>
-<p>لم تفعل نادي الذهب لكي تستمتع بهذه الميزة يجب تفعيل نادي الذهب نادي الذهب يكلف 100 ذهبه فقط لتفعيله فعله الان .</p>
-<p></p>
-';    
-} else {
-?>
 <h1 class="titleInHeader">خريطة القرية</h1>
 <div id="textmenu">
  <a href="village4.php"<?php if ( $this->selectedTabIndex == 0 ) { echo " class=\"selected\""; } ?>>التحركات</a>
@@ -202,6 +192,5 @@ foreach ($this->Villages as $vid) {
 
 </table>
 <?php
- }
  }
 ?>
