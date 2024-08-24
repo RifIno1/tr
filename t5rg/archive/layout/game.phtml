@@ -67,11 +67,6 @@ echo LANGUI_GAME_ICO8;
 <div id="mid">
 <div id="side_navi">
 <a id="logo" href="#"><img src="assets/x.gif" alt="<?php echo LANGUI_GAME_GNAME;?>" /></a><?php
-            if($this->player != NULL){
-$a = date( "G" );
-$_d = $a;
-echo (6 <= $_d && $_d <= 19)?'<img class="time_of_day day" title="'.LANGUI_GAME_MORNING.'" alt="'.LANGUI_GAME_MORNING.'" src="assets/x.gif" />':'<img class="time_of_day night" title="'.LANGUI_GAME_AFTERNOON.'" alt="'.LANGUI_GAME_AFTERNOON.'" src="assets/x.gif" />';
-}
 require_once(MODEL_PATH."index.php");
 $m1 = new IndexModel();
 $this->datastats = $m1->getIndexSummary();
@@ -94,8 +89,9 @@ if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
 echo "<a href=\"farm.php\">";
 echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
 echo "</a>";
-echo"<a href=\"profile.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
 echo"<a href=\"chat.php\">الشات</a>"; 
+echo"<a href=\"msg.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
+
 }
 echo "<p>";
                 $postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
@@ -153,8 +149,12 @@ echo "\">&bull;</td>";
             echo $pvillage[1];
             echo ")</div> ";
 ?>
-<a href="v2v.php?id=<?php echo $vid.$this->villagesLinkPostfix; ?>"><img src="assets/x.gif" class="att_all"></a>
-<a href="build.php?bid=17&vid2=<?php echo $vid.$this->villagesLinkPostfix; ?>"><img src="assets/default/img/r/6.gif"></a>
+<a href="v2v.php?id=<?php echo $vid.$this->villagesLinkPostfix; ?>">
+<img style="margin-left: 2px;" src="assets/default/img/un/h/att_all.gif">
+</a>
+<a href="build.php?bid=17&vid2=<?php echo $vid.$this->villagesLinkPostfix; ?>">
+<img src="assets/x.gif" style="margin-left: 2px; background-image: url(assets/default/img/a/report_icons.gif); width: 19px; height: 17px;  background-position: 0 -653px;">
+</a>
 
 <?php 
 echo "</td>\r\n\t\t\t</tr>\r\n\t\t";

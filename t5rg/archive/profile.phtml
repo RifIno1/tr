@@ -4,45 +4,10 @@
 
 
 echo '<h1>'.LANGUI_PROFILE_T1.'</h1>';
-if (isset($_GET['uid']) && $_GET['uid'] == 1){
-?>
-
-<table cellpadding="1" cellspacing="1" id="support_mh">
-        <thead>
-        <tr>
-        <th>الدعم وصيادو المخالفين</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-        <td><b>الدعم :</b><br>الدعم يتكون من لاعبين خبراء الذين سيسعدون باجابة اسئلتكم.<br>
-         <a href="msg.php?uid=1">» اكتب رسالة</a>
-        </td>
-        </tr>
-        <tr>
-        <td><p dir="rtl">
-<b>قواعد اللعبة :</b><br> <b><font color="#FF0000">صياد 
-المخالفين</font></b> هو  
-المسئول عن تطبيق <a href="http://tatarzx.com/x2/terms.php" target="_blank">قواعد 
-اللعبة  </a>. 
-إذا كانت لديكم أسئلة حول القواعد أو  تبليغ عن الانتهاكات ، يمكنك 
-مراسلة <font color="#FF0000"><b>صياد المخالفين</b></font>. 
-</p><br>
-         <a href="msg.php?uid=1">» اكتب رسالة</a>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-<?php
-}else {
 if($this->fullView){echo '
     <div id="textmenu">
-        <a href="profile.php" '.(($this->selectedTabIndex == 0 && !isset($_GET['tvq']))? 'class="selected"':'').'>'.LANGUI_PROFILE_T2.'</a> |
-        <a href="profile.php?t=1" '.(($this->selectedTabIndex == 1) ? 'class="selected"':'').'>'.LANGUI_PROFILE_T3.'</a> |
-        <a href="profile.php?t=2" '.(($this->selectedTabIndex == 2) ? 'class="selected"':'').'>ألاعداداتَ</a> |';
-?>
-<a href="#" if (isset($_GET['tvq'])) {echo 'class="selected"';} onclick="window. open('profile.php?tvq','tgpay','scrollbars=yes,status=yes,resizable=yes,toolbar=yes,width=800,height=600');return false;">
-ألقران الكريم </a><?php
+        <a href="profile.php" '.(($this->selectedTabIndex == 0 )? 'class="selected"':'').'>'.LANGUI_PROFILE_T2.'</a> |
+        <a href="profile.php?t=2" '.(($this->selectedTabIndex == 2) ? 'class="selected"':'').'>الإعدادات</a>';
         if ( $this->data['active_plus_account'] )
         {
         echo ' | <a href="profile.php?links">روابط مباشرة</A>';
@@ -50,16 +15,9 @@ if($this->fullView){echo '
         echo '
     </div>';
 }
-if (isset($_GET['tvq'])) {
-?>
-يمكنكم سماع القران اثناء اللعب , بعدم خروجكم من الصفحه المستقله وانزالها الى الاسفل حضأ موفقأ <center>
-<iframe align="center" id="IW_frame_1438" src="http://www.tvquran.com/add/index.htm" frameborder="0" allowtransparency="1" scrolling="no" width="302" height="334"></iframe>
-</center>
-<?php
-}else 
+
 if (isset($_GET['links']))
 {
-
 echo "<p></p>\r\n<form action=\"profile.php?links\" method=\"POST\">\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"links\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th><a href=\"#\" onclick=\"return showManual(5,6);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"";
 echo text_helptip_lang;
 echo "\" title=\"";
@@ -292,7 +250,7 @@ echo '
     echo $this->getProfileDescription( $this->profileData['description2'] );
     echo "</div></td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"desc1\"><div>";
     echo $this->getProfileDescription( $this->profileData['description1'] );
-    echo "</div></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"villages\">\r\n\t<thead>\r\n\t<tr><th colspan=\"5\">";
+    echo "</div></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"villages\">\r\n\t<thead>\r\n\t<tr><th colspan=\"6\">";
     echo LANGUI_PROFILE_T13;
     echo "</th></tr>\r\n\t<tr>\r\n\t\t<td>";
     echo LANGUI_PROFILE_T23;
@@ -300,6 +258,8 @@ echo '
     echo LANGUI_PROFILE_T14;
     echo "</td>\r\n\t\t<td>";
     echo LANGUI_PROFILE_T24;
+    echo "</td>\r\n\t\t<td>";
+    echo "المزارع";
     echo "</td>\r\n\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t";
     while ( $this->villages->next( ) )
     {
@@ -319,15 +279,28 @@ echo '
         echo "</td>";
         ?>
         <td><a href="build.php?bid=17&vid2=<?php echo $this->villages->row['id']; ?>"><img src="assets/default/img/r/6.gif"></a></td>
-                        <td><a href="v2v.php?id=<?php echo $this->villages->row['id']; ?>"><img src="assets/x.gif" class="att_all"></a></td>
-<?php echo "\r\n\t\t\t<td class=\"hab\">";
+        <td><a href="v2v.php?id=<?php echo $this->villages->row['id']; ?>"><img src="assets/x.gif" class="att_all" alt="ارسال هجوم" title="ارسال هجوم">
+    </a></td>
+        
+        <?php echo "\r\n\t\t\t<td class=\"hab\">";
         echo $this->villages->row['people_count'];
         echo "</td>\r\n\t\t\t<td class=\"aligned_coords\"><div class=\"cox\">(";
         echo $this->villages->row['rel_x'];
         echo "</div><div class=\"pi\">|</div><div class=\"coy\">";
         echo $this->villages->row['rel_y'];
-        echo ")</div></td>\r\n\t\t</tr>\r\n\t\t";
+        echo ")</div></td>\r\n\t\t";
+        
+        // add village to farm
+        ?>
+<td>
+    <a href="farm.php?t=1&x=<?php echo $this->villages->row['rel_x']; ?>&y=<?php echo $this->villages->row['rel_y']; ?>">
+        <img src="assets/x.gif" class="plus" alt="إضافة إلى المزارع" title="إضافة إلى المزارع">
+    </a>
+</td>        
+
+<?php
     }
+    echo "</tr>\r\n\t\t";
     echo "\t</tbody>\r\n</table>\r\n\r\n";
 }
 else if ( $this->selectedTabIndex == 1 )
@@ -551,11 +524,7 @@ else if ( $this->selectedTabIndex == 2 )
     echo ":</th>\r\n\t\t\t<td><input class=\"text\" type=\"text\" name=\"email_alt\" maxlength=\"50\"></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<th>";
     echo LANGUI_PROFILE_T55;
     echo ":</th>\r\n\t\t\t<td><input class=\"text\" type=\"text\" name=\"email_neu\" maxlength=\"50\"></td>\r\n\t\t</tr>";
-?>
-<tr>
-<th>ألايميل القديم: </th><td><?php echo $this->profileData['email']; ?></td>
-</tr>
-<?php echo "\r\n\t</tbody>\r\n</table>\r\n<p class=\"btn\"><input type=\"image\" value=\"\" name=\"s1\" id=\"btn_save\" class=\"dynamic_img\" src=\"assets/x.gif\" alt=\"";
+    echo "\r\n\t</tbody>\r\n</table>\r\n<p class=\"btn\"><input type=\"image\" value=\"\" name=\"s1\" id=\"btn_save\" class=\"dynamic_img\" src=\"assets/x.gif\" alt=\"";
     echo text_save_lang;
     echo "\"></p>\r\n</form>\r\n";
     if ( $this->errorText != "" )
@@ -644,63 +613,6 @@ else if ( $this->selectedTabIndex == 2 )
     }
     echo "</form>\r\n";
 
-    echo "<form action=\"profile.php?t=2\" method=\"POST\">\r\n<input type=\"hidden\" name=\"e\" value=\"4\">\r\n\r\n<table cellpadding=\"1\" cellspacing=\"1\" id=\"del_acc\" class=\"account\">\r\n\t<thead>\r\n\t\t<tr><th colspan=\"2\">";
-    echo LANGUI_PROFILE_T6;
-    echo "</th></tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr><td class=\"note\" colspan=\"2\">";
-    echo LANGUI_PROFILE_T64;
-    echo "</td></tr>\r\n\t\t";
-    if ( $this->isPlayerInDeletionProgress( ) )
-    {
-        echo "\t\t<tr>\r\n\t\t\t<td colspan=\"2\" class=\"count\">\r\n\t\t\t\t";
-        if ( $this->canCancelPlayerDeletionProcess( ) )
-        {
-            echo "<a href=\"profile.php?t=4&qid=";
-            echo $this->getPlayerDeletionId( );
-            echo "\"><img class=\"del\" src=\"assets/x.gif\" alt=\"";
-            echo LANGUI_PROFILE_T65;
-            echo "\" title=\"";
-            echo LANGUI_PROFILE_T65;
-            echo "\"> ";
-        }
-        echo "</a>";
-        echo LANGUI_PROFILE_T66;
-        echo " ";
-        echo "<s";
-        echo "pan id=\"timer1\">";
-        echo $this->getPlayerDeletionTime( );
-        echo "</span> ";
-        echo time_hour_lang;
-        echo "\t\t\t</td>\r\n\t\t</tr>\r\n\t\t";
-    }
-    else
-    {
-        echo "\t\t<tr>\r\n\t\t\t<th>";
-        echo LANGUI_PROFILE_T6;
-        echo "</th>\r\n\t\t\t<td class=\"del_selection\">\r\n\t\t\t\t<label><input class=\"radio\" type=\"radio\" name=\"del\" value=\"1\"> ";
-        echo LANGUI_PROFILE_T67;
-        echo "</label>\r\n\t\t\t\t<label><input class=\"radio\" type=\"radio\" name=\"del\" value=\"0\" checked=\"\"> ";
-        echo LANGUI_PROFILE_T68;
-        echo "</label>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<th>";
-        echo LANGUI_PROFILE_T69;
-        echo ":</th>\r\n\t\t\t<td><input class=\"text\" type=\"password\" name=\"del_pw\" maxlength=\"20\"></td>\r\n\t\t</tr>\r\n\t\t";
-    }
-    echo "\t</tbody>\r\n</table>\r\n";
-    if ( !$this->isPlayerInDeletionProgress( ) )
-    {
-        echo "<p class=\"btn\"><input type=\"image\" value=\"\" name=\"s1\" id=\"btn_save\" class=\"dynamic_img\" src=\"assets/x.gif\" alt=\"";
-        echo text_save_lang;
-        echo "\"></p>";
-    }
-    echo "</form>\r\n";
+}
 
-}
-else if ( $this->selectedTabIndex == 3 )
-{
-header("Location:profile.php?t=2");
-}
-else if ( $this->selectedTabIndex == 4 )
-{
-header("Location:profile.php?t=2");
-}
-}
 ?>
