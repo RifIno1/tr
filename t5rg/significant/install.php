@@ -50,6 +50,7 @@ $starttime = time();
                 DROP TABLE IF EXISTS `p_farms`;
                 DROP TABLE IF EXISTS `p_alliances_news`;
                 DROP TABLE IF EXISTS `p_golds`;
+                DROP TABLE IF EXISTS `p_looting`;
 
 
 

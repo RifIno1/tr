@@ -1,90 +1,25 @@
-<?php  /* 
-$time = time();
-if ( isset( $_SESSION['farmtime'] ) and $time - $_SESSION['farmtime'] < 15 )
-{
-?>
-<center>
-<br><Br>
-لقد سبق وقمت بالدخول الى جدوله الهجمات مؤخر ..
-<br><Br>
-لا تستطيع الدخول من جديد حتى مرور <?php  echo 15 - ($time - $_SESSION['farmtime']) ; ?> ثانية من وقت الدخول السابق . 
-<?php  
-}
-else
-{
-$_SESSION['sasda'] = substr(md5(rand(111,999)),rand(11,22),5);
-$_SESSION['farmtime'] = time();*/
-?>
-
-<script src="assets/jquery.js" type="text/javascript"></script> 
-<script>
-$(document).ready(function() {
-      // Tooltip
-    $('[title]').hover(function(){
-        // on Hover
-        var title = $(this).attr('title');
-        $(this).data('tipText', title).removeAttr('title');
-        $('<p class="tooltip"></p>')
-		.html(title)
-        .appendTo('body')
-        .fadeIn('slow');
-    }, function() {
-        // Hover out
-        $(this).attr('title', $(this).data('tipText'));
-        $('.tooltip').remove();
-    }).mousemove(function(e) {
-        var mousey = e.pageY + 0;
-        var mousex = e.pageX + -75;
-        $('.tooltip')
-        .css({ top: mousey, left: mousex })
-    });
-
-});
-
-
- 
-$(document).ready(function(){
-  $("#flip").click(function(){
-    $("#panel").slideToggle("slow");
-  });
-});
-</script>
-<style>
-.tooltip {
-	display: none;
-	position: absolute;
-	border-radius: 3px;
-	box-shadow: 2px 2px 3px rgba(0, 0, 0, .2);
-	background-color: rgba(0, 0, 0, .8);
-	border: 1px solid #181818;
-	color: #D0D0D0;
-	font-size: 11px;
-	padding: 6px;
-	z-index: 999;
-}
-.nextlvl {
-	margin: 6px 0;
-}
-.resinfo {
-	margin-top: 6px;
-	line-height: 16px;
-}
-.resinfo span {
-	margin: 4px 6px;
-}
-</style>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
 <?php 
 $q                      = new QueueModel();
 $get_num_loooting = $q->provider->fetchScalar('SELECT COUNT(*) FROM p_looting WHERE pid="'.$this->player->playerId.'" ');
+$num_farm = $q->provider->fetchScalar('SELECT num_farm FROM p_players WHERE id="'.$this->player->playerId.'" ');
+
 ?>
-<h1>قائمة المزارع <span style="color:#C0C0C0;" class="info">(<?php echo $this->num_farm; ?>/<span style="color:#000;" class="info"><?php echo $get_num_loooting;?></span>) <a href="farm.php?more">زياده عدد المزارع</a></span></h1>
+<h1>قائمة المزارع <span style="color:#C0C0C0;" class="info">(<?php echo $num_farm+50; ?>/<span style="color:#000;" class="info"><?php echo $get_num_loooting;?></span>) <a href="farm.php?more">زياده عدد المزارع</a></span></h1>
 يمكنك الأن إضافة مزارع بسهوله والهجوم عليها في أي وقت تريد بضغطة زر فقط <br><br>
 
 <div id="textmenu">
 <a href="farm.php" <?php if (!isset ($_GET['t'])) {?>class="selected"<?php } ?>>المزارع</a> | 
 <a href="farm.php?t=1" <?php if ($_GET['t'] == 1) {?>class="selected"<?php } ?> >اضافة مزرعة</a> | 
 <a href="farm.php?t=2" <?php if ($_GET['t'] == 2) {?>class="selected"<?php } ?> >إضافة قرى لاعب</a> |
-<a href="farm.php?automatic" <?php if (isset ($_GET['automatic'])) {?>class="selected"<?php } ?> >الهجوم التلقائي</a> |
 <a href="farm.php?t=5" <?php if ($_GET['t'] == 5) {?>class="selected"<?php } ?> >حذف قرى لاعب</a>
 </div>
 
@@ -115,7 +50,7 @@ if (($this->data['num_farm']+50) < 750) {
 ?>
 <form method="POST" action="farm.php?dellall">
 <h4>زيادة عدد المزارع </h4>
-العدد الحالي : <?php echo $this->num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo ($this->num_farm/10); ?> <img src="assets/x.gif" title="الذهب" class="1.410472499E+13 1453480888">
+العدد الحالي : <?php echo $this->num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo ($this->num_farm/50)*250; ?> <img src="assets/gold.gif" title="الذهب" class="1.410472499E+13 1453480888">
 </form>
 <?php
 }else { 
@@ -166,27 +101,18 @@ switch($this->data['tribe_id']){
         case 3:
                 $farmTroops = array(21,22,24,25,26);
                 break;
-        
+        case 6:
+                $farmTroops = array(51,52,53,55,56);
+                break;
+      case 7:
+                $farmTroops = array(100,101,102,104,105);
+                break;
 }
 foreach($farmTroops as $tid){
 foreach($troops as $troopId=>$troopNum){
         if($tid == $troopId){$num = $troopNum;}
 }
-?><label>
-
-
-<select name="t[<?php echo $tid; ?>]">
-<option value="0">0</option>
-<option value="<?php echo $num*0.001;  ?>"><?php echo webhelper::fn($num*0.01) ; ?></option>
-<option value="<?php echo $num*0.005;  ?>"><?php echo webhelper::fn($num*0.05) ; ?></option>
-<option value="<?php echo $num*0.010; ?>"><?php echo webhelper::fn($num*0.10) ; ?></option>
-<option value="<?php echo $num*0.015; ?>"><?php echo webhelper::fn($num*0.15) ; ?></option>
-<option value="<?php echo $num*0.025;  ?>"><?php echo webhelper::fn($num*0.25) ; ?></option>
-
-</select>
-
- <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> 
- <b><?php echo webhelper::fn($num) ; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
+?><label><input type="text" maxlength="16" value="0" name="t[<?php echo $tid; ?>]" class="text" style="width:10%"> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo $num; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
 </div>
 
 <table cellspacing="1" cellpadding="1" id="coords">
@@ -284,7 +210,7 @@ $t = explode (' ', $t2_str);
 if ($t[1] <= 0) {
 continue;
 }
-?><img class='unit u<?php echo $t[0]; ?>' src='assets/x.gif'> <?php echo webhelper::fn($t[1]);
+?><img class='unit u<?php echo $t[0]; ?>' src='assets/x.gif'> <?php echo $t[1];
 }
 
 ?>
@@ -398,19 +324,18 @@ switch($this->data['tribe_id']){
         case 3:
                 $farmTroops = array(21,22,24,25,26);
                 break;
-      
+        case 6:
+                $farmTroops = array(51,52,53,55,56);
+                break;
+      case 7:
+                $farmTroops = array(100,101,102,104,105);
+                break;
 }
 foreach($farmTroops as $tid){
 foreach($troops as $troopId=>$troopNum){
         if($tid == $troopId){$num = $troopNum;}
 }
-?><label>
-
-<input type="number" name="t[<?php echo $tid; ?>]" value="0">
-
-
-
-<img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo webhelper::fn($num); ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
+?><label><input type="text" maxlength="16" value="0" name="t[<?php echo $tid; ?>]" class="text" style="width:10%"> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo $num; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
 </div>
 </td>
 
@@ -441,8 +366,6 @@ foreach($troops as $troopId=>$troopNum){
 <br>
 </form>
 
-<a href="farm.php?t=2">اضافة جميع قرى لاعب</a> | 
-<a href="farm.php?t=7">اضافة جميع المزارع الخاصة بك</a>
 <?php } else if($this->selectedTabIndex == 3){
 $start = 0;
 if($this->data['tribe_id'] == 2)
@@ -516,17 +439,7 @@ foreach($farmTroops as $tid){
 foreach($troops as $troopId=>$troopNum){
         if($tid == $troopId){$num = $troopNum;}
 }
-?><label>
-<select name="t[<?php echo $tid; ?>]">
-<option value="0">0</option>
-<option value="<?php echo $num*0.001;  ?>"><?php echo webhelper::fn($num*0.01) ; ?></option>
-<option value="<?php echo $num*0.005;  ?>"><?php echo webhelper::fn($num*0.05) ; ?></option>
-<option value="<?php echo $num*0.010; ?>"><?php echo webhelper::fn($num*0.10) ; ?></option>
-<option value="<?php echo $num*0.015; ?>"><?php echo webhelper::fn($num*0.15) ; ?></option>
-<option value="<?php echo $num*0.025;  ?>"><?php echo webhelper::fn($num*0.25) ; ?></option>
-
-
-</select> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo webhelper::fn($num); ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
+?><label><input type="text" maxlength="16" value="<?php echo $this->troops[$tid]; ?>" name="t[<?php echo $tid; ?>]" class="text" style="width:10%"> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo $num; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
 </div>
 </td>
 
@@ -556,5 +469,8 @@ foreach($troops as $troopId=>$troopNum){
 <br>
 <br>
 </form>
-<?php }/* }*/?>
-
+<?php 
+} 
+?>
+</body>
+</html>

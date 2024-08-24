@@ -23,13 +23,10 @@ $newcode = md5(md5(md5(time()."tatarwar.co")));
 $q->provider->executeQuery2 ("UPDATE `p_players` SET  `farming` =  '".$newcode."' WHERE id='".$this->player->playerId."';");
 $this->data['farming'] = $newcode;
 if (isset ($_GET['addfarm'])) {
-$num_farming = $this->data['num_farm']/10;
-$dollar = $this->queueModel->provider->fetchScalar('SELECT dollar FROM bank WHERE email ="'.$this->data['email'].'"');			
-
-if ($dollar >= $num_farming AND ($this->data['num_farm']+50) < 750) {
-$q->provider->executeQuery2 ("UPDATE `p_players` SET  `num_farm` =  num_farm+50 WHERE id='".$this->player->playerId."'");
-$q->provider->executeQuery2 ("UPDATE `bank` SET  `dollar`=dollar-'".$num_farming."' WHERE email='".$this->data['email']."'");
-
+$num_farming = 50+$this->data['num_farm'];
+$num_farming = (($num_farming/50)*250);
+if ($this->data['gold_num'] >= $num_farming AND ($this->data['num_farm']+50) < 750) {
+$q->provider->executeQuery2 ("UPDATE `p_players` SET  `num_farm` =  num_farm+50,gold_num=gold_num-".$num_farming." WHERE id='".$this->player->playerId."';");
 }
                        header ("Location: farm.php?more");
                        exit;
@@ -124,7 +121,7 @@ $q->provider->executeQuery2 ("UPDATE `bank` SET  `dollar`=dollar-'".$num_farming
 
                         $this->all= "";
                         foreach ( $_POST['t'] as $tid => $tnum )
-                       {if ( $tnum > 1e170 )
+                       {if ( $tnum > 9999999999999999 )
 						{		   
 							   $this->error = "يجب أن لا تتجاوز 13 خانة في رقم القوات.";   
 						}
@@ -183,7 +180,7 @@ $q->provider->executeQuery2 ("UPDATE `bank` SET  `dollar`=dollar-'".$num_farming
 
                         $this->all= "";
                         foreach ( $_POST['t'] as $tid => $tnum )
-                       {if ( $tnum > 1e170 )
+                       {if ( $tnum > 9999999999999999 )
 						{		   
 							   $this->error = "يجب أن لا تتجاوز 13 خانة في رقم القوات.";   
 						}
@@ -243,7 +240,7 @@ $q->provider->executeQuery2 ("UPDATE `bank` SET  `dollar`=dollar-'".$num_farming
                          $this->all= "";
                          foreach ( $_POST['t'] as $tid => $tnum )
                        {
-						   if ( $tnum > 1e170 )
+						   if ( $tnum > 9999999999999999 )
 						   {
 							   
 							   $this->error = "يجب أن لا تتجاوز 13 خانة في رقم القوات.";
@@ -340,7 +337,7 @@ $q->provider->executeQuery2 ("UPDATE `bank` SET  `dollar`=dollar-'".$num_farming
                        $this->all= "";
                        foreach ( $_POST['t'] as $tid => $tnum )
                        {
-						   if ( $tnum > 1e170 )
+						   if ( $tnum > 9999999999999999 )
 						   {
 							   
 							   $this->error = "يجب أن لا تتجاوز 13 خانة في رقم القوات.";
