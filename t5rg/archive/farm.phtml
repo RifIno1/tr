@@ -13,7 +13,7 @@ $get_num_loooting = $q->provider->fetchScalar('SELECT COUNT(*) FROM p_looting WH
 $num_farm = $q->provider->fetchScalar('SELECT num_farm FROM p_players WHERE id="'.$this->player->playerId.'" ');
 
 ?>
-<h1>قائمة المزارع <span style="color:#C0C0C0;" class="info">(<?php echo $num_farm+50; ?>/<span style="color:#000;" class="info"><?php echo $get_num_loooting;?></span>) <a href="farm.php?more">زياده عدد المزارع</a></span></h1>
+<h1>قائمة المزارع <span style="color:#C0C0C0;" class="info">(<?php echo $num_farm; ?>/<span style="color:#000;" class="info"><?php echo $get_num_loooting;?></span>) <a href="farm.php?more">زياده عدد المزارع</a></span></h1>
 يمكنك الأن إضافة مزارع بسهوله والهجوم عليها في أي وقت تريد بضغطة زر فقط <br><br>
 
 <div id="textmenu">
@@ -46,11 +46,11 @@ $num_farm = $q->provider->fetchScalar('SELECT num_farm FROM p_players WHERE id="
 
 }else 
 if(isset($_GET['more'])){
-if (($this->data['num_farm']+50) < 750) {
+if ($num_farm < 1000) {
 ?>
 <form method="POST" action="farm.php?dellall">
 <h4>زيادة عدد المزارع </h4>
-العدد الحالي : <?php echo $this->num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo ($this->num_farm/50)*250; ?> <img src="assets/gold.gif" title="الذهب" class="1.410472499E+13 1453480888">
+العدد الحالي : <?php echo $num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo $num_farm*100; ?> <img src="assets/x.gif" title="الذهب" class="gold">
 </form>
 <?php
 }else { 

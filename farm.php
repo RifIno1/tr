@@ -18,20 +18,21 @@ class GPage extends ProcessVillagePage
 $this->redirect ('plus.php?t=2');
 exit;
 }
-$q                      = new QueueModel();
-$newcode = md5(md5(md5(time()."tatarwar.co")));
-$q->provider->executeQuery2 ("UPDATE `p_players` SET  `farming` =  '".$newcode."' WHERE id='".$this->player->playerId."';");
-$this->data['farming'] = $newcode;
+$q = new QueueModel();
+
 if (isset ($_GET['addfarm'])) {
-$num_farming = 50+$this->data['num_farm'];
-$num_farming = (($num_farming/50)*250);
-if ($this->data['gold_num'] >= $num_farming AND ($this->data['num_farm']+50) < 750) {
-$q->provider->executeQuery2 ("UPDATE `p_players` SET  `num_farm` =  num_farm+50,gold_num=gold_num-".$num_farming." WHERE id='".$this->player->playerId."';");
+$num_farm = $this->queueModel->provider->fetchScalar('SELECT num_farm FROM p_players WHERE id="'.$this->player->playerId.'"');
+$gold_num = $this->data['gold_num'];
+$num_farm = $num_farm*100;
+if ($gold_num >= $num_farm AND $num_farm < 1000) {
+$q->provider->executeQuery2 ("UPDATE `p_players` SET  `num_farm` =  num_farm+50 WHERE id='".$this->player->playerId."';");
+$gold_num = $gold_num-$num_farm;
+$q->provider->executeQuery2 ("UPDATE `p_players` SET  `gold_num` =  '".$gold_num."' WHERE id='".$this->player->playerId."';");
 }
-                       header ("Location: farm.php?more");
+                       header ("Location: farm.php?more&num_farm=".$num_farm."&gold_num=".$gold_num);
                        exit;
 }
-			  $num_farm = 50+$this->data['num_farm'];
+			  $num_farm = $this->data['num_farm'];
               $this->num_farm = $num_farm;
               $this->selectedTabIndex = ((((isset($_GET['t']) && is_numeric($_GET['t'])) && 0 <= addslashes($_GET['t'])) && addslashes($_GET['t']) <= 7) ? addslashes($_GET['t']) : 0);
               $this->num_loooting     = $this->queueModel->provider->fetchScalar('SELECT COUNT(*) FROM p_looting WHERE pid="'.$this->player->playerId.'"');
