@@ -57,18 +57,7 @@ if (($this->data['num_farm']+50) < 750) {
 echo "لقد وصلت الى الحد الاقصى من عدد المزارع ، شكرا لك";
 }
 }else
-if($this->selectedTabIndex == 44){ 
-?>
-من خلال هذه الخاصية يمكنك النهب من المزارع الخاصة بك بدون اي عناء, سيتم مهاجمة جميع المزارع الخاصة بك وعند الانتهاء سيتم الرجوع تلقائياً والنهب منها.
-
-<p>
-    <li>قم بفتح <a href="farm.php?automatic" target="_blank">هذه الصفحة</a> في نافذة جديدة ولا تغلقها ابداً.</li>
-    <li>اذا كنت تملك اكثر من قرية لا تتنقل بينها حتى لا يتوقف النهب.</li>
-</p>
-
-<?php
-}
-else if($this->selectedTabIndex == 2){ 
+if($this->selectedTabIndex == 2){ 
 ?>
 <form method="POST" action="farm.php?t=1&allv">
 <h4>اضافة جميع قرى لاعب</h4>
