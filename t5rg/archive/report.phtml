@@ -491,6 +491,76 @@ else if ( $this->reportData['rpt_cat'] == 3 )
         echo "\">";
         echo LANGUI_RPT_T21;
         echo "</td></tr>\r\t\t\t</tbody>\r\t\t\t";
+        // table for defender with symbole of "?" in the troops number
+        if($this->reportData['to_player_id'] != $this->player->playerId){
+
+
+        echo "\t\t\t<table cellpadding=\"1\" cellspacing=\"1\" class=\"defender\">\r\t\t\t\t<thead>\r\t\t\t\t\t<tr>\r\t\t\t\t\t<td class=\"role\">";
+        echo LANGUI_RPT_T22;
+        echo "</td><td colspan=\"";
+        echo 0 < $this->reportData['defenseTroopsTable']['heros']['number'] ? 11 : 10;
+        echo "\">";
+        if ( 0 < intval( $this->reportData['to_player_id'] ) )
+        {
+            echo "<a href=\"profile.php?uid=";
+            echo $this->reportData['to_player_id'];
+            echo "\">";
+            echo $this->reportData['to_player_name'];
+            echo "</a> ";
+            echo LANGUI_RPT_T12;
+            echo " <a href=\"village3.php?id=";
+            echo $this->reportData['to_village_id'];
+            echo "\">";
+            echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+            echo "</a>";
+        }
+        else
+        {
+            echo " <a href=\"village3.php?id=";
+            echo $this->reportData['to_village_id'];
+            echo "\">";
+            echo "واحة";
+            echo "</a>";
+        }
+        echo "</td>\r\t\t\t\t\t</tr>\r\t\t\t\t</thead>\r\t\t\t\t";
+        
+        
+        
+        echo "<tbody class=\"units\">\r\t\t\t\t\t";
+        echo "\r\t\t\t\t\r\t\t\t\t<tr><th>";
+        echo LANGUI_RPT_T14;
+        echo "</th>\r\t\t\t\t";
+        for( $i = 1; $i <= 10; $i++ )
+        {
+            echo "<td class=\"none\">?</td>";
+        }
+        echo "\t\t\t\t\t";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
     }
     else
     {
