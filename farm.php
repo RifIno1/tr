@@ -20,20 +20,46 @@ exit;
 }
 $q = new QueueModel();
 
-if (isset ($_GET['addfarm'])) {
-$num_farm = $this->queueModel->provider->fetchScalar('SELECT num_farm FROM p_players WHERE id="'.$this->player->playerId.'"');
-$gold_num = $this->data['gold_num'];
-$num_farm = $num_farm*100;
-if ($gold_num >= $num_farm AND $num_farm < 1000) {
-$q->provider->executeQuery2 ("UPDATE `p_players` SET  `num_farm` =  num_farm+50 WHERE id='".$this->player->playerId."';");
-$gold_num = $gold_num-$num_farm;
-$q->provider->executeQuery2 ("UPDATE `p_players` SET  `gold_num` =  '".$gold_num."' WHERE id='".$this->player->playerId."';");
+
+$pid = $this->player->playerId;
+
+$num_farm = $this->queueModel->provider->fetchScalar("SELECT num_farm FROM p_players WHERE id = $pid");
+              
+
+
+
+
+if (isset($_GET['addfarm'])) {
+    // Calculate the required number of gold
+
+    $goldd = $this->data['gold_num'] - $num_farm;
+
+    // Check if the player has enough gold and the number of farms is within the limit
+    if (($this->data['gold_num'] >= $num_farm) && ($num_farm + 50 < 1000)) {
+        // Prepare the SQL query using parameterized queries to prevent SQL injection
+        $query = "UPDATE `p_players` SET `num_farm` = `num_farm` + 50, `gold_num` = `gold_num` - ($num_farm+50)*100 WHERE `id` = $pid";
+        
+
+        // Execute the query
+        $q->provider->executeQuery2($query, $params);
+
+        header ("Location: farm.php");
+        
+        exit;
+
+    }
 }
-                       header ("Location: farm.php?more&num_farm=".$num_farm."&gold_num=".$gold_num);
-                       exit;
-}
-			  $num_farm = $this->data['num_farm'];
-              $this->num_farm = $num_farm;
+
+
+
+
+
+
+
+
+
+
+$this->num_farm = $num_farm;
               $this->selectedTabIndex = ((((isset($_GET['t']) && is_numeric($_GET['t'])) && 0 <= addslashes($_GET['t'])) && addslashes($_GET['t']) <= 7) ? addslashes($_GET['t']) : 0);
               $this->num_loooting     = $this->queueModel->provider->fetchScalar('SELECT COUNT(*) FROM p_looting WHERE pid="'.$this->player->playerId.'"');
 

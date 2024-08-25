@@ -50,7 +50,7 @@ if ($num_farm < 1000) {
 ?>
 <form method="POST" action="farm.php?dellall">
 <h4>زيادة عدد المزارع </h4>
-العدد الحالي : <?php echo $num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo $num_farm*100; ?> <img src="assets/x.gif" title="الذهب" class="gold">
+العدد الحالي : <?php echo $num_farm; ?> ، هل تريد <a href="farm.php?addfarm">زياده 50 مزرعه</a> مقابل <?php echo ($num_farm+50)*100; ?> <img src="assets/x.gif" title="الذهب" class="gold">
 </form>
 <?php
 }else { 
@@ -324,7 +324,8 @@ foreach($farmTroops as $tid){
 foreach($troops as $troopId=>$troopNum){
         if($tid == $troopId){$num = $troopNum;}
 }
-?><label><input type="text" maxlength="16" value="0" name="t[<?php echo $tid; ?>]" class="text" style="width:10%"> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo $num; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
+?><label>
+        <input type="text" maxlength="16" value="0" name="t[<?php echo $tid; ?>]" class="text" style="width:10%"> <img class="unit u<?php echo $tid; ?>" src="assets/x.gif" alt="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>" title="<?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?>"> <b><?php echo $num; ?></b> <?php echo htmlspecialchars( constant( "troop_".($tid) ) ); ?></label><br><?php } ?>
 </div>
 </td>
 

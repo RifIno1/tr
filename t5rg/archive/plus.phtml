@@ -243,6 +243,36 @@ echo "<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(
     echo $this->getPlusAction( 6 );
     echo "</td>\r\n\t\t</tr>";
 
+    // add ( ذهب 25 ) إستكمال أوامر تدريب الجنود فورا إستكمال أوامر تدريب الجنود فورا
+    echo "<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,8);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">";
+    echo LANGUI_PLUS_T45;
+    echo "</td>\r\n\t\t\t<td class=\"dur\">";
+    echo $this->plusTable[7]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[7]['time']." ".LANGUI_PLUS_T38;
+    echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\" title=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\">";
+    echo $this->plusTable[7]['cost'];
+    echo "</td>\r\n\t\t\t<td class=\"act\">";
+    echo $this->getPlusAction( 7 );
+    echo "</td>\r\n\t\t</tr>";
+    // add رجوع التعزيزات فورا
+    echo "<tr>\r\n\t\t\t<td class=\"man\"><a href=\"#\" onclick=\"return showManual(5,9);\"><img class=\"help\" src=\"assets/x.gif\" alt=\"\" title=\"\"></a></td>\r\n\t\t\t<td class=\"desc\">";
+    echo LANGUI_PLUS_T46;
+    echo "</td>\r\n\t\t\t<td class=\"dur\">";
+    echo $this->plusTable[8]['time'] == 0 ? LANGUI_PLUS_T37 : $this->plusTable[8]['time']." ".LANGUI_PLUS_T38;
+    echo "</td>\r\n\t\t\t<td class=\"cost\"><img src=\"assets/x.gif\" class=\"gold\" alt=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\" title=\"";
+    echo LANGUI_PLUS_T6;
+    echo "\">";
+    echo $this->plusTable[8]['cost'];
+    echo "</td>\r\n\t\t\t<td class=\"act\">";
+    echo $this->getPlusAction( 8 );
+    echo "</td>\r\n\t\t</tr>";
+    
+
 
 
     echo "\t\r\n\t</tbody>\r\n</table>\r\n";

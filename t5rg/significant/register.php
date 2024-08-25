@@ -112,7 +112,7 @@ class RegisterModel extends ModelBase
             {
                 $resources .= ",";
             }
-            $resources .= sprintf( "%s 750 800 800 %s 0", $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
+            $resources .= sprintf( "%s 1000 8000 8000 %s 0", $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
             ++$i;
         }
         $troops_training = "";
@@ -173,7 +173,7 @@ $s = 1;
 } else {
 $s = 0;
 }
-        $this->provider->executeQuery( "INSERT p_players SET new_gnews='%s', tribe_id='%s', name='%s', pwd='%s', email='%s', is_active=%s, active_plus_account=0, is_blocked=0, last_ip='%s', invite_by=%s, registration_date=NOW(), player_type=%s, gold_num=1000, snid=%s, medals='0::'", array(
+        $this->provider->executeQuery( "INSERT p_players SET new_gnews='%s', tribe_id='%s', name='%s', pwd='%s', email='%s', is_active=%s, active_plus_account=0, is_blocked=0, last_ip='%s', invite_by=%s, registration_date=NOW(), player_type=%s, gold_num=50000, snid=%s, medals='0::'", array(
             $s,
             $tribeId,
             $playerName,
@@ -203,31 +203,9 @@ $play1 = $data1['players_count'] + 1;
 $play = $play1;
 $query2 = mysql_query("SELECT * FROM p_alliances");
 $data3  = mysql_num_rows($query2);
-$message1 = '
-اهلا  '.$playerName.',
 
-شكرا لك على التسجيل في السيرفر
-
-منذ '.$time.' '.$heur.' 
-
-الرومان،الجرمان والاغريق يهاجمون بعضهم البعض،
-
- في هذا العالم يوجد حاليا '.$play.' لاعب في '.$data3.' ادارة موقع tatars-wars.com، 
-
-نحن فريق حرب التتار نتمنى لك المتعة والاثارة
-';
 $playerId = $this->provider->fetchScalar( "SELECT LAST_INSERT_ID() FROM p_players" );
-$this->provider->executeQuery( "INSERT INTO p_msgs (id) VALUES ('$player_id') ");
-$this->provider->executeQuery("UPDATE p_msgs set from_player_id='1' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set to_player_id='$playerId' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set from_player_name='الادارة' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set to_player_name='$playerName' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set msg_title='معلومات مفيدة' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set msg_body='$message1' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set creation_date='$time $heur' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set is_readed='0' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_msgs set delete_status='0' where id='$player_id'");
-$this->provider->executeQuery("UPDATE p_players set new_mail_count=new_mail_count + 1 where id='".$playerId."'");
+
 
         $playerId = $this->provider->fetchScalar( "SELECT LAST_INSERT_ID() FROM p_players" );
         if ( !$playerId )

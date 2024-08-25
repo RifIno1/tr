@@ -125,7 +125,7 @@ return null;
 
 }
 if (isset($_GET['backtroops0'])) {
-$gback = $GLOBALS['AppConfig']['Game']['plus9'];
+$gback = $GLOBALS['AppConfig']['Game']['plus8'];
 $tatarg = new QueueModel();
 $vid = $this->data['selected_village_id'];
 $gq = 0;
