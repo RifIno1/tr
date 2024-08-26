@@ -149,16 +149,13 @@ class ReportModel extends ModelBase
         ));
         }
     function getPlayerName($playerId)
-        {
-        return $this->provider->fetchScalar('SELECT p.name FROM p_players p WHERE p.id=%s', array(
-            $playerId
-        ));
-        }
+    {
+        return $this->provider->fetchScalar('SELECT p.name FROM p_players p WHERE p.id=%s', array( $playerId ));
+    }
     function getVillageName($villageId)
-        {
-        return $this->provider->fetchScalar('SELECT v.village_name FROM p_villages v WHERE v.id=%s', array(
-        ));
-        }
+    {
+        return $this->provider->fetchScalar('SELECT v.village_name FROM p_villages v WHERE v.id=%s', array( $villageId));
+    }
     function createReport($fromPlayerId, $toPlayerId, $fromVillageId, $toVillageId, $reportCategory, $reportResult, $body, $timeInSeconds)
         {
         $fromPlayerId    = intval($fromPlayerId);
