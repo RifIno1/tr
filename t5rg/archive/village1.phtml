@@ -59,22 +59,27 @@ echo '        <map name="rx" id="rx">
                         </tr>';
                 }
                 $war = $this->queueModel->tasksInQueue['war_troops_summary']['to_me']['reinforce'];
-                if(0 < $war['number']){echo '
+                if ($war['number'] > 0) {
+                        echo '
                         <tr>
-                                
-                                <td class="typ">
-                                        <a href="build.php?id=39"><img src="assets/x.gif" class="def1" alt="'.LANGUI_VIL1_T6.'" title="'.LANGUI_VIL1_T6.'"></a>
-                                        <span class="d1">»</span>
-                                </td>
-                                <td>
-                                        <div class="mov"><span class="d1">'.$war['number'].' '.LANGUI_VIL1_T7.'</span></div>
-                                        &ensp;
-                                        <a href="plus.php?backtroops0"><img src="assets/x.gif" class="clock" alt="وصول التعزيزات فورا" title="وصول التعزيزات فورا"></a>
-                                        
-                                        '.text_in_lang.' <span id="timer1">'.WebHelper::secondstostring($war['min_time']).'</span>
-                                </td>
+                            <td class="typ">
+                                <a href="build.php?id=39"><img src="assets/x.gif" class="def1" alt="' . LANGUI_VIL1_T6 . '" title="' . LANGUI_VIL1_T6 . '"></a>
+                                <span class="d1">»</span>
+                            </td>
+                            <td>
+                                <div class="mov"><span class="d1">' . $war['number'] . ' ' . LANGUI_VIL1_T7 . '</span></div>';
+                        
+                        // check if plus ac
+                        $gback = $GLOBALS['AppConfig']['Game']['plus8'];
+                        if ($gback <= $this->data['gold_num']) {
+                            echo '&ensp;<a href="plus.php?backtroops0"><img src="assets/x.gif" class="clock" alt="وصول التعزيزات فورا" title="وصول التعزيزات فورا"></a>';
+                        }
+                        echo '&ensp;';
+                        echo text_in_lang . ' <span id="timer1">' . WebHelper::secondstostring($war['min_time']) . '</span>
+                            </td>
                         </tr>';
-                }
+                    }
+                    
                 $war = $this->queueModel->tasksInQueue['war_troops_summary']['from_me']['attacks'];
                 if(0 < $war['number']){echo '
                         <tr>
