@@ -84,18 +84,26 @@ if ( $this->showList )
         echo $this->dataList->row['id'];
         echo "\">";
 
+        echo $this->dataList->row['from_village_name'];
 
-        echo $this->getVillageName( $this->dataList->row['from_player_id'], $this->dataList->row['from_village_name'] );
+        /*
+        if ($this->dataList->row['from_player_id'] != 0 && $this->dataList->row['from_village_id'] != 0 && $this->dataList->row['from_village_name'] != '') {
+
+            echo $this->getVillageName( $this->dataList->row['from_player_id'], $this->dataList->row['from_village_name'] );
+           
+        }
+            */
+        
+
         echo ReportHelper::getreportactiontext( $this->dataList->row['rpt_cat'] );
         $to_vilage_name =  $this->getVillageName( $this->dataList->row['to_player_id'], $this->dataList->row['to_village_name'] );
-        echo $to_vilage_name;
+        // echo $to_vilage_name;
 
         if ($to_vilage_name == '') {
             echo 'واحة';
         }else {
-            echo $this->getVillageName( $this->dataList->row['to_player_id'], $this->dataList->row['to_village_id'] );
+            echo $to_vilage_name;
         }
-
         echo "</a>";
        
  if ( !$this->dataList->row['is_readed'] )

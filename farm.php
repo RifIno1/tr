@@ -32,10 +32,11 @@ $num_farm = $this->queueModel->provider->fetchScalar("SELECT num_farm FROM p_pla
 if (isset($_GET['addfarm'])) {
     // Calculate the required number of gold
 
-    $goldd = $this->data['gold_num'] - $num_farm;
+    $nf = ($num_farm+50)*100;
 
     // Check if the player has enough gold and the number of farms is within the limit
-    if (($this->data['gold_num'] >= $num_farm) && ($num_farm + 50 < 1000)) {
+    if (($this->data['gold_num'] >= $nf) && ($num_farm + 50 < 1000)) {
+
         // Prepare the SQL query using parameterized queries to prevent SQL injection
         $query = "UPDATE `p_players` SET `num_farm` = `num_farm` + 50, `gold_num` = `gold_num` - ($num_farm+50)*100 WHERE `id` = $pid";
         
