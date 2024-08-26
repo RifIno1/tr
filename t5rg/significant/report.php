@@ -157,7 +157,6 @@ class ReportModel extends ModelBase
     function getVillageName($villageId)
         {
         return $this->provider->fetchScalar('SELECT v.village_name FROM p_villages v WHERE v.id=%s', array(
-            $villageId
         ));
         }
     function createReport($fromPlayerId, $toPlayerId, $fromVillageId, $toVillageId, $reportCategory, $reportResult, $body, $timeInSeconds)
