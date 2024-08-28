@@ -625,30 +625,21 @@ $m->dispose ();
 }  
 
 
-
-
-
-
+////////////////////////////////////////////// to fix the error in the code ; anwar
 function _getTroopCropConsumption ($troopsArray)  
 {  
-$parts = explode(' ', $troopsArray);
-$TotalConsum = 0;
-
-// Loop through the parts and add to sum if they are numeric
-foreach ($parts as $part) {
-    $cleanPart = str_replace(',', '.', $part);
-    
-    if (is_numeric($cleanPart)) {
-        $TotalConsum += (int)$cleanPart; // Cast to float for proper summation
-    }
-} 
-
-return $TotalConsum;
+$GameMetadata = $GLOBALS['GameMetadata'];  
+$consume = 0;  
+foreach ($troopsArray['troops'] as $tid => $tnum)  
+{  
+$consume += $GameMetadata['troops'][$tid]['crop_consumption'] * $tnum;  
 }  
-
-
-
-
+if ($troopsArray['hasHero'])  
+{  
+$consume += $GameMetadata['troops'][$troopsArray['heroTroopId']]['crop_consumption'];  
+}  
+return $consume;  
+}  
 
 
 
