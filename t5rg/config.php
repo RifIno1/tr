@@ -1,9 +1,9 @@
 <?php
-// Report only errors, hide warnings and notices
+/* Report only errors, hide warnings and notices
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+*/
 $AppConfig = array (
         'db'                 
                                 => array (

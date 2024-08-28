@@ -41,7 +41,7 @@ class NewVillageBattleModel extends BattleModel
             {
                 $resources .= ",";
             }
-            $resources .= sprintf( "%s 750 800 800 %s 0", $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
+            $resources .= sprintf( "%s 1000 8000 8000 %s 0", $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
             ++$i;
         }
         $troops_training = "";

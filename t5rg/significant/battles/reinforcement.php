@@ -124,28 +124,50 @@ class ReInforcementBattleModel extends BattleModel
         return FALSE;
     }
 
+
+    
+
+
     public function _addTroopsToVillage( $toVillageRow, $fromVillageRow, $addTroopsArray, $affectCropConsumption )
     {
         $troopsCropConsume = 0;
         $t = $toVillageRow['player_id'] == $fromVillageRow['player_id'] && !$toVillageRow['is_oasis'] && $addTroopsArray['onlyHero'] ? $toVillageRow['troops_num'] : $this->_getNewTroops( $toVillageRow['troops_num'], $addTroopsArray, $fromVillageRow['id'], $toVillageRow['player_id'] == $fromVillageRow['player_id'] && !$toVillageRow['is_oasis'] );
+        
+        // get the consumation of the troops that are going to be sent
+$parts = explode(' ', $t);
+$TotalConsum = 0;
+
+// Loop through the parts and add to sum if they are numeric
+foreach ($parts as $part) {
+    $cleanPart = str_replace(',', '.', $part);
+    
+    if (is_numeric($cleanPart)) {
+        $TotalConsum += (int)$cleanPart; // Cast to float for proper summation
+    }
+}
+
         if ( !$toVillageRow['is_oasis'] )
         {
             $this->provider->executeQuery( "UPDATE p_villages v SET v.troops_num='%s', v.crop_consumption=v.crop_consumption+%s WHERE v.id=%s", array(
                 $t,
-                $troopsCropConsume,
+                $TotalConsum,
                 intval( $toVillageRow['id'] )
             ) );
         }
+
+
         else if ($toVillageRow['is_oasis'] && $toVillageRow['player_id'] == $this->player->playerId) {
                   $this->provider->executeQuery( "UPDATE p_villages v SET v.troops_num='%s', v.crop_consumption=v.crop_consumption+%s WHERE v.id=%s", array(
                 $t,
-                $troopsCropConsume,
+                $TotalConsum,
                 intval( $toVillageRow['id'] )
             ) );
-        }else
+        }
+        
+        else
         {
             $this->provider->executeQuery( "UPDATE p_villages v SET v.crop_consumption=v.crop_consumption+%s WHERE v.id=%s", array(
-                $troopsCropConsume,
+                $TotalConsum,
                 intval( $toVillageRow['parent_id'] )
             ) );
             $this->provider->executeQuery( "UPDATE p_villages v SET v.troops_num='%s' WHERE v.id=%s", array(
@@ -153,13 +175,44 @@ class ReInforcementBattleModel extends BattleModel
                 intval( $toVillageRow['id'] )
             ) );
         }
+
+
+        // from
         $t = $toVillageRow['player_id'] == $fromVillageRow['player_id'] && !$toVillageRow['is_oasis'] && $addTroopsArray['onlyHero'] ? $fromVillageRow['troops_out_num'] : $this->_getNewTroops( $fromVillageRow['troops_out_num'], $addTroopsArray, $toVillageRow['id'], $toVillageRow['player_id'] == $fromVillageRow['player_id'] && !$toVillageRow['is_oasis'] );
-        $this->provider->executeQuery( "UPDATE p_villages v  SET v.troops_out_num='%s', v.crop_consumption=v.crop_consumption-%s WHERE v.id=%s", array(
-            $t,
-            $troopsCropConsume,
-            intval( $fromVillageRow['id'] )
-        ) );
+        // get consumation of this village
+  
+// Sanitize the input to avoid SQL injection
+$villageId = intval($fromVillageRow['id']);
+
+// get the consumation of the troops that are going to be sent
+$parts = explode(' ', $t);
+$TotalConsum = 0;
+
+// Loop through the parts and add to sum if they are numeric
+foreach ($parts as $part) {
+    $cleanPart = str_replace(',', '.', $part);
+    
+    if (is_numeric($cleanPart)) {
+        $TotalConsum += (int)$cleanPart; // Cast to float for proper summation
     }
+}
+
+
+// First query: Update the troops_out_num
+$this->provider->executeQuery("
+    UPDATE p_villages v 
+    SET v.troops_out_num = '$t' 
+    WHERE v.id = '$villageId'
+");
+
+// Second query: Adjust the crop_consumption
+$this->provider->executeQuery("
+    UPDATE p_villages v 
+    SET v.crop_consumption = v.crop_consumption-$TotalConsum 
+    WHERE v.id = '$villageId'
+");
+
+}
 
 }
 

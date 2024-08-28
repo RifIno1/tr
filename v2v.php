@@ -623,20 +623,35 @@ $this->backTroopsProperty['time'] = intval ($distance / $this->_getTheSlowestTro
 }  
 $m->dispose ();  
 }  
+
+
+
+
+
+
 function _getTroopCropConsumption ($troopsArray)  
 {  
-$GameMetadata = $GLOBALS['GameMetadata'];  
-$consume = 0;  
-foreach ($troopsArray['troops'] as $tid => $tnum)  
-{  
-$consume += $GameMetadata['troops'][$tid]['crop_consumption'] * $tnum;  
+$parts = explode(' ', $troopsArray);
+$TotalConsum = 0;
+
+// Loop through the parts and add to sum if they are numeric
+foreach ($parts as $part) {
+    $cleanPart = str_replace(',', '.', $part);
+    
+    if (is_numeric($cleanPart)) {
+        $TotalConsum += (int)$cleanPart; // Cast to float for proper summation
+    }
+} 
+
+return $TotalConsum;
 }  
-if ($troopsArray['hasHero'])  
-{  
-$consume += $GameMetadata['troops'][$troopsArray['heroTroopId']]['crop_consumption'];  
-}  
-return $consume;  
-}  
+
+
+
+
+
+
+
 function _getTroopAsString ($troopsArray)  
 {  
 $str = '';  

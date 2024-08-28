@@ -157,7 +157,10 @@ else if ( $this->reportData['rpt_cat'] == 1 )
     echo ":</th>\r\t\t\t<th>";
     echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
     echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+    echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
     echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+    echo "</a>";
+
     if (($this->reportData['to_player_id'] == $this->reportData['from_player_id']) && $this->reportData['to_village_name'] == '') {
         echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo 'واحة';
@@ -233,7 +236,9 @@ else if ( $this->reportData['rpt_cat'] == 2 )
     echo ":</th>\r\t\t\t<th>";
     echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
     echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+    echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
     echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+    echo "</a>";
 
     if (($this->reportData['to_player_id'] == $this->reportData['from_player_id']) && $this->reportData['to_village_name'] == '') {
         echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
@@ -346,7 +351,9 @@ else if ( $this->reportData['rpt_cat'] == 3 )
     echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
     $vilage_name = $this->queueModel->provider->fetchScalar("SELECT v.village_name FROM p_villages v WHERE v.id = " . $this->reportData['to_village_id']);
     if (isset($vilage_name)) {
+        echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo $vilage_name;
+        echo "</a>";
     }else {
         echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo 'واحة';
@@ -776,7 +783,9 @@ else if ( $this->reportData['rpt_cat'] == 4 )
     echo ":</th>\r\t\t\t<th>";
     echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
     echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+    echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
     echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+    echo "</a>";
     if (($this->reportData['to_player_id'] == $this->reportData['from_player_id']) && $this->reportData['to_village_name'] == '') {
         echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo 'واحة';
@@ -1091,7 +1100,9 @@ else if ( $this->reportData['rpt_cat'] == 5 )
     $name = $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
 
     if ($name) {
+        echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo $name;
+        echo '</a>';
     }else {
         echo '<a href="village3.php?id=' . $this->reportData['to_village_id'] . '">';
         echo 'واحة';

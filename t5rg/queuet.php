@@ -10,7 +10,7 @@ $m = new BuildModel();
   while ($row= mysql_fetch_array($result)) {
 $pos = strpos($row['buildings'],'40 ');
 $att = $row['tatar'];
-// $msg = $row['tatar_msg'];
+$msg = $row['tatar_msg'];
 $player_name = 'التتار';
 if($pos === false) {
     $wwlvl = '0';
@@ -28,7 +28,7 @@ $tatar_attacker = $rowss['id'];
 $myId = $this->player->playerId;
 $myId = $this->player->playerId;
 if ( $wwlvl > 0 && $msg == 0){
-mysql_query("UPDATE p_villages set tatar_msg=tatar_msg+ 1 where id=$vlvid") or die(mysql_error());
+// mysql_query("UPDATE p_villages set tatar_msg=tatar_msg+ 1 where id=$vlvid") or die(mysql_error());
 $player_id = mt_rand(1000000 ,1500000);
 $time = date("20y-m-d");
 $heur =  date( "G:i:s");

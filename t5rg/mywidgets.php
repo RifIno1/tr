@@ -32,20 +32,18 @@ $session_timeout = $this->gameMetadata['session_timeout'];// in minute(s)
 @session_cache_expire ($session_timeout);// expiretime is the lifetime in minutes
 session_start ();
 
-if (isset($_GET['ghmkinart368207'])){
+if (isset($_GET['art'])){
 require( APP_PATH."config.php" );
 $db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
 mysql_select_db($AppConfig['db']['database'], $db_connect);
 require_once( MODEL_PATH . 'art.php' );
-}else {
 }
 
-if (isset($_GET['ghmkintatar368207'])){
+if (isset($_GET['tatar'])){
 $m = new QueueModel();
 $m->provider->executeQuery2("UPDATE g_summary SET tatar_over=1");
 $m->provider->executeQuery2("UPDATE p_queue SET end_date=NOW() WHERE id='1'");
 $m->provider->executeQuery2("UPDATE p_queue SET execution_time='0' WHERE id='1'");
-}else {
 }
 //setup
 require( APP_PATH."config.php" );
