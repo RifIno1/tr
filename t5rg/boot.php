@@ -29,7 +29,7 @@ require( APP_PATH."components.php" );
 require( APP_PATH."mywidgets.php" );
 #require( APP_PATH."herolevel.php" );
 #require( APP_PATH."att-tatar.php" );
-$cookie = ClientData::getinstance( );
+$cookie = ClientData::getinstance();
 $AppConfig['system']['lang'] = "ar";
 define( "LANG_PATH", APP_PATH."lang".DIRECTORY_SEPARATOR.$AppConfig['system']['lang'].DIRECTORY_SEPARATOR );
 define( "LANG_UI_PATH", LANG_PATH."ui".DIRECTORY_SEPARATOR );

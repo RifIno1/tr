@@ -142,7 +142,6 @@ while ($result->next())
 $k++;
 $end = strtotime($result->row['end_date']);
 $time = date('Y-m-d G:i:s', strtotime("-144000 seconds"));
-echo $end-$time."-";
 if ($end-$time <= 30) {
 continue;
 }else {

@@ -1,13 +1,13 @@
 <?php
 
 // Connect to the database
-$connection = mysql_connect("localhost", "root", "");
+$connection = mysql_connect("php56-db", "Anwar123", "Anwar123");
 if (!$connection) {
     die("Connection failed: " . mysql_error());
 }
 
 // Select the database
-$db_selected = mysql_select_db("tatar", $connection);
+$db_selected = mysql_select_db("Anwar123", $connection);
 if (!$db_selected) {
     die("Can't use tatar: " . mysql_error());
 }
@@ -65,9 +65,6 @@ if ($playerId == $fromVillagePlayerId || $playerId == $toVillagePlayerId) {
     if (!$result2) {
         die("Error in query: " . mysql_error());
     }
-
-
-
 }
 
 if ($result1 && $result2) {
