@@ -446,6 +446,12 @@ $num = $tid == 49 || $tid == 50 ? 0 : mt_rand(50000, 1111111);
                 $villageRow['alliance_name'],
                 intval($oasisId)
             ));
+            // apply this oasis to all the villages of the player and the village must not be an oasis
+            $this->provider->executeQuery("UPDATE p_villages v\r\n\t\t\t\tSET\r\n\t\t\t\t\tv.village_oases_id=CONCAT_WS(',', v.village_oases_id, %s),\r\n\t\t\t\t\tv.last_update_date=NOW()\r\n\t\t\tWHERE v.player_id=%s AND v.is_oasis=0", array(
+                intval($oasisId),
+                intval($playerId)
+            ));
+
             }
         else
             {
@@ -453,6 +459,14 @@ $num = $tid == 49 || $tid == 50 ? 0 : mt_rand(50000, 1111111);
                 intval($oasisId)
             ));
             }
+
+
+
+
+
+
+
+
         $village_oases_id = "";
         if ($capture)
             {
@@ -479,10 +493,30 @@ $num = $tid == 49 || $tid == 50 ? 0 : mt_rand(50000, 1111111);
                 $village_oases_id .= $oid;
                 }
             }
+
+
+ 
+        /* get all village id of the player and the village must not be an oasis
+        $villageIds = $this->provider->fetchScalar("SELECT GROUP_CONCAT(v.id) FROM p_villages v WHERE v.player_id=%s AND v.is_oasis=0", array(
+            intval($playerId)
+        ));
+
+        foreach(explode(",", $villageIds) as $villageId)
+        {
+        // get villageId resources
+        $villageRow = $this->provider->fetchRow("SELECT\r\n\t\t\t\tv.resources,\r\n\t\t\t\tv.elapsedTimeInSeconds,\r\n\t\t\t\tv.crop_consumption,\r\n\t\t\t\tv.cp\r\n\t\t\tFROM p_villages v\r\n\t\t\tWHERE v.id=%s", array(
+            intval($villageId)
+
+        ));
+
+        */
+
+        // to fix : add resources for all villages of the player : anwar
+
         $resultArr  = $this->_getResourcesArray($villageRow['resources'], $villageRow['elapsedTimeInSeconds'], $villageRow['crop_consumption'], $villageRow['cp']);
         $oasisIndex = $this->provider->fetchScalar("SELECT v.image_num FROM p_villages v WHERE v.id=%s", array(
             intval($oasisId)
-        ));
+        ));        
         $oasisRes   = $GLOBALS['SetupMetadata']['oasis'][$oasisIndex];
         $factor     = $capture ? 1 : 0 - 1;
         foreach ($oasisRes as $k => $v)
@@ -499,7 +533,16 @@ $num = $tid == 49 || $tid == 50 ? 0 : mt_rand(50000, 1111111);
             $village_oases_id,
             intval($villageId)
         ));
+
+        
+        
+
         }
+        
+
+
+
+
     public function executeLeaveOasisTask($taskRow)
         {
         $this->captureOasis($taskRow['building_id'], $taskRow['player_id'], $taskRow['village_id'], FALSE);

@@ -8,23 +8,24 @@ $AppConfig = array (
         'db'                 
                                 => array (
                                       
+              /*                         
                 'host'                                => 'php56-db',
                 'user'                                => 'Anwar123',
                 'password'                        => 'Anwar123',
                 'database'                        => 'Anwar123',
+ */         
+          
 
- /*
                 'host'                                => 'localhost',
                 'user'                                => 'root',
                 'password'                        => '',
                 'database'                        => 'tatar',
-        */         
-                
+             
         ),
                 'Game'                         => array (
                 'speed'                      => '10000', // سرعة اللعبه
                 'map'                      => '801', // حجم الخريطه
-                'attack'        => '30', // سرعه الهجوم
+                'attack'        => '700', // سرعه الهجوم
                 'protection'        => '1', // الحمايه بالساعات , ضف الساعه فقط 120 = 5 ايام فقط 
                 'protectionx'        => '0', // تدبيل الحمايه يفضل 0
                 'X'                 => '1328827643', // لاتغير الرقم

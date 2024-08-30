@@ -616,23 +616,17 @@ mysql_select_db($AppConfig['db']['database'], $db_connect);
 $id = $toVillageRow['id'];
 $active = mysql_query("SELECT * From p_villages WHERE id='$id'");
 $toVillageRow = mysql_fetch_array($active);
-$query1 = "select * From p_villages where is_artefact=1 AND parent_id='".$fromVillageRow['id']."'";
+$query1 = "select * From p_villages where AND parent_id='".$fromVillageRow['id']."'";
 $numberOfOwnedOasesart = mysql_num_rows(mysql_query($query1));
-    if ( $toVillageRow['is_artefact'] == 1 ) {
-            if ($TreasuryLevel == 10 && $numberOfOwnedOasesart == 0) {
-                $canCaptureOasis = $numberOfOwnedOases < 7;
-            }else {
-                $canCaptureOasis = $numberOfOwnedOases < 0;
-            }
-            } else {
-            if ( $heroBuildingLevel == 20 && $toVillageRow['is_artefact'] == 0){
-                $canCaptureOasis = $numberOfOwnedOases < 6;
-            } else if ( 15 <= $heroBuildingLevel && $toVillageRow['is_artefact'] == 0 ){
-                $canCaptureOasis = $numberOfOwnedOases < 4;
-            } else if ( 10 <= $heroBuildingLevel && $toVillageRow['is_artefact'] == 0 ){
+    
+            if ( $heroBuildingLevel == 20 ){
+                $canCaptureOasis = $numberOfOwnedOases < 3;
+            } else if ( 15 <= $heroBuildingLevel ){
                 $canCaptureOasis = $numberOfOwnedOases < 2;
+            } else if ( 10 <= $heroBuildingLevel ){
+                $canCaptureOasis = $numberOfOwnedOases < 1;
             }
-            }
+            
             
             $oasisInRang = TRUE;
             $rang = 3;
@@ -1392,7 +1386,15 @@ if ( !$warResult['all_attack_killed'] && $procInfo['troopsArray']['hasHero'] )
  if ( $doReset )
  {
 // start till later
- $this->provider->executeQuery( "UPDATE p_villages v \r\n\t\t\t\tSET \r\n\t\t\t\t\tv.tribe_id=IF(v.is_oasis=1, 4, 0),\r\n\t\t\t\t\tv.parent_id=NULL,\r\n\t\t\t\t\tv.player_id=NULL,\r\n\t\t\t\t\tv.alliance_id=NULL,\r\n\t\t\t\t\tv.player_name=NULL,\r\n\t\t\t\t\tv.village_name=NULL,\r\n\t\t\t\t\tv.alliance_name=NULL,\r\n\t\t\t\t\tv.is_capital=0,\r\n\t\t\t\t\tv.people_count=2,\r\n\t\t\t\t\tv.crop_consumption=2,\r\n\t\t\t\t\tv.time_consume_percent=100,\r\n\t\t\t\t \tv.offer_merchants_count=0,\r\n\t\t\t\t\tv.resources=NULL,\r\n\t\t\t\t\tv.cp=NULL,\r\n\t\t\t\t\tv.buildings=NULL,\r\n\t\t\t\t\tv.troops_training=NULL,\r\n\t\t\t\t\tv.child_villages_id=NULL,\r\n\t\t\t\t\tv.village_oases_id=NULL,\r\n\t\t\t\t\tv.troops_trapped_num=0,\r\n\t\t\t\t\tv.allegiance_percent=100,\r\n\t\t\t\t\tv.troops_num=IF(v.is_oasis=1, '-1:31 0,34 0,37 0', NULL),\r\n\t\t\t\t\tv.troops_out_num=NULL,\r\n\t\t\t\t\tv.troops_intrap_num=NULL,\r\n\t\t\t\t\tv.troops_out_intrap_num=NULL,\r\n\t\t\t\t\tv.creation_date=NOW()\r\n\t\t\t\tWHERE v.id=%s OR (v.parent_id=%s AND v.is_oasis=1)", array(
+ $this->provider->executeQuery( "UPDATE p_villages v \r\n\t\t\t\tSET \r\n\t\t\t\t\tv.tribe_id=IF(v.is_oasis=1, 4, 0),\r\n\t\t\t\t\t
+ v.parent_id=NULL,\r\n\t\t\t\t\tv.player_id=NULL,\r\n\t\t\t\t\tv.alliance_id=NULL,\r\n\t\t\t\t\tv.player_name=NULL,\r\n\t\t\t\t\t
+ v.village_name=NULL,\r\n\t\t\t\t\tv.alliance_name=NULL,\r\n\t\t\t\t\tv.is_capital=0,\r\n\t\t\t\t\tv.people_count=2,\r\n\t\t\t\t\t
+ v.crop_consumption=2,\r\n\t\t\t\t\tv.time_consume_percent=100,\r\n\t\t\t\t \tv.offer_merchants_count=0,\r\n\t\t\t\t\t
+ v.resources=NULL,\r\n\t\t\t\t\tv.cp=NULL,\r\n\t\t\t\t\tv.buildings=NULL,\r\n\t\t\t\t\tv.troops_training=NULL,\r\n\t\t\t\t\t
+ v.child_villages_id=NULL,\r\n\t\t\t\t\tv.village_oases_id=NULL,\r\n\t\t\t\t\tv.troops_trapped_num=0,\r\n\t\t\t\t\t
+ v.allegiance_percent=100,\r\n\t\t\t\t\tv.troops_num=IF(v.is_oasis=1, '-1:31 0,34 0,37 0', NULL),\r\n\t\t\t\t\t
+ v.troops_out_num=NULL,\r\n\t\t\t\t\tv.troops_intrap_num=NULL,\r\n\t\t\t\t\tv.troops_out_intrap_num=NULL,\r\n\t\t\t\t\t
+ v.creation_date=NOW()\r\n\t\t\t\tWHERE v.id=%s OR (v.parent_id=%s AND v.is_oasis=1)", array(
 intval( $villageId ),
 intval( $villageId )
 ) );

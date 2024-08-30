@@ -553,12 +553,12 @@ CREATE TABLE `p_players` (
                     $is_oasis = 1;
                     $tribe_id = 4;
                     $creation_date = "NOW()";
-                    $troops_num = $oasis_troop_ids[mt_rand( 0, 2 )]." ".mt_rand( 1, 5 );
-                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 3, 5 )]." ".mt_rand( 2, 6 );
-                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 6, 8 )]." ".mt_rand( 3, 7 );
+                    $troops_num = $oasis_troop_ids[mt_rand( 0, 20000 )]." ".mt_rand( 10000, 50000 );
+                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 3000, 50000 )]." ".mt_rand( 2000, 60000 );
+                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 6000, 8000 )]." ".mt_rand( 3000, 7000 );
                     if ( mt_rand( 0, 1 ) == 1 )
                     {
-                        $troops_num .= ",".$oasis_troop_ids[9]." ".mt_rand( 2, 8 );
+                        $troops_num .= ",".$oasis_troop_ids[9]." ".mt_rand( 2000, 8000 );
                     }
                     $troops_num = "-1:".$troops_num;
                 }

@@ -808,16 +808,21 @@ class GPage extends VillagePage
                 // Assuming connection to the database is already established
                 $cropConsumption = $this->_getTroopCropConsumption($sendTroopsArray);
 
+                require( APP_PATH."config.php" );
                 $db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
                 mysql_select_db($AppConfig['db']['database'], $db_connect);
 
+                // echo $AppConfig['db']['database'];
+                // echo "<br>";
+
                 $queries = [
-                    "UPDATE p_villages SET crop_consumption = crop_consumption - {$cropConsumption} WHERE id = {$fromVillageId}",
-                    "UPDATE p_villages SET crop_consumption = crop_consumption + {$cropConsumption} WHERE id = {$toVillageId}"
+                    "UPDATE p_villages v SET v.crop_consumption = v.crop_consumption - {$cropConsumption} WHERE v.id = {$fromVillageId}",
+                    "UPDATE p_villages v SET v.crop_consumption = v.crop_consumption + {$cropConsumption} WHERE v.id = {$toVillageId}"
                 ];
 
                 foreach ($queries as $query) {
                     if (!mysql_query($query)) {
+                        // echo $query;
                         die('Error in query: ' . mysql_error());
                     }
                 }
