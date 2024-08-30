@@ -5,6 +5,12 @@ require_once MODEL_PATH . 'build.php';
 require_once MODEL_PATH . 'village3.php';
 class GPage extends VillagePage
 {
+
+    // connection to the database
+    public $provider = null;
+
+
+
 var $productionPane = TRUE;
 var $buildingView = '';
 var $buildingIndex = -1;
@@ -245,6 +251,27 @@ break;
 }
 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function handleBlacksmithArmoury ()
 {
 $this->troopsUpgradeType = ($this->buildings[$this->buildingIndex]['item_id'] == 12 ? QS_TROOP_UPGRADE_ATTACK : QS_TROOP_UPGRADE_DEFENSE);
@@ -1865,6 +1892,11 @@ $exchangeResource .= 'r' . $k . '=' . $v * $num;
 return ' | <a href="build.php?bid=17&t=3&rid=' . $buildingIndex . '&' . $exchangeResource . '" title="' . buildings_p_m2m . '"><img class="npc' . ($canExchange ? '' : '_inactive') . '" src="assets/x.gif" alt="' . buildings_p_m2m . '" title="' . buildings_p_m2m . '"></a>';
 }
 }
+
+
+
+
+
 $p = new GPage ();
 $p->run ();
 ?>

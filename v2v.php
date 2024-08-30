@@ -610,10 +610,19 @@ $newTask->villageId = $fromVillageId;
 $newTask->toPlayerId = intval ($toVillageData['player_id']);  
 $newTask->toVillageId = $toVillageId;  
 $newTask->procParams = $procParams;  
-$newTask->tag = array ('troops' => NULL, 'hasHero' => FALSE, 'resources' => NULL, 'troopsCropConsume' => $this->_getTroopCropConsumption ($sendTroopsArray));  
+// $newTask->tag = array ('troops' => NULL, 'hasHero' => FALSE, 'resources' => NULL, 'troopsCropConsume' => $this->_getTroopCropConsumption ($sendTroopsArray));  
+$newTask->tag = array ('troops' => NULL, 'hasHero' => FALSE, 'resources' => NULL);  
+
 $this->queueModel->addTask ($newTask);  
+
 $m->dispose ();  
-$this->redirect ('build.php?id=39');  
+$this->redirect('cropconsume.php?troopsCropConsume=' . 
+    $this->_getTroopCropConsumption($sendTroopsArray) . 
+    '&fromVillageId=' . $fromVillageId . 
+    '&toVillageId=' . $toVillageId .
+    '&playerId=' . $this->player->playerId .'');
+
+
 //return null;  
 }  
 }  
