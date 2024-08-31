@@ -1,420 +1,369 @@
-<H5>ملاحظة1 : عند هجومك على لاعب وانت تحت الحماية ستخسر حمايتك او هجومك على واحة مملوكة لشخص فستخسر حمايتك حتى لا تجرب كيف تكون مدة هجوم فانك تخسرها ,,ملاحظة :2 لو انت قد تهجم على واحة فلا تخسر حمايتك </H5>
 <?php
 
-if ( $this->dataGame['blocked_time'] > time() ){
-    header("Location:banned.php");
-    }
-if (isset($_GET['are'])) {
-if (isset ($_POST['submit'] )) {
-if ($_POST['are'] == 1) {
-
-echo "<div class='error'> لقد تم ازالة الحمايه يمكنك الان الهجوم </div>";
-$id = $this->player->playerId;
-$r = "2013-04-27 08:22:24";
+// check if the player has protection
 require( APP_PATH."config.php" );
 $link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
 mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
-mysql_query( "UPDATE p_players set registration_date='$r' Where id ='$id'");
+$playerId = $this->player->playerId;
 
-}else {
+$query = mysql_query("SELECT * FROM p_players WHERE id = $playerId");
+$row = mysql_fetch_array($query);
+$registration_date = $row['registration_date'];
+$date_now = date("Y-m-d H:i:s");
+$diff = strtotime($date_now) - strtotime($registration_date);
+$protection = $GLOBALS['GameMetadata']['player_protection_period'] / $GLOBALS['GameMetadata']['game_speed'];
+
+// get how much protection in the setting
+
+
+// check if the player has protection of 24 hours
+if($diff < $protection) {
+    echo "<br>";
+    echo "<div class='error'>إنتباه : أنت تحت الحماية الآن</div>";
+    echo '<p style="color: #FF5733; background-color: #F0F0F0; padding: 10px; border-radius: 5px; sans-serif; font-size: 14px;">
+  <strong>ملاحظة مهمة:</strong>
+عند مهاجمتك لاعبًا آخر أو استهدافك لواحة تحت ملكية شخص آخر بينما أنت تحت الحماية، ستُفقد حمايتك تلقائيًا، <b>حتى وإن كان الهدف هو معرفة وقت وصول الهجوم</b>. لذا، توخَّ الحذر عند القيام بهجمات تجريبية، فقد تتسبب في خسارة حمايتك دون قصد!</p>';
+
 }
-}
-}
+
+
 
 
 if ( $this->pageState == 1 )
 {
     echo "<h1>";
     echo LANGUI_V2V_T1;
-    echo "</h1>\r\n\r\n<form method=\"post\" name=\"snd\" action=\"v2v.php\">\r\n<table id=\"troops\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td class=\"line-first column-first\"><img class=\"unit u";
-    echo $this->troops[0]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[0]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[0]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[0]['number'] )
-    {
-        echo " onclick=\"_('t1').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[0]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[0]['troopId'];
-    echo "]\" id=\"t1\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[0]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t1').value=";
-        echo $this->troops[0]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[0]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"line-first\"><img class=\"unit u";
-    echo $this->troops[3]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[3]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[3]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[3]['number'] )
-    {
-        echo " onclick=\"_('t4').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[3]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[3]['troopId'];
-    echo "]\" id=\"t4\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[3]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t4').value=";
-        echo $this->troops[3]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[3]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"line-first\"><img class=\"unit u";
-    echo $this->troops[6]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[6]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[6]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[6]['number'] )
-    {
-        echo " onclick=\"_('t7').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[6]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[6]['troopId'];
-    echo "]\" id=\"t7\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[6]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t7').value=";
-        echo $this->troops[6]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[6]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"line-first column-last\"><img class=\"unit u";
-    echo $this->troops[8]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[8]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[8]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[8]['number'] )
-    {
-        echo " onclick=\"_('t9').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    echo " disabled";
-    echo "\" name=\"t[";
-    echo $this->troops[8]['troopId'];
-    echo "]\" id=\"t9\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[8]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t9').value=";
-        echo $this->troops[8]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[8]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"column-first\"><img class=\"unit u";
-    echo $this->troops[1]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[1]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[1]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[1]['number'] )
-    {
-        echo " onclick=\"_('t2').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[1]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[1]['troopId'];
-    echo "]\" id=\"t2\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[1]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t2').value=";
-        echo $this->troops[1]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[1]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td><img class=\"unit u";
-    echo $this->troops[4]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[4]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[4]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[4]['number'] )
-    {
-        echo " onclick=\"_('t5').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[4]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[4]['troopId'];
-    echo "]\" id=\"t5\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[4]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t5').value=";
-        echo $this->troops[4]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[4]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td><img class=\"unit u";
-    echo $this->troops[7]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[7]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[7]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[7]['number'] )
-    {
-        echo " onclick=\"_('t8').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[7]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[7]['troopId'];
-    echo "]\" id=\"t8\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[7]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t8').value=";
-        echo $this->troops[7]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[7]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"column-last\"><img class=\"unit u";
-    echo $this->troops[9]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[9]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[9]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[9]['number'] )
-    {
-        echo " onclick=\"_('t10').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[9]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[9]['troopId'];
-    echo "]\" id=\"t10\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[9]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t10').value=";
-        echo $this->troops[9]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[9]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"line-last column-first\"><img class=\"unit u";
-    echo $this->troops[2]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[2]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[2]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[2]['number'] )
-    {
-        echo " onclick=\"_('t3').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[2]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[2]['troopId'];
-    echo "]\" id=\"t3\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[2]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t3').value=";
-        echo $this->troops[2]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[2]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"line-last\"><img class=\"unit u";
-    echo $this->troops[5]['troopId'];
-    echo "\" src=\"assets/x.gif\" title=\"";
-    echo constant( "troop_".$this->troops[5]['troopId'] );
-    echo "\" alt=\"";
-    echo constant( "troop_".$this->troops[5]['troopId'] );
-    echo "\"";
-    if ( 0 < $this->troops[5]['number'] )
-    {
-        echo " onclick=\"_('t6').value=''; return false;\"";
-    }
-    echo "> <input type=\"text\" class=\"text";
-    if ( $this->troops[5]['number'] <= 0 )
-    {
-        echo " disabled";
-    }
-    echo "\" name=\"t[";
-    echo $this->troops[5]['troopId'];
-    echo "]\" id=\"t6\" value=\"\" maxlength=\"7\"> ";
-    if ( $this->troops[5]['number'] <= 0 )
-    {
-        echo "<s";
-        echo "pan class=\"none\">(0)</span>";
-    }
-    else
-    {
-        echo "<a href=\"#\" onclick=\"_('t6').value=";
-        echo $this->troops[5]['number'];
-        echo "; return false;\">(";
-        echo $this->troops[5]['number'];
-        echo ")</a>";
-    }
-    echo "</td>\r\n\t\t\t<td class=\"line-last\"></td>\r\n\t\t\t<td class=\"line-last column-last\">";
-    if ( $this->hasHero )
-    {
-        echo "<img class=\"unit uhero\" src=\"assets/x.gif\" title=\"";
-        echo troop_hero;
-        echo "\" onclick=\"_('_t').value=''; return false;\" alt=\"";
-        echo troop_hero;
-        echo "\"> <input type=\"text\" class=\"text\" id=\"_t\" name=\"_t\" value=\"\" maxlength=\"1\"> <a href=\"#\" onclick=\"_('_t').value=1; return false;\">(1)</a>";
-    }
-    echo "</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<table id=\"coords\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td class=\"sel\"><label><input type=\"radio\" class=\"radio\" name=\"c\" value=\"2\"";
-    if ( $this->disableFirstTwoAttack )
-    {
-        echo " disabled=\"disabled\"";
-    }
-    else if ( $this->transferType == 2 )
-    {
-        echo " checked=\"\"";
-    }
-    echo "> ";
-    echo LANGUI_V2V_T2;
-    echo "</label></td>\r\n\t\t\t<td class=\"vil\">";
-    echo "<s";
-    echo "pan>";
-    echo LANGUI_V2V_T3;
-    echo "</span><input type=\"text\" class=\"text\" name=\"dname\" value=\"\" maxlength=\"20\"></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"sel\"><label><input type=\"radio\" class=\"radio\" name=\"c\" value=\"3\"";
-    if ( $this->disableFirstTwoAttack )
-    {
-        echo " disabled=\"disabled\"";
-    }
-    else if ( $this->transferType == 3 )
-    {
-        echo " checked=\"\"";
-    }
-    echo "> ";
-    echo LANGUI_V2V_T4;
-    echo "</label></td>\r\n\t\t\t<td class=\"or\">";
-    echo text_or_lang;
-    echo "</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"sel\"><label><input type=\"radio\" class=\"radio\" name=\"c\" value=\"4\"";
-    if ( $this->disableFirstTwoAttack )
-    {
-        echo " checked=\"\"";
-    }
-    else if ( $this->transferType == 4 )
-    {
-        echo " checked=\"\"";
-    }
-    echo "> ";
-    echo LANGUI_V2V_T5;
-    echo "</label></td>\r\n\t\t\t<td class=\"target\">";
-    echo "<s";
-    echo "pan>X:</span><input type=\"text\" class=\"text\" name=\"x\" value=\"";
-    if ( $this->targetVillage['x'] !== NULL )
-    {
-        echo $this->targetVillage['x'];
-    }
-    echo "\" maxlength=\"4\"> ";
-    echo "<s";
-    echo "pan>Y:</span><input type=\"text\" class=\"text\" name=\"y\" value=\"";
-    if ( $this->targetVillage['y'] !== NULL )
-    {
-        echo $this->targetVillage['y'];
-    }
-    echo "\" maxlength=\"4\"></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<input type=\"image\" value=\"ok\" onClick=\"this.style.visibility='hidden';\" name=\"s1\" id=\"btn_ok\" class=\"dynamic_img\" src=\"assets/x.gif\" alt=\"";
-    echo text_okdone_lang;
-    echo "\">\r\n</form>\r\n\r\n";
-    if ( $this->errorTable != NULL )
-    {
-        echo "<p class=\"error\">";
-        echo $this->errorTable;
-        echo "</p>";
-    }
+    echo "</h1>";
+    echo "<p>";
+    echo "\r\n\r\n<form method=\"post\" name=\"snd\" action=\"v2v.php\">\r\n";
+
+?>
+
+<div style="width: 100%; display: flex; justify-content: space-between;">
+<div style="width: 35%;background:#eee;">
+    <table style="width: 100%; border: none !important;" cellpadding="1" cellspacing="1">
+        <tbody>
+            <tr>
+                <td style="padding:8px;">الهدف:</td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <input type="text" class="text" name="dname" value="" maxlength="20" placeholder="اسم القرية">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    أو:</td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1" style="max-width: 100%;">
+                        <tbody>
+                        <tr>
+                            <td>
+                                X
+                            </td>
+                            <td>
+                            <input type="text" class="text" style="width:23px" name="x" value="<?php if ( $this->targetVillage['x'] !== NULL ) { echo $this->targetVillage['x']; } ?>" maxlength="4">
+                            </td>
+                            <td>
+                                Y
+                            </td>
+                            <td>
+                            <input type="text" class="text" style="width:23px" name="y" value="<?php if ( $this->targetVillage['y'] !== NULL ) { echo $this->targetVillage['y']; } ?>" maxlength="4">
+                            </td>
+                            
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">نوع الإرسال:</td>
+            </tr>
+            <?php
+            // Define an array for radio button values and labels for better readability
+            $radioOptions = [
+                2 => LANGUI_V2V_T2,
+                3 => LANGUI_V2V_T4,
+                4 => LANGUI_V2V_T5 // Assuming LANGUI_V2V_T5 is defined for value 4
+            ];
+
+            foreach ($radioOptions as $value => $label) {
+                $checked = $this->transferType == $value ? 'checked=""' : '';
+                $disabled = $this->disableFirstTwoAttack && $value <= 2 ? 'disabled="disabled"' : '';
+                
+                echo "<tr>";
+                echo "<td style=\"padding:8px\"><label><input type=\"radio\" class=\"radio\" name=\"c\" value=\"$value\" $checked $disabled> $label</label></td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+    <div style="width: 60%;">
+        <table style="width: 100%; border: none !important;" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td>القوات:</td>
+                </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[0]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[0]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[0]['troopId'] ); ?>"<?php if ( 0 < $this->troops[0]['number'] ) { echo " onclick=\"_('t1').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[0]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[0]['troopId']; ?>]" id="t1" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[0]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t1').value=".$this->troops[0]['number']."; return false;\">(".$this->troops[0]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                
+            </td>
+            
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[1]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[1]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[1]['troopId'] ); ?>"<?php if ( 0 < $this->troops[1]['number'] ) { echo " onclick=\"_('t2').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[1]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[1]['troopId']; ?>]" id="t2" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[1]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t2').value=".$this->troops[1]['number']."; return false;\">(".$this->troops[1]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[2]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[2]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[2]['troopId'] ); ?>"<?php if ( 0 < $this->troops[2]['number'] ) { echo " onclick=\"_('t3').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[2]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[2]['troopId']; ?>]" id="t3" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[2]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t3').value=".$this->troops[2]['number']."; return false;\">(".$this->troops[2]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[3]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[3]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[3]['troopId'] ); ?>"<?php if ( 0 < $this->troops[3]['number'] ) { echo " onclick=\"_('t4').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[3]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[3]['troopId']; ?>]" id="t4" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[3]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t4').value=".$this->troops[3]['number']."; return false;\">(".$this->troops[3]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[4]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[4]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[4]['troopId'] ); ?>"<?php if ( 0 < $this->troops[4]['number'] ) { echo " onclick=\"_('t5').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[4]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[4]['troopId']; ?>]" id="t5" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[4]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t5').value=".$this->troops[4]['number']."; return false;\">(".$this->troops[4]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[5]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[5]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[5]['troopId'] ); ?>"<?php if ( 0 < $this->troops[5]['number'] ) { echo " onclick=\"_('t6').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[5]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[5]['troopId']; ?>]" id="t6" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[5]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t6').value=".$this->troops[5]['number']."; return false;\">(".$this->troops[5]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[6]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[6]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[6]['troopId'] ); ?>"<?php if ( 0 < $this->troops[6]['number'] ) { echo " onclick=\"_('t7').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[6]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[6]['troopId']; ?>]" id="t7" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[6]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t7').value=".$this->troops[6]['number']."; return false;\">(".$this->troops[6]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[7]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[7]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[7]['troopId'] ); ?>"<?php if ( 0 < $this->troops[7]['number'] ) { echo " onclick=\"_('t8').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[7]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[7]['troopId']; ?>]" id="t8" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[7]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t8').value=".$this->troops[7]['number']."; return false;\">(".$this->troops[7]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[8]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[8]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[8]['troopId'] ); ?>"<?php if ( 0 < $this->troops[8]['number'] ) { echo " onclick=\"_('t9').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[8]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[8]['troopId']; ?>]" id="t9" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[8]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t9').value=".$this->troops[8]['number']."; return false;\">(".$this->troops[8]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit u<?php echo $this->troops[9]['troopId']; ?>" src="assets/x.gif" title="<?php echo constant( "troop_".$this->troops[9]['troopId'] ); ?>" alt="<?php echo constant( "troop_".$this->troops[9]['troopId'] ); ?>"<?php if ( 0 < $this->troops[9]['number'] ) { echo " onclick=\"_('t10').value=''; return false;\""; } ?>> 
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[9]['number'] <= 0 ) { echo " disabled"; } ?>" name="t[<?php echo $this->troops[9]['troopId']; ?>]" id="t10" value="" maxlength="7"> 
+                            </td>
+                            <td>    
+                                <?php if ( $this->troops[9]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t10').value=".$this->troops[9]['number']."; return false;\">(".$this->troops[9]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            
+            <?php if ( $this->hasHero ) { ?>
+            <tr>
+                <td style="padding:8px;">
+                    <table cellpadding="1" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img class="unit uhero" src="assets/x.gif" title="<?php echo troop_hero; ?>" alt="<?php echo troop_hero; ?>"<?php if ( 0 < $this->troops[11]['number'] ) { echo " onclick=\"_('t12').value=''; return false;\""; } ?>>
+                            </td>
+                            <td>
+                                <input type="text" class="text<?php if ( $this->troops[11]['number'] <= 0 ) { echo " disabled"; } ?>" name="_t" id="t12" value="" maxlength="7">
+                            </td>
+                            <td>
+                                <?php if ( $this->troops[11]['number'] <= 0 ) { echo "<span class=\"none\">(0)</span>"; } else { echo "<a href=\"#\" onclick=\"_('t12').value=".$this->troops[11]['number']."; return false;\">(".$this->troops[11]['number'].")</a>"; } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <?php } ?>
+
+            
+                
+        </tbody>
+    </table>
+
+
+    </div>
+
+   
+
+</div>
+        <p style="margin-top: 20px;margin-bottom: 20px;text-align: center;">
+            
+        <button type="submit" style="
+    padding: 1px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #71d000;
+    background-image: linear-gradient(to bottom, #fdfdfd, #c6c6c6);
+    cursor: pointer;
+    color: #7a7a7a;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: none;
+"
+name="s1" id="btn_ok" value="ok" id="btn_ok" onClick="this.style.visibility='hidden'; "
+>إرسال القوات
+        </button>
+
+            </p>
+
+</form>
+
+
+
+<?php
+echo "</p>";
 }
+
 else if ( $this->pageState == 2 )
 {
     echo "<h1><p>";
