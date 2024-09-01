@@ -3,6 +3,49 @@
 class NewVillageBattleModel extends BattleModel
 {
 
+
+     public function _getResourcesString($resources)
+        {
+        $result = "";
+        foreach ($resources as $k => $v)
+            {
+            if ($result != "")
+                {
+                $result .= ",";
+                }
+            $result .= $k . " " . $v['current_value'] . " " . $v['store_max_limit'] . " " . $v['store_init_limit'] . " " . $v['prod_rate'] . " " . $v['prod_rate_percentage'];
+            }
+        return $result;
+        }
+
+    
+    public function _getResourcesArray($resourceString, $elapsedTimeInSeconds, $crop_consumption, $cp)
+        {
+        $resources = array();
+        $r_arr     = explode(",", $resourceString);
+        foreach ($r_arr as $r_str)
+            {
+            $r2            = explode(" ", $r_str);
+            $prate         = floor($r2[4] * (1 + $r2[5] / 100)) - ($r2[0] == 4 ? $crop_consumption : 0);
+            $current_value = floor($r2[1] + $elapsedTimeInSeconds * ($prate / 3600));
+            if ($r2[2] < $current_value)
+                {
+                $current_value = $r2[2];
+                }
+            $resources[$r2[0]] = array(
+                "current_value" => $current_value,
+                "store_max_limit" => $r2[2],
+                "store_init_limit" => $r2[3],
+                "prod_rate" => $r2[4],
+                "prod_rate_percentage" => $r2[5]
+            );
+            }
+            
+        return array(
+            "resources" => $resources
+        );
+        }
+
     public function handleCreateNewVillage( $taskRow, $toVillageRow, $fromVillageRow, $cropConsumption )
     {
         $GameMetadata = $GLOBALS['GameMetadata'];
@@ -44,6 +87,81 @@ class NewVillageBattleModel extends BattleModel
             $resources .= sprintf( "%s 1000 8000 8000 %s 0", $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
             ++$i;
         }
+        // here to change recources if the player has a oasis
+        // get village_oases_id of fromVillageRow
+        $village_oases_id = $fromVillageRow['village_oases_id'];
+        
+        // insert village_oases_id of fromVillageRow to toVillageRow
+        $this->provider->executeQuery( "UPDATE p_villages v\r\n\t\t\tSET\r\n\t\t\t\tv.village_oases_id='%s'\r\n\t\t\tWHERE v.id=%s", array(
+            $village_oases_id,
+            intval( $toVillageRow['id'] )
+        ) );
+
+////////////////////////////////////////////////////////////////////////////////////////
+        
+        // split oasis_id from village_oases_id by ,
+        $oasisIds = explode(",", $village_oases_id);
+
+        
+
+        foreach($oasisIds as $oId){
+
+            $villageId = intval($toVillageRow['id']);
+            $query = "SELECT v.player_id, v.resources, v.cp, v.crop_consumption, TIME_TO_SEC(TIMEDIFF(NOW(), v.last_update_date)) AS elapsedTimeInSeconds FROM p_villages v WHERE v.id='$villageId'";
+            $villageRow = $this->provider->executeQuery($query);    
+
+            echo "village row -------------------------------y";
+
+            echo $villageRow['resources'];
+            echo "<br>";
+    
+            $resultArr  = $this->_getResourcesArray($villageRow['resources'], $villageRow['elapsedTimeInSeconds'], $villageRow['crop_consumption'], $villageRow['cp']);
+    
+            echo "resultArr -------------------------------y";
+            print_r($resultArr);
+
+        $oasisIndex = $this->provider->fetchScalar("SELECT v.image_num FROM p_villages v WHERE v.id=%s", array(intval($oId)));
+// Get the oasis resources metadata
+$oasisRes   = $GLOBALS['SetupMetadata']['oasis'][$oasisIndex];
+echo "<br>";
+echo "oasisRes -------------------------------y";
+print_r($oasisRes);
+echo "<br>";
+
+
+$factor     = 1;
+    
+    // Adjust the production rate percentage based on the oasis resources
+    foreach ($oasisRes as $k => $v) {
+        $resultArr['resources'][$k]['prod_rate_percentage'] += $v * $factor;
+        if ($resultArr['resources'][$k]['prod_rate_percentage'] < 0) {
+            $resultArr['resources'][$k]['prod_rate_percentage'] = 0;
+        }
+        echo $resultArr['resources']['k']['prod_rate_percentage'];
+        echo "<br>";
+    }
+
+    echo "<br>";
+    echo $this->_getResourcesString($resultArr['resources']);
+
+// Update the village with the new resources and other data
+$this->provider->executeQuery( "UPDATE p_villages v\r\n\t\t\tSET\r\n\t\t\t\tv.resources='%s'\r\n\t\t\tWHERE v.id=%s", array(
+    $this->_getResourcesString($resultArr['resources']),
+
+    intval($toVillageRow['id'])
+) );
+
+        }
+
+
+
+
+
+
+
+
+
+
         $troops_training = "";
         $troops_num = "";
         foreach ( $GameMetadata['troops'] as $k => $v )

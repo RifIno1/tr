@@ -512,27 +512,78 @@ $num = $tid == 49 || $tid == 50 ? 0 : mt_rand(50000, 1111111);
         */
 
         // to fix : add resources for all villages of the player : anwar
+        // get all village id of the player and the village must not be an oasis
+        // Fetch all village IDs for the player
+// Fetch all relevant data for the player's villages and TIME_TO_SEC(TIMEDIFF(NOW(), v.last_update_date)) as elapsedTimeInSeconds
+$villageIds = $this->provider->fetchScalar("
+    SELECT GROUP_CONCAT(v.id) 
+    FROM p_villages v 
+    WHERE v.player_id = %s AND v.is_oasis = 0 
+", array(intval($playerId)));
 
-        $resultArr  = $this->_getResourcesArray($villageRow['resources'], $villageRow['elapsedTimeInSeconds'], $villageRow['crop_consumption'], $villageRow['cp']);
-        $oasisIndex = $this->provider->fetchScalar("SELECT v.image_num FROM p_villages v WHERE v.id=%s", array(
-            intval($oasisId)
-        ));        
-        $oasisRes   = $GLOBALS['SetupMetadata']['oasis'][$oasisIndex];
-        $factor     = $capture ? 1 : 0 - 1;
-        foreach ($oasisRes as $k => $v)
-            {
-            $resultArr['resources'][$k]['prod_rate_percentage'] += $v * $factor;
-            if ($resultArr['resources'][$k]['prod_rate_percentage'] < 0)
-                {
-                $resultArr['resources'][$k]['prod_rate_percentage'] = 0;
-                }
-            }
-        $this->provider->executeQuery("UPDATE p_villages v \r\n\t\t\tSET\r\n\t\t\t\tv.resources='%s',\r\n\t\t\t\tv.cp='%s',\r\n\t\t\t\tv.village_oases_id='%s',\r\n\t\t\t\tv.last_update_date=NOW()\r\n\t\t\tWHERE v.id=%s", array(
+
+// Convert the comma-separated village IDs string into an array
+$villageIdsArr = explode(',', $villageIds);
+
+// Loop through each village ID and apply the logic
+foreach ($villageIdsArr as $villageId) {
+
+    // Fetch the village row data for the current village ID
+    $villageRow = $this->provider->fetchRow("SELECT\r\n\t\t\t\tv.player_id,\r\n\t\t\t\tv.resources,\r\n\t\t\t\tv.cp,\r\n\t\t\t\tv.crop_consumption,\r\n\t\t\t\tTIME_TO_SEC(TIMEDIFF(NOW(), v.last_update_date)) elapsedTimeInSeconds \r\n\t\t\tFROM p_villages v\r\n\t\t\tWHERE v.id=%s", array(
+        intval($villageId)
+    ));
+    // Calculate the resources array
+    $resultArr  = $this->_getResourcesArray($villageRow['resources'], $villageRow['elapsedTimeInSeconds'], $villageRow['crop_consumption'], $villageRow['cp']);
+    echo "resultArr before capture: ";
+    print_r($resultArr);    
+    // Fetch the oasis index
+    $oasisIndex = $this->provider->fetchScalar("SELECT v.image_num FROM p_villages v WHERE v.id=%s", array(intval($oasisId)));
+    echo "<br>oasisIndex: ";
+    print_r($oasisIndex);
+    // Get the oasis resources metadata
+    $oasisRes   = $GLOBALS['SetupMetadata']['oasis'][$oasisIndex];
+    
+    // Define the factor based on capture
+    $factor     = $capture ? 1 : -1;
+    echo "<br>factor: ";
+    print_r($factor);
+    
+    // Adjust the production rate percentage based on the oasis resources
+    foreach ($oasisRes as $k => $v) {
+        $resultArr['resources'][$k]['prod_rate_percentage'] += $v * $factor;
+        if ($resultArr['resources'][$k]['prod_rate_percentage'] < 0) {
+            $resultArr['resources'][$k]['prod_rate_percentage'] = 0;
+        }
+    }
+
+    echo "<br>resultArr after capture: ";
+    print_r($resultArr);
+
+    echo "<br>resources string: ";
+    print_r($this->_getResourcesString($resultArr['resources']));
+
+    echo "village_oases_id: ";
+    print_r($village_oases_id);
+
+
+
+    // Update the village with the new resources and other data
+    $this->provider->executeQuery(
+        "UPDATE p_villages v 
+        SET
+            v.resources='%s',
+            v.cp='%s',
+            v.village_oases_id='%s',
+            v.last_update_date=NOW()
+        WHERE v.id=%s", 
+        array(
             $this->_getResourcesString($resultArr['resources']),
             $resultArr['cp']['cpValue'] . " " . $resultArr['cp']['cpRate'],
             $village_oases_id,
             intval($villageId)
-        ));
+        )
+    );
+}
 
         
         

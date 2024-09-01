@@ -24,9 +24,16 @@ $plus4=($AppConfig['Game']['plus4']);
 $plus5=($AppConfig['Game']['plus5']);
 $plus6=($AppConfig['Game']['plus6']);
 $plus7=($AppConfig['Game']['plus7']);
-$piyadeh=($AppConfig['Game']['piyadeh']);
-$savareh=($AppConfig['Game']['savareh']);
-$shovalieh=($AppConfig['Game']['shovalieh']);
+$piyadeh1=($AppConfig['Game']['piyadeh1']);
+$piyadeh2=($AppConfig['Game']['piyadeh2']);
+$piyadeh3=($AppConfig['Game']['piyadeh3']);
+$piyadeh4=($AppConfig['Game']['piyadeh4']);
+
+$savareh1=($AppConfig['Game']['savareh1']);
+$savareh2=($AppConfig['Game']['savareh2']);
+
+$shovalieh1=($AppConfig['Game']['shovalieh1']);
+$shovalieh2=($AppConfig['Game']['shovalieh2']);
 
 
 $SetupMetadata = array (
@@ -144,6 +151,7 @@ $SetupMetadata = array (
 '11' => array( '4' => 50 ),
 
 '12' => array( '4' => 100 ),
+
 
 '99' => array(  ),
 
@@ -359,7 +367,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh1,
 
                         'research_time_consume'         => 0,
 
@@ -381,7 +389,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 5)/$speed, 'carry_load' => 20, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 65, 'defense_cavalry' => 35, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh2,
 
                         'research_time_consume'         => 8400,
 
@@ -403,7 +411,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 70, 'defense_infantry' => 40, 'defense_cavalry' => 25, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh3,
 
                         'research_time_consume'         => 9000,
 
@@ -425,7 +433,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 16)/$speed, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh4,
 
                         'research_time_consume'         => 6900,
 
@@ -447,7 +455,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 14)/$speed, 'carry_load' => 100, 'crop_consumption' => 3, 'attack_value' => 120, 'defense_infantry' => 65, 'defense_cavalry' => 50, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh1,
 
                         'research_time_consume'         => 11700,
 
@@ -469,7 +477,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 10)/$speed, 'carry_load' => 70, 'crop_consumption' => 4, 'attack_value' => 180, 'defense_infantry' => 80, 'defense_cavalry' => 105, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh2,
 
                         'research_time_consume'         => 15000,
 
@@ -491,7 +499,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 4)/$speed, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh1,
 
                         'research_time_consume'         => 15600,
 
@@ -513,7 +521,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 1, 'velocity' => ($attack * 3)/$speed, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 75, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh2,
 
                         'research_time_consume'         => 28800,
 
@@ -581,7 +589,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 60, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 20, 'defense_cavalry' => 5, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh1,
 
                         'research_time_consume'         => 0,
 
@@ -603,7 +611,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 35, 'defense_cavalry' => 60, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh2,
 
                         'research_time_consume'         => 6000,
 
@@ -625,7 +633,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 30, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh3,
 
                         'research_time_consume'         => 6300,
 
@@ -647,7 +655,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 9)/$speed, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 5, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh4,
 
                         'research_time_consume'         => 6000,
 
@@ -669,7 +677,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 10)/$speed, 'carry_load' => 110, 'crop_consumption' => 2, 'attack_value' => 55, 'defense_infantry' => 100, 'defense_cavalry' => 40, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh1,
 
                         'research_time_consume'         => 10800,
 
@@ -691,7 +699,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 9)/$speed, 'carry_load' => 80, 'crop_consumption' => 3, 'attack_value' => 150, 'defense_infantry' => 50, 'defense_cavalry' => 75, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh2,
 
                         'research_time_consume'         => 12900,
 
@@ -713,7 +721,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 4)/$speed, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 80, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh1,
 
                         'research_time_consume'         => 14400,
 
@@ -735,7 +743,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 2, 'velocity' => ($attack * 3)/$speed, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 50, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh2,
 
                         'research_time_consume'         => 28800,
 
@@ -801,7 +809,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 30, 'crop_consumption' => 1, 'attack_value' => 15, 'defense_infantry' => 40, 'defense_cavalry' => 50, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh1,
 
                         'research_time_consume'         => 0,
 
@@ -823,7 +831,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 35, 'defense_cavalry' => 20, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh2,
 
                         'research_time_consume'         => 7200,
 
@@ -845,7 +853,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 17)/$speed, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh3,
 
                         'research_time_consume'         => 6900,
 
@@ -867,7 +875,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 19)/$speed, 'carry_load' => 75, 'crop_consumption' => 2, 'attack_value' => 90, 'defense_infantry' => 25, 'defense_cavalry' => 40, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh4,
 
                         'research_time_consume'         => 11100,
 
@@ -889,7 +897,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 16)/$speed, 'carry_load' => 35, 'crop_consumption' => 2, 'attack_value' => 45, 'defense_infantry' => 115, 'defense_cavalry' => 55, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh1,
 
                         'research_time_consume'         => 11400,
 
@@ -911,7 +919,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 13)/$speed, 'carry_load' => 65, 'crop_consumption' => 3, 'attack_value' => 140, 'defense_infantry' => 50, 'defense_cavalry' => 165, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh2,
 
                         'research_time_consume'         => 13500,
 
@@ -933,7 +941,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 4)/$speed, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 50, 'defense_infantry' => 30, 'defense_cavalry' => 105, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh1,
 
                         'research_time_consume'         => 16800,
 
@@ -955,7 +963,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 3, 'velocity' => ($attack * 3)/$speed, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 70, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh2,
 
                         'research_time_consume'         => 28800,
 
@@ -1462,7 +1470,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh1,
 
                         'research_time_consume'         => 0,
 
@@ -1482,7 +1490,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 70, 'defense_cavalry' => 50, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh2,
 
                         'research_time_consume'         => 6300,
 
@@ -1502,7 +1510,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 70, 'defense_infantry' => 40, 'defense_cavalry' => 25, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh3,
 
                         'research_time_consume'         => 9000,
 
@@ -1522,7 +1530,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 20)/$speed, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 0, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh4,
 
                         'research_time_consume'         => 7000,
 
@@ -1542,7 +1550,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 9)/$speed, 'carry_load' => 80, 'crop_consumption' => 3, 'attack_value' => 150, 'defense_infantry' => 50, 'defense_cavalry' => 75, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh1,
 
                         'research_time_consume'         => 12900,
 
@@ -1562,7 +1570,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 10)/$speed, 'carry_load' => 65, 'crop_consumption' => 4, 'attack_value' => 170, 'defense_infantry' => 140, 'defense_cavalry' => 80, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh2,
 
                         'research_time_consume'         => 12900,
 
@@ -1582,7 +1590,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 4)/$speed, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh1,
 
                         'research_time_consume'         => 15600,
 
@@ -1602,7 +1610,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 6, 'velocity' => ($attack * 3)/$speed, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 50, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh2,
 
                         'research_time_consume'         => 28800,
 
@@ -1688,7 +1696,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 6)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 20, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh1,
 
                         'research_time_consume'         => 0,
 
@@ -1708,7 +1716,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 5)/$speed, 'carry_load' => 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh2,
 
                         'research_time_consume'         => 6000,
 
@@ -1728,7 +1736,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 7)/$speed, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 100, 'defense_infantry' => 90, 'defense_cavalry' => 75, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh3,
 
                         'research_time_consume'         => 6300,
 
@@ -1748,7 +1756,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 20)/$speed, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 0, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $piyadeh,
+                        'gold_needed'                                                => $piyadeh4	,
 
                         'research_time_consume'         => 7000,
 
@@ -1768,7 +1776,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 14)/$speed, 'carry_load' => 100, 'crop_consumption' => 3, 'attack_value' => 155, 'defense_infantry' => 80, 'defense_cavalry' => 50, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh1,
 
                         'research_time_consume'         => 10800,
 
@@ -1788,7 +1796,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 10)/$speed, 'carry_load' => 65, 'crop_consumption' => 4, 'attack_value' => 170, 'defense_infantry' => 140, 'defense_cavalry' => 80, 'is_cavalry' => TRUE,
 
-                        'gold_needed'                                                => $savareh,
+                        'gold_needed'                                                => $savareh2,
 
                         'research_time_consume'         => 12900,
 
@@ -1808,7 +1816,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 4)/$speed, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh1,
 
                         'research_time_consume'         => 14400,
 
@@ -1828,7 +1836,7 @@ array ( 'textIndex' => 4,'BBCode' => '80000', 'cssClass' => 'a4' ),// ?????? ???
 
                         'for_tribe_id' => 7, 'velocity' => ($attack * 3)/$speed, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 60, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE,
 
-                        'gold_needed'                                                => $shovalieh,
+                        'gold_needed'                                                => $shovalieh2,
 
                         'research_time_consume'         => 28800,
 

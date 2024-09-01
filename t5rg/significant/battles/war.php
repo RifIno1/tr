@@ -617,7 +617,7 @@ $id = $toVillageRow['id'];
 $active = mysql_query("SELECT * From p_villages WHERE id='$id'");
 $toVillageRow = mysql_fetch_array($active);
 $query1 = "select * From p_villages where AND parent_id='".$fromVillageRow['id']."'";
-$numberOfOwnedOasesart = mysql_num_rows(mysql_query($query1));
+$numberOfOwnedOasesart = $this->provider->fetchScalar( $query1 );
     
             if ( $heroBuildingLevel == 20 ){
                 $canCaptureOasis = $numberOfOwnedOases < 3;
@@ -687,6 +687,7 @@ $numberOfOwnedOasesart = mysql_num_rows(mysql_query($query1));
         
         // -----------------------------------------------------------
         // generate report
+        $artefactResult = '';
         $newTroops = '';
         foreach ($warResult['attackTroops']['troops'] as $tid=>$tprop) {
             if ($newTroops != '') { $newTroops .= ','; }
