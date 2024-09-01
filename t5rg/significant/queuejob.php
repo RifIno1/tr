@@ -534,19 +534,13 @@ foreach ($villageIdsArr as $villageId) {
     ));
     // Calculate the resources array
     $resultArr  = $this->_getResourcesArray($villageRow['resources'], $villageRow['elapsedTimeInSeconds'], $villageRow['crop_consumption'], $villageRow['cp']);
-    echo "resultArr before capture: ";
-    print_r($resultArr);    
     // Fetch the oasis index
     $oasisIndex = $this->provider->fetchScalar("SELECT v.image_num FROM p_villages v WHERE v.id=%s", array(intval($oasisId)));
-    echo "<br>oasisIndex: ";
-    print_r($oasisIndex);
     // Get the oasis resources metadata
     $oasisRes   = $GLOBALS['SetupMetadata']['oasis'][$oasisIndex];
     
     // Define the factor based on capture
     $factor     = $capture ? 1 : -1;
-    echo "<br>factor: ";
-    print_r($factor);
     
     // Adjust the production rate percentage based on the oasis resources
     foreach ($oasisRes as $k => $v) {
@@ -555,17 +549,6 @@ foreach ($villageIdsArr as $villageId) {
             $resultArr['resources'][$k]['prod_rate_percentage'] = 0;
         }
     }
-
-    echo "<br>resultArr after capture: ";
-    print_r($resultArr);
-
-    echo "<br>resources string: ";
-    print_r($this->_getResourcesString($resultArr['resources']));
-
-    echo "village_oases_id: ";
-    print_r($village_oases_id);
-
-
 
     // Update the village with the new resources and other data
     $this->provider->executeQuery(

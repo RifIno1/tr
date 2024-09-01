@@ -101,10 +101,9 @@ class GPage extends ProcessVillagePage
         if ( $this->data['is_special_village'] )
         {
             $cssName = "g40";
-            if ( 20 <= $this->buildings[$id]['level'] )
-            {
-            $cssName .= "_".floor( $this->buildings[$id]['level'] / 20 );
-       break;
+            if ( 20 < $this->buildings[$id]['level'] ) {
+                $cssName .= "_".floor( $this->buildings[$id]['level'] / 20 );
+                break;
             }
         }
         $e = $this->buildings[$id]['level'] == 0 && 0 < $this->buildings[$id]['update_state'] ? "b" : "";
