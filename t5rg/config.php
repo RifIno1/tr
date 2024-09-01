@@ -89,56 +89,64 @@ $AppConfig = array (
                                 'gold'                => 50000,
                                 'cost'                => 5,
                                 'currency'        => 'usd',
-                                'image'                => 'package_a.jpg'
+                                'image'                => 'package_a.jpg',
+                                'link'                => 'https://buy.stripe.com/test_aEU5lMgUt2Lxfcs9AA',
                         ),
                        array (
                                 'name'                => 'الثانية',
                                 'gold'                => 150000,
                                 'cost'                => 10,
                                 'currency'        => 'usd',
-                                'image'                => 'package_a.jpg'
+                                'image'                => 'package_a.jpg',
+                                'link'                => 'https://buy.stripe.com/test_3cs6pQeMl3PB7K04gh',
                         ),
                        array (
                                 'name'                => 'الثالثة',
                                 'gold'                => 500000,
                                 'cost'                => 20,
                                 'currency'        => 'usd',
-                                'image'                => 'package_b.jpg'
+                                'image'                => 'package_b.jpg',
+                                'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                         ),
                        array (
                                 'name'                => 'الرابعة',
                                 'gold'                => 1500000,
                                 'cost'                => 50,
                                 'currency'        => 'usd',
-                                'image'                => 'package_b.jpg'
+                                'image'                => 'package_b.jpg',
+                                'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                         ),
                           array (
                                     'name'                => 'الخامسة',
                                     'gold'                => 3500000,
                                     'cost'                => 100,
                                     'currency'        => 'usd',
-                                    'image'                => 'package_c.jpg'
+                                    'image'                => 'package_c.jpg',
+                                    'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                            ),
                                 array (
                                         'name'                => 'السادسة',
                                         'gold'                => 8000000,
                                         'cost'                => 200,
                                         'currency'        => 'usd',
-                                        'image'                => 'package_d.jpg'
+                                        'image'                => 'package_d.jpg',
+                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                                  ),
                                 array (
                                         'name'                => 'السابعة',
                                         'gold'                => 25000000,
                                         'cost'                => 500,
                                         'currency'        => 'usd',
-                                        'image'                => 'package_d.jpg'
+                                        'image'                => 'package_d.jpg',
+                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                                  ),
                                 array (
                                         'name'                => 'الثامنة',
                                         'gold'                => 100000000,
                                         'cost'                => 1000,
                                         'currency'        => 'usd',
-                                        'image'                => 'package_f.jpg'
+                                        'image'                => 'package_f.jpg',
+                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
                                  ),
 
                        

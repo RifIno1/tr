@@ -1,0 +1,5 @@
+Player ID: 4
+Amount Total: 500
+Gold Added: 50000
+New Gold: 600000
+

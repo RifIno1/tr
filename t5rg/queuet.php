@@ -16,24 +16,7 @@ while ($row = mysql_fetch_array($result)) {
     if ($pos === false) {
         $wwlvl = "0";
 
-        // Split the string into segments
-        $segments = explode(',', $row["buildings"]);
-
-        // Iterate over each segment
-        foreach ($segments as $segment) {
-            // Trim leading/trailing whitespaces
-            $segment = trim($segment);
-
-            // Check if the segment starts with "40 0"
-            if (strpos($segment, '40 0') === 0) {
-                // Replace "40" with "0"
-                $segment = "0" . substr($segment, 2);
-            }
-        }
-        // Join the segments back together with commas
-        $output = implode(',', $segments);
-
-        mysql_query("UPDATE p_villages set buildings='$output' WHERE id = $vlvid") or die(mysql_error());
+       
 
     } else {
         $wwlvl = split("40", $row["buildings"]);
@@ -41,6 +24,31 @@ while ($row = mysql_fetch_array($result)) {
         $wwlvl = $wwlvl[1];
     }
 }
+
+
+ // Split the string into segments
+ $segments = explode(',', $row["buildings"]);
+
+ // Iterate over each segment
+ foreach ($segments as $segment) {
+     // Trim leading/trailing whitespaces
+     $segment = trim($segment);
+
+     // Check if the segment starts with "40 0"
+     if (strpos($segment, '40 0') === 0) {
+         // Replace "40" with "0"
+         $segment = "0" . substr($segment, 2);
+     }
+ }
+ // Join the segments back together with commas
+ $output = implode(',', $segments);
+ echo $output;
+
+ if (strpos($segment, '40 0') === 0) {
+  mysql_query("UPDATE p_villages set buildings='$output' WHERE id = $vlvid") or die(mysql_error());
+}
+
+
 $sqls = "SELECT * FROM p_villages WHERE is_special_village=1 and is_capital=1";
 $results = mysql_query($sqls);
 $rowss = mysql_fetch_array($results);
