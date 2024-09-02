@@ -1,0 +1,179 @@
+
+<?php
+
+require( APP_PATH."config.php" );
+$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+
+$playerId = $this->player->playerId;
+
+// select protectionQuantity from p_players
+$sql = "SELECT protectionQuantity, gold_num FROM p_players WHERE id = $playerId";
+$result = mysql_query($sql);
+$row = mysql_fetch_assoc($result);
+$protectionQuantity = $row['protectionQuantity'];
+$gold_num = $row['gold_num'];
+$protectionQuantity = explode(",", $protectionQuantity);
+
+// get registration_date of player id = 1
+$sql = "SELECT registration_date FROM p_players WHERE id = 1";
+$result = mysql_query($sql);
+$row = mysql_fetch_assoc($result);
+$registration_date = $row['registration_date'];
+
+// Add 3 days to the registration date
+$registration_date = date("Y-m-d H:i:s", strtotime($registration_date . " +4 days"));
+
+// Get the current date and time
+$date_now = date("Y-m-d H:i:s");
+
+// Calculate the difference in seconds between the two dates
+$difference = strtotime($date_now) - strtotime($registration_date);
+
+if($difference > 0) {
+    echo '<br>';
+    echo '<div class="error">لا يمكنك شراء الحماية قبل 24 ساعة على بداية ظهور التتار!</div>';
+}else{
+
+
+if(isset($_GET['buyed'])) {
+    echo '<br>';
+    echo '<div class="error">تم شراء الحماية بنجاح!</div>';
+}
+// Handle the 'buys1' action
+if (isset($_GET['hours']) && isset($_GET['gold'])) {
+    
+    $hours = $_GET['hours'];
+    $gold = $_GET['gold'];
+
+    // check the quantity of protection
+    
+    $canBuy = false;
+    foreach($protectionQuantity as $protection) {
+        $protection = explode(" ", $protection);
+        if ($protection[0] == $hours && $protection[1] == $gold) {
+            $canBuy = true;
+        }
+    }
+
+    if($canBuy) {
+        // Update the protection quantity
+        if($gold_num >= $gold) {
+
+            // new registration date = date now - 24hours - $hours
+            $new_registration_date = date("Y-m-d H:i:s", strtotime("-24 hours + $hours hours"));
+            // update the registration date	
+            $sql = "UPDATE p_players SET registration_date = '$new_registration_date' WHERE id = $playerId";
+            mysql_query($sql);
+            // update the gold	
+            $sql = "UPDATE p_players SET gold_num = gold_num - $gold WHERE id = $playerId";
+            mysql_query($sql);
+
+            // Update the protection quantity
+            $newProtectionQuantity = "";
+            foreach($protectionQuantity as $protection) {
+                $protection = explode(" ", $protection);
+                // delete the protection from the list
+                if ($protection[0] == $hours && $protection[1] == $gold) {
+                    continue;
+                }
+                $newProtectionQuantity .= $protection[0] . " " . $protection[1] . ",";
+
+                
+            }
+            $newProtectionQuantity = rtrim($newProtectionQuantity, ",");
+            $sql = "UPDATE p_players SET protectionQuantity = '$newProtectionQuantity' WHERE id = $playerId";   
+            mysql_query($sql);
+
+
+            header ("Location: ?buyed=1");
+
+        }
+        else {
+            echo '<br>';
+            echo "<div class='error'>عدد الذهب غير كافي!</div>";
+        }
+    }
+    else {
+        echo '<br>';
+        echo "<div class='error'>لا يمكنك شراء هذه الحماية!</div>";
+    }
+
+}
+
+// Calculate the total hours of protection
+$totalHours = 0;
+foreach ($protectionQuantity as $protection) {
+    $protection = explode(" ", $protection);
+    $totalHours += $protection[0];
+}
+
+if($totalHours == 0) {
+    echo '<br>';
+    echo "لا تمتلك ساعات حماية!";
+}else{
+
+
+?>
+<div style="background-color: #f5f5f5; padding: 5px 5px; margin: 5px 0px;">
+    <p>
+        <b style='color:red'>
+            ملاحظة مهمة:
+        </b>
+        عند شرائك لباقة من الحماية، ستختفي الحماية الحالية وتحل محلها الحماية الجديدة.
+    </p>
+</div>
+
+
+<table class="troop_details" cellpadding=1 cellspacing=1>
+    <thead>
+        <tr>
+        <th colspan="4">شراء الحماية (عدد الساعات المتاحة: <font color="red"><?php echo $totalHours; ?></font>)</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>عدد الساعات</td>
+        <td>الذهب</td>
+        <td>شراء</td>
+    </tr>
+    <?php
+    foreach ($protectionQuantity as $protection) {
+        $protection = explode(" ", $protection);
+        echo "<tr>";
+        echo "<td>" . $protection[0] . "</td>";
+        echo "<td>" . $protection[1] . "</td>";
+        echo "<td>
+        
+        <input type='radio' name='protection' value='" . $protection[0] . "' onchange='buyProtection(" . $protection[0] . ", " . $protection[1] . ")'>
+        </td>";
+        echo "</tr>";
+    }
+    ?>
+    
+    <script>
+    function buyProtection(hours, gold) {
+        // Display the shop_info label
+        document.getElementById('shop_info').style.display = 'block';
+
+        // Update the content of the shop_info label dynamically
+        document.getElementById('shop_info').innerHTML = `
+    هل أنت متأكد من شراء ${hours} ساعة حماية بـ ${gold} <img src='assets/x.gif' class='gold'> ؟
+    <a href='?hours=${hours}&gold=${gold}'>نعم</a>
+`;
+
+    }
+</script>
+
+</table>
+
+<br><br>
+<label id="shop_info" style="color: red; display: none;">
+    <!-- The content here will be dynamically updated -->
+</label>
+
+
+<?php
+}
+
+}
+?>

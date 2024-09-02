@@ -248,6 +248,7 @@ CREATE TABLE `p_players` (
                 `alliance_roles` text,  
                 `invites_alliance_ids` text,  
                 `name` varchar(255) DEFAULT NULL,  
+                `protectionQuantity` varchar(255) DEFAULT NULL,  
                 `pwd` varchar(255) DEFAULT NULL,  
                 `email` varchar(50) DEFAULT NULL,  
                 `is_active` tinyint(1) DEFAULT '0',

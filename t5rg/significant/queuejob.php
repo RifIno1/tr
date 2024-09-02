@@ -255,8 +255,14 @@ $this->provider->executeQuery ('UPDATE p_villages SET people_count= 0 WHERE peop
             {
             return;
             }
-        $this->provider->executeQuery("UPDATE p_players p SET p.total_people_count=3466, p.description1='%s', p.guide_quiz='-1' WHERE id=%s", array(
-            tatar_tribe_desc,
+
+            $admin_registration_date = $this->provider->fetchScalar("SELECT registration_date FROM p_players WHERE id=1");
+            // add 5 days to admin_registration_date for tatar_registration_date
+            $tatar_registration_date = date('Y-m-d H:i:s', strtotime($admin_registration_date . ' + 4 days'));
+
+        $this->provider->executeQuery("UPDATE p_players p SET p.total_people_count=3466, p.description1='%s', p.guide_quiz='-1', p.registration_date='%s' WHERE p.id=%s", array(
+            tatar_tribe_description,
+            $tatar_registration_date,
             intval($result['playerId'])
         ));
 $msgNatar = tatar_tribe_villages;
