@@ -24,7 +24,7 @@
 <img src="assets/x.gif" id="msfilter" alt="" />
 <div id="dynamic_header"></div>
 <div id="header">
-<div id="mtop">
+<div id="mtop" style="width: 600px;">
 <?php
 
 if($this->player != NULL){
@@ -41,25 +41,19 @@ echo '<a href="village1.php" id="n1" accesskey="1">';
 <a class="reports" href="report.php" accesskey="5"><img src="assets/x.gif" class="l" title="'.LANGUI_GAME_ICO5.'" alt="'.LANGUI_GAME_ICO5.'" /></a>
 <a class="messages" href="msg.php" accesskey="6"><img src="assets/x.gif" class="r" title="'.LANGUI_GAME_ICO6.'" alt="'.LANGUI_GAME_ICO6.'" /></a>
 </div>';
-    echo "<a href=\"plus.php\" id=\"plus\">";
-    if ( $this->data['active_plus_account'] )
-    {
-echo '<img src="assets/x.gif" id="btn_plus" class="active" title="';
-echo LANGUI_GAME_ICO7;
-    } else {
-echo '<img src="assets/x.gif" id="btn_plus" class="inactive" title="';
-echo LANGUI_GAME_ICO8;
-}
-    echo "\" alt=\"";
-    echo LANGUI_GAME_ICO7;
-    
-   echo "\"><b>";
 
-    echo '<b><font color="#FF6F0F">'. $this->data['gold_num'] .'</font></b>';
-    echo "</b></a>\r\n";
 ?>
-        <?php } ?>
 
+<?php } ?>
+<a href="plus.php" id="plus" style="background: none;display: block; font-size: 13px; height: 40px; padding-right: 12px; padding-top: 21px; position: relative; width: 120px;">
+    <b>
+        <font style="padding: 5px 10px;border: 1px solid rgb(255, 111, 15); border-top-left-radius: 10px; border-bottom-right-radius: 10px;" color="#FF6F0F">
+            <?= $this->data['gold_num'] ?>
+            <img src="assets/x.gif" class="gold" alt="gold">
+        </font>
+    </b>
+    
+</a>
         
 <div class="clear"></div>
 </div>
@@ -208,23 +202,7 @@ if ( $this->player != NULL )
 
     echo "</div>";
 }
-echo " </div>
-<div class=\"clear\"></div>
-</div>
-
-<div class=\"footer-stopper\"></div>
-<div class=\"clear\"></div>
-<div id=\"footer\">
-<div id=\"mfoot\">
-<div class=\"footer-menu\">";
-require( VIEW_PATH."layout/footer.phtml" );
-echo "</div>
-</div>
-<div id=\"cfoot\"></div>
-</div>
-</div>
-
-";
+echo " </div>";
 if ( $this->player != NULL )
 {
 

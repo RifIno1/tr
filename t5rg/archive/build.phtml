@@ -38,8 +38,12 @@ if ( !$this->buildProperties['emptyPlace'] )
             echo "\t<table cellpadding=\"1\" cellspacing=\"1\" id=\"build_value\">\r\n\t\t<tbody>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>";
             echo constant( "item_curprod_".$this->buildProperties['building']['item_id'] );
             echo ":</th>\r\n\t\t\t\t<td><b>";
-            echo number_format($this->buildProperties['level']['current_value']);
-            
+
+            if ($this->data['is_special_village'] == 1 && $this->buildProperties['building']['item_id'] == 40) {
+                echo $this->buildProperties['building']['level'];
+            } else {
+                echo number_format($this->buildProperties['level']['current_value']);
+            }
 
             echo "</b> ";
             echo constant( "item_unit_".$this->buildProperties['building']['item_id'] );
@@ -47,13 +51,15 @@ if ( !$this->buildProperties['emptyPlace'] )
             if ( $this->buildProperties['building']['level'] < $this->buildProperties['maxLevel'] )
             {
                 echo "\t\t\t<tr>\r\n\t\t\t\t<th>";
-                echo constant( "item_nextprod_".$this->buildProperties['building']['item_id'] );
-                echo " ";
-                echo $this->buildProperties['nextLevel'];
-                echo ":</th>\r\n\t\t\t\t<td><b>";
-                echo number_format($this->buildProperties['level']['value']);
-                echo "</b> ";
+                echo constant( "item_nextprod_".$this->buildProperties['building']['item_id'] ) . " :</th>\r\n\t\t\t\t<td><b>";
                 
+                if ($this->data['is_special_village'] == 1 && $this->buildProperties['building']['item_id'] == 40) {
+                    echo $this->buildProperties['nextLevel'];
+                } else {
+                    echo number_format($this->buildProperties['level']['value']);
+                }
+
+                echo "</b> ";
                 echo constant( "item_unit_".$this->buildProperties['building']['item_id'] );
                 echo "</td>\r\n\t\t\t</tr>\r\n\t\t\t";
             }
