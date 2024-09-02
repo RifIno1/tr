@@ -52,6 +52,13 @@ function init() {
         v: parseInt(c[0]),
         x: parseInt(c[1])
     }));
+    for (b = 1; b < 5; b++) d = _("l" + b +""+b), d != null && (c = d.innerHTML.split("/"), felems.push({
+        e: d,
+        r: parseFloat(d.getAttribute("title")),
+        cv: parseInt(c[0]),
+        v: parseInt(c[0]),
+        x: parseInt(c[1])
+    }));
     elems = [];
     a = document.getElementsByTagName("span");
     b = 0;
@@ -72,10 +79,6 @@ function render() {
         d.e.innerHTML = e.toLocaleString()
     }
 
-    // Print the resource value to the console
-    //console.log("Resource " + (b + 1) + ": " + e + " / " + d.x);
-
-
     b = 0;
     for (c = elems.length; b < c; b++) {
         d = elems[b];
@@ -89,6 +92,7 @@ function render() {
             i = Math.floor(e % 60);
         d.e.innerHTML = Math.floor(e / 3600) + ":" + (f < 10 ? "0" : "") + f + ":" + (i < 10 ? "0" : "") + i
     }
+
 }
 
 function setLang(a) {
