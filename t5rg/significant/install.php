@@ -79,7 +79,7 @@ PRIMARY KEY (`id`)
   `alliances_id` tinyint(1) DEFAULT '0',  
   `is_news` tinyint(1) DEFAULT '0',  
   `is_news_ids` tinyint(1) DEFAULT '0',  
-  `name` varchar(100) DEFAULT NULL,  
+  `name` varchar(20) DEFAULT NULL,  
   `news` varchar(100) DEFAULT NULL,  
   `is_news_ids2` tinyint(1) DEFAULT '0',  
   `news2` varchar(100) DEFAULT NULL,  
@@ -208,8 +208,8 @@ PRIMARY KEY (`id`)
              
                 CREATE TABLE `p_alliances` (  
                 `id` bigint(20) NOT NULL AUTO_INCREMENT,  
-                `name` varchar(255) NOT NULL DEFAULT '',  
-                `name2` varchar(255) DEFAULT NULL,  
+                `name` varchar(20) NOT NULL DEFAULT '',  
+                `name2` varchar(20) DEFAULT NULL,  
                 `creator_player_id` bigint(20) DEFAULT NULL,  
                 `rating` int(11) DEFAULT NULL,  
                 `creation_date` datetime DEFAULT NULL,  
@@ -247,7 +247,8 @@ CREATE TABLE `p_players` (
                 `alliance_name` varchar(255) DEFAULT NULL,  
                 `alliance_roles` text,  
                 `invites_alliance_ids` text,  
-                `name` varchar(255) DEFAULT NULL,  
+                `name` varchar(20) DEFAULT NULL,  
+                `protectionQuantity` varchar(255) DEFAULT NULL,  
                 `pwd` varchar(255) DEFAULT NULL,  
                 `email` varchar(50) DEFAULT NULL,  
                 `is_active` tinyint(1) DEFAULT '0',
@@ -353,8 +354,8 @@ CREATE TABLE `p_players` (
                 `player_id` bigint(20) DEFAULT NULL,  
                 `alliance_id` bigint(20) DEFAULT NULL,  
                 `player_name` varchar(300) DEFAULT NULL,  
-                `village_name` varchar(255) DEFAULT NULL,  
-                `alliance_name` varchar(300) DEFAULT NULL,  
+                `village_name` varchar(20) DEFAULT NULL,  
+                `alliance_name` varchar(30) DEFAULT NULL,  
                 `is_capital` tinyint(1) DEFAULT '0',  
                 `is_special_village` tinyint(1) DEFAULT '0',
                 `attacked_num` int(11) DEFAULT '1',
@@ -428,7 +429,7 @@ CREATE TABLE `p_players` (
                 CREATE TABLE `p_merchants` (  
                 `id` bigint(20) NOT NULL AUTO_INCREMENT,  
                 `player_id` bigint(20) DEFAULT NULL,  
-                `player_name` varchar(255) DEFAULT NULL,  
+                `player_name` varchar(20) DEFAULT NULL,  
                 `village_id` bigint(20) DEFAULT NULL,  
                 `village_x` smallint(6) DEFAULT NULL,  
                 `village_y` smallint(6) DEFAULT NULL,  
@@ -553,9 +554,9 @@ CREATE TABLE `p_players` (
                     $is_oasis = 1;
                     $tribe_id = 4;
                     $creation_date = "NOW()";
-                    $troops_num = $oasis_troop_ids[mt_rand( 0, 20000 )]." ".mt_rand( 10000, 50000 );
-                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 3000, 50000 )]." ".mt_rand( 2000, 60000 );
-                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 6000, 8000 )]." ".mt_rand( 3000, 7000 );
+                    $troops_num = $oasis_troop_ids[mt_rand( 0, 2 )]." ".mt_rand( 1, 5 );
+                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 3, 5 )]." ".mt_rand( 2, 6 );
+                    $troops_num .= ",".$oasis_troop_ids[mt_rand( 6, 8 )]." ".mt_rand( 3, 7 );
                     if ( mt_rand( 0, 1 ) == 1 )
                     {
                         $troops_num .= ",".$oasis_troop_ids[9]." ".mt_rand( 2000, 8000 );
