@@ -1,20 +1,31 @@
 <?php
 
-    $input = "-1:21 0,22 0,23 0,24 0,25 8300000,26 0,27 0,28 0,29 0,30 7000,99 1|1597:21 8533000,22 0,23 0,24 0,25 0,26 0,27 0,28 0,29 0,30 70000";
+// Input string
+$input = "1 2 0,4 0 0,1 0 0,3 2 0,2 2 0,2 0 0,3 0 0,4 0 0,4 2 0,3 0 0,3 0 0,4 0 0,4 0 0,1 0 0,4 0 0,2 0 0,1 0 0,2 0 0,0 0 0,0 0 0,15 12 0,39 5 0,38 5 0,40 10 0,40 0 0,40 0 0,0 0 0,0 0 0,40 0 0,40 0 0,0 0 0,0 0 0,40 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0";
 
-    // Split the input string by spaces
-    $parts = explode(' ', $input);
-    $TotalConsum = 0;
+// Split the input string by commas into an array
+$parts = explode(',', $input);
+
+// Check if there are enough parts after splitting
+if (isset($parts[23])) {
+    // Get the segment after the 24th comma (25th part)
+    $segment = $parts[23];
     
-    // Loop through the parts and add to sum if they are numeric
-    foreach ($parts as $part) {
-        $cleanPart = str_replace(',', '.', $part);
-        
-        if (is_numeric($cleanPart)) {
-            $TotalConsum += (int)$cleanPart; // Cast to float for proper summation
+    // Check if the segment starts with "40 0" or "0 0"
+    if (strpos($segment, '40 0') === 0 || strpos($segment, '0 0') === 0) {
+        // Iterate through the array and change "40 0" to "0 0" if condition met
+        foreach ($parts as &$part) {
+            if (strpos($part, '40 0') === 0) {
+                $part = '0 0 ' . substr($part, 5);
+            }
         }
     }
+}
 
-    echo $TotalConsum;
-    
+// Join the modified array back into a string
+$output = implode(',', $parts);
+
+// Output the result
+echo $output;
+
 ?>

@@ -14,39 +14,49 @@ while ($row = mysql_fetch_array($result)) {
     $msg = null;
     $player_name = "التتار";
     if ($pos === false) {
-        $wwlvl = "0";
-
-       
-
-    } else {
+        $wwlvl = "0";} else {
         $wwlvl = split("40", $row["buildings"]);
         $wwlvl = split(" ", $wwlvl[1]);
         $wwlvl = $wwlvl[1];
     }
+
+    // check if the village is a special village
+    if( $row["is_special_village"] == 1){
+        
+$input = $row["buildings"];
+$parts = explode(',', $input);
+
+// Check if there are enough parts after splitting
+if (isset($parts[23])) {
+// Get the segment after the 24th comma (25th part)
+$segment = $parts[23];
+
+// Check if the segment starts with "40 0" or "0 0"
+if (strpos($segment, '40 0 0') === 0 || strpos($segment, '0 0 0') === 0) {
+// Iterate through the array and change "40 0" to "0 0" if condition met
+foreach ($parts as &$part) {
+    if (strpos($part, '40 0 0') === 0) {
+        $part = '0 0 0' . substr($part, 5);
+    }
+}
+}
+}
+
+// Join the modified array back into a string
+$output = implode(',', $parts);
+
+// update $output in buildings in p_villages
+$query = "update p_villages set buildings = '$output' where id = $vlvid";
+// execute the query
+mysql_query($query) or die(mysql_error());
+    }
+
+
 }
 
 
- // Split the string into segments
- $segments = explode(',', $row["buildings"]);
 
- // Iterate over each segment
- foreach ($segments as $segment) {
-     // Trim leading/trailing whitespaces
-     $segment = trim($segment);
 
-     // Check if the segment starts with "40 0"
-     if (strpos($segment, '40 0') === 0) {
-         // Replace "40" with "0"
-         $segment = "0" . substr($segment, 2);
-     }
- }
- // Join the segments back together with commas
- $output = implode(',', $segments);
- echo $output;
-
- if (strpos($segment, '40 0') === 0) {
-  mysql_query("UPDATE p_villages set buildings='$output' WHERE id = $vlvid") or die(mysql_error());
-}
 
 
 $sqls = "SELECT * FROM p_villages WHERE is_special_village=1 and is_capital=1";
