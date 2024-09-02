@@ -174,7 +174,7 @@ $s = 1;
 $s = 0;
 }
         $this->provider->executeQuery( "INSERT p_players SET protectionQuantity='%s',new_gnews='%s', tribe_id='%s', name='%s', pwd='%s', email='%s', is_active=%s, active_plus_account=0, is_blocked=0, last_ip='%s', invite_by=%s, registration_date=NOW(), player_type=%s, gold_num=50000, snid=%s, medals='0::'", array(
-            '1 250,1 500,1 1250,6 500,6 1000,6 2500,12 1000,12 2000,12 5000,24 5000,24 10000,24 25000',
+            '1 250,1 500,1 1250,6 1250,6 2500,6 7250,12 7250,12 14500,12 36250,24 36250,24 72500,24 181250',
             $s,
             $tribeId,
             $playerName,
