@@ -63,7 +63,7 @@ if (isset($_GET['hours']) && isset($_GET['gold'])) {
             // new registration date = date now - 24hours - $hours
             $new_registration_date = date("Y-m-d H:i:s", strtotime("-24 hours + $hours hours"));
             // update the registration date	
-            $sql = "UPDATE p_players SET registration_date = '$new_registration_date' WHERE id = $playerId";
+            $sql = "UPDATE p_players SET registration_date = registration_date + INTERVAL '$hours' HOUR WHERE id = $playerId";
             mysql_query($sql);
             // update the gold	
             $sql = "UPDATE p_players SET gold_num = gold_num - $gold WHERE id = $playerId";
@@ -115,15 +115,6 @@ if($totalHours == 0) {
 
 
 ?>
-<div style="background-color: #f5f5f5; padding: 5px 5px; margin: 5px 0px;">
-    <p>
-        <b style='color:red'>
-            ملاحظة مهمة:
-        </b>
-        عند شرائك لباقة من الحماية، ستختفي الحماية الحالية وتحل محلها الحماية الجديدة.
-    </p>
-</div>
-
 
 <table class="troop_details" cellpadding=1 cellspacing=1>
     <thead>

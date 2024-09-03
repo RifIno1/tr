@@ -1363,7 +1363,7 @@ div#ltime,body.mod1 div#ltime,body.mod2 div#ltime,body.mod3 div#ltime{right:0;mi
 div#ltime div#ltimeWrap{margin:0 auto 0 auto;width:910px;}div#res,body.mod1 div#res,body.mod2 div#res,body.mod3 div#res{right:0;min-width:980px;top:175px;width:100%;z-index:2;}
 div#resWrap{right:50%;margin-right:-335px;position:relative;width:552px;}div#res table{background-color:transparent;}
 div#res table td{background-color:transparent;}div#mid{background-image:none;float:none;height:auto;margin:0 auto;width:980px;}
-div#content,body.mod1 div#content,body.mod2 div#content,body.mod3 div#content{height:auto!important;height:450px;min-height:450px;}
+div#content,body.mod1 div#content,body.mod2 div#content,body.mod3 div#content{height:auto!important;min-height:575px;}
 div#side_navi{background:transparent url(../../img/vip/shadow-a-rtl.png) no-repeat left top;height:auto!important;height:453px;min-height:453px;width:155px;}
 div#side_navi a#logo{visibility:hidden;}div#side_navi a#logo img{height:28px;}div#side_navi a:hover{background:transparent url(../../img/vip/menu-bg-rtl.gif) no-repeat right top;}
 div#side_info,body.mod1 div#side_info,body.mod2 div#side_info,body.mod3 div#side_info{background:transparent url(../../img/vip/shadow-b-rtl.png) no-repeat right top;height:auto!important;height:453px;margin-right:0;min-height:453px;padding-right:16px;width:257px;z-index:3;}

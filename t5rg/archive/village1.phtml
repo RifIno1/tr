@@ -2,8 +2,9 @@
 
 
 echo '<h1>'.$this->data['village_name'].'<br>'.
-        (($this->data['allegiance_percent'] <= 100)?'<div id="loyality" class="'.($this->data['allegiance_percent'] <= 60 ? "re" : "gr").'">'.LANGUI_VIL1_T1.' '.$this->data['allegiance_percent'].'%</div>':($this->data['is_capital']?'<div id="loyality" class="cap"></div>':'')).'</h1>
+        (($this->data['is_capital']?'<div id="loyality" style="font-size:11px;color:#aaa;font-weight:500">(العاصمة) </div>':'')).'</h1>
         ';
+echo '<br>';
 echo '        <map name="rx" id="rx">
                 <area href="build.php?id=1" coords="101,33,28" shape="circle" '.$this->getBuildingTitle(1).'>
                 <area href="build.php?id=2" coords="165,32,28" shape="circle" '.$this->getBuildingTitle(2).'>

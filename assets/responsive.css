@@ -1,98 +1,18 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 
-.flex-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    justify-content: center;
-}
 
-.flex-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border-radius: 5px;
-    padding: 5px 15px;
-    text-align: center;
-    background: #4da44d;
-    color: white;
-}
+@media only screen and (max-width: 768px){
 
-.mobile-menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: auto;
-    width: 80vw;
-    background-color: #000000ce;
-    z-index: 999;
-    gap: 10px;
-    padding-right: 20px;
-    padding-top: 50px;
-    padding-left: 20px;
-    min-height: 100vh;
-}
-
-
-.mobile-menu a {
-    color: aliceblue;
-}
-
-.open-menu {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    cursor: pointer;
-    display: none;
-}
-
-.close-menu {
-    position:absolute;
-    top:10px;
-    left:10px;
-    width: 40px;
-    cursor: pointer;
-}
-
-.village1, .village2, .map {
-    width: 60% !important;
-}
-#side_info {
-    width: auto !important;
-}
-#mid {
-    width: 100% !important;
-    max-width: 1200px;
-}
-
-.link {
-    width: 50px;
-}
-#vlist {
-    width: 100% !important;
-}
-
-.mobile-menu .link a, .mobile-menu  #vlist a {
-    color: #000000 !important;
-}
-.village2 h1 {
-    position: relative !important;
-}
-@media only screen and (max-width: 800px){
+    body{
+        zoom : 100%;
+    }
     #dynamic_header {
         min-width: 100% !important;
+        margin-top: 20px !important;
     }
     #header{
         min-width: 100% !important;
+        
     }
     #header > #mtop {
         width: 100% !important;
@@ -100,6 +20,10 @@
         right: unset !important;
         display: flex;
         justify-content: center;
+    }
+
+    div#content {
+        float : none !important;
     }
     #mid {
         width: 100% !important;
@@ -114,30 +38,59 @@
     #side_info {
         display: none !important;
     }
+    
     #res {
         width: 100% !important;
         min-width: 100% !important;
-        display: none;
     }
     #resTop {
         display: block !important;
         width: 100% !important;
     }
     #res>#resWrap {
-        right: unset !important;
-        margin-left: 0 !important;
-        width: 100% !important;
+             right: 0!important;
+     margin-right: 0!important;
+     width: 100%!important;
     }
-    .village1, .village2 {
+    
+    .village1 {
         display: flex !important;
         flex-direction: column !important;
-        width: 100% !important;
-        justify-content: center !important;
+        width: 90vw !important;
+    }
+
+    
+    div.village2 div#village_map{
+    margin-right: -80px!important;
+    padding: 0px!important;
+    scale: 0.9!important;
+    max-width: 130%!important;
+    }
+
+
+    div#map {
+        scale: 0.9!important;
+        margin-right: -80px!important;
+    }
+
+    #map_navibox {
+        left: 100px!important;
+        bottom: -80px!important;
+    }
+
+    #map_makelarge img {
+        margin-right: 120px;
+        margin-top: -15px;
+    }
+
+    img#lswitch {
+        right: 50px !important;
     }
     
     .village1 > #map_details {
-        margin-top: 30px !important;
+        margin-top: 10px !important;
     }
+
     .show-flex {
         display: flex !important;   
     }
@@ -147,44 +100,21 @@
     .open-maps {
         display: block !important;
     }
-    .map {
-        width: 552px !important;
-    }
-}
 
-@media only screen and (max-width: 600px){
-    .flex-container {
-       gap: 10px !important;
-       flex-wrap: wrap;
-    }
-    .flex-item {
-        padding: 5px;
-    }
-}
 
-@media only screen and (max-width: 560px){
-    .village2 #village_map {
-        scale: .8;
-        right: -30px;
-    }
-    #lswitch {
-        right: 30px !important;
-    }
-    .map {
-        scale: .8;
-        right: -50px;
-        padding-top: 0 !important;
-    }
-}
 
-@media only screen and (max-width: 480px){
-    .village2 #village_map {
-        scale: .7;
-        right: -70px;
-        top: -70px;
+    .phone_bar {
+        display: flex !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        width: 100% !important;
+        background-color: #f5f5f5 !important;
+        position: fixed !important;
+        z-index: 1000 !important;
+        padding: 8px 0px !important;
+        margin-top: -20px !important;
     }
-    .map {
-        scale: .7;
-        right: -70px;
-    }
+    
+
+    
 }
