@@ -119,20 +119,20 @@ if($totalHours == 0) {
 <table class="troop_details" cellpadding=1 cellspacing=1>
     <thead>
         <tr>
-        <th colspan="4">شراء الحماية (عدد الساعات المتاحة: <font color="red"><?php echo $totalHours; ?></font>)</th>
+        <th style="padding:8px 2px" colspan="4">شراء الحماية (عدد الساعات المتاحة: <font color="red"><?php echo $totalHours; ?></font>)</th>
         </tr>
     </thead>
     <tr>
-        <td>عدد الساعات</td>
-        <td>الذهب</td>
+        <td style="padding:8px 2px">عدد الساعات</td>
+        <td>التكلفة</td>
         <td>شراء</td>
     </tr>
     <?php
     foreach ($protectionQuantity as $protection) {
         $protection = explode(" ", $protection);
         echo "<tr>";
-        echo "<td>" . $protection[0] . "</td>";
-        echo "<td>" . $protection[1] . "</td>";
+        echo "<td  style='padding:6px 2px'>" . $protection[0] . "</td>";
+        echo "<td>" . $protection[1] . " <img src='assets/x.gif' class='gold'></td>";
         echo "<td>
         
         <input type='radio' name='protection' value='" . $protection[0] . "' onchange='buyProtection(" . $protection[0] . ", " . $protection[1] . ")'>

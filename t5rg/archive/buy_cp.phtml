@@ -1,0 +1,164 @@
+<?php
+
+require(APP_PATH . "config.php");
+
+$link = mysql_connect($AppConfig['db']['host'], $AppConfig['db']['user'], $AppConfig['db']['password']);
+if (!$link) {
+    die('Could not connect: ' . mysql_error());
+}
+
+$db_selected = mysql_select_db($AppConfig['db']['database'], $link);
+if (!$db_selected) {
+    die('Can\'t use database: ' . mysql_error());
+}
+
+$playerId = $this->player->playerId;
+$villageId = intval($this->data['selected_village_id']);
+
+
+// Count all villages of player
+$query_all = "SELECT COUNT(*) AS village_count FROM p_villages WHERE player_id = $playerId AND is_oasis = 0";
+$result_all = mysql_query($query_all);
+if (!$result_all) {
+    die('Query failed: ' . mysql_error());
+}
+$row_all = mysql_fetch_assoc($result_all);
+$num_rows_all = $row_all['village_count'];
+
+// Get sum cp of all villages
+$query_cp = "SELECT cp FROM p_villages WHERE player_id = $playerId AND is_oasis = 0";
+$result_cp = mysql_query($query_cp);
+if (!$result_cp) {
+    die('Query failed: ' . mysql_error());
+}
+$cp_sum = 0;
+while ($row_cp = mysql_fetch_assoc($result_cp)) {
+    $cp = explode(" ", $row_cp['cp']);
+    $cp_sum += $cp[0];
+}
+
+// Calculate costs
+$cost_for_all = $num_rows_all * 0.5;
+
+$can_buy_forAll = floor($this->data['gold_num'] / $cost_for_all);
+
+?>
+<br>
+<h2>شراء النقاط الحضرية</h2>
+<form action="" method="post">
+<table class="troops">
+    <thead>
+        <tr>
+            <th style="padding:8px 2px">الرصيد الحالي</th>
+            <th>التكلفة</th>
+            <th>شراء</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding:6px 2px">
+                <?php echo (int)$cp_sum; ?> نقطة
+            </td>
+            <td>
+                <?php echo'<b id="cost_for_all">'. (int)$cost_for_all.' </b>'; ?> <img src="assets/x.gif" class="gold" title="الذهب" alt="" />
+            </td>
+            <td>
+                <input class="text" type="text" name="cpAll" id="cpAll" value="1" maxlength="7">
+                <a href="#" onclick="WriteValueInInput()">(<?php echo $can_buy_forAll; ?>)</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br><br>
+<center>
+    <button type="submit" style="
+        padding: 1px;
+        border-radius: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 1px solid #71d000;
+        background-image: linear-gradient(to bottom, #fdfdfd, #c6c6c6);
+        cursor: pointer;
+        color: #7a7a7a;
+        text-align: center;
+        font-weight: 700;
+        text-shadow: none;
+    "
+    name="s1" id="btn_ok" value="ok" onclick="this.style.visibility='hidden';">
+        شراء
+    </button>
+</center>
+</form>
+<script type="text/javascript">
+    function WriteValueInInput() {
+        document.getElementById('cpAll').value = <?php echo $can_buy_forAll; ?>;
+
+        // change the cost_for_all value when the input value changes
+        var cpAll = document.getElementById('cpAll').value;
+        var cost_for_all = cpAll * <?php echo $cost_for_all; ?>;
+        document.getElementById('cost_for_all').innerHTML = parseInt(cost_for_all);
+
+    }
+
+    // change the cost_for_all value when the input value changes
+    document.getElementById('cpAll').addEventListener('input', function() {
+        var cpAll = document.getElementById('cpAll').value;
+        var cost_for_all = cpAll * <?php echo $cost_for_all; ?>;
+        document.getElementById('cost_for_all').innerHTML = parseInt(cost_for_all);
+    });
+
+
+
+
+</script>
+
+<?php
+
+// if button is clicked
+if (isset($_POST['s1'])) {
+
+    
+    $cp = intval($_POST['cpAll']);
+    $cost = $cost_for_all * $cp;
+    
+
+    // Check if the player has enough gold
+    if ($this->data['gold_num'] < $cost || $cp < 0) {
+        echo "<br><center><font color='red'>ليس لديك الذهب الكافي</font></center>";
+    } else {
+
+        // Update the player's gold
+        $new_gold = $this->data['gold_num'] - $cost;
+        $query = "UPDATE p_players SET gold_num = $new_gold WHERE id = $playerId";
+        $result = mysql_query($query);
+
+        if (!$result) {
+            die('Query failed: ' . mysql_error());
+        }
+
+            $queryCp = "SELECT cp FROM p_villages WHERE id = $villageId";
+            $resultCp = mysql_query($queryCp);
+
+            if ($resultCp) {
+                $rowCp = mysql_fetch_assoc($resultCp);
+                
+                $old_cp = explode(" ", $rowCp['cp']);
+                $old_cp[0] += $cp;
+                $old_cp[1] += $cp;
+                $new_cp = mysql_real_escape_string($old_cp[0] . " " . $old_cp[1]);
+                
+                $query = "UPDATE p_villages SET cp = '$new_cp' WHERE id = $villageId";
+                $result = mysql_query($query);
+                if (!$result) {
+                    die('Query failed: ' . mysql_error());
+                }
+
+            } else {
+                die('Query failed: ' . mysql_error());
+            }
+        
+
+        echo "<br><center><font color='green'>تم شراء $cp نقطة حضارية مقابل " .(int)$cost. " ذهب <img src='assets/x.gif' class='gold' title='الذهب' alt=''> بنجاح</font></center>";
+    }
+}

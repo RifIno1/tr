@@ -109,6 +109,8 @@ echo "<a href=\"farm.php\">";
 echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
 echo "</a>";
 echo"<a href=\"chat.php\">الشات</a>"; 
+echo "<a href=\"protection.php\">الحماية</a>";
+echo "<a href=\"buy_cp.php\">النقاط الحضارية</a>";
 echo"<a href=\"msg.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
 
 }
@@ -136,6 +138,74 @@ echo " </div></b>
 <div id=\"content\" class=\"";echo $this->contentCssClass;echo "\"><div class=\"top\"></div>";$this->printContent();echo "</div>
 <div id=\"side_info\">";
 
+// get the registration date of the player id 1
+require(APP_PATH . "config.php");
+$link = mysql_connect($AppConfig['db']['host'], $AppConfig['db']['user'], $AppConfig['db']['password']);
+$db_selected = mysql_select_db($AppConfig['db']['database'], $link);
+
+$query = "SELECT registration_date FROM p_players WHERE id = 1";
+$result = mysql_query($query);
+$row = mysql_fetch_assoc($result);
+$reg_date = $row['registration_date'];
+// add 5 days to the registration date
+$reg_date = strtotime($reg_date);
+$reg_date = strtotime("+5 day", $reg_date);
+$reg_date = date("Y-m-d H:i:s", $reg_date);
+// calcul date now - date registration
+$now = date("Y-m-d H:i:s");
+$now = strtotime($now);
+$reg_date = strtotime($reg_date);
+$diff = $reg_date - $now;
+$days = floor($diff / (60 * 60 * 24));
+$hours = floor(($diff - $days * 60 * 60 * 24) / (60 * 60));
+$minutes = floor(($diff - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
+$seconds = $diff - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minutes * 60;
+echo "<div style='text-align: center; font-family: Tahoma, sans-serif; padding: 15px;'>";
+echo "<div style='font-size: 18px; margin-bottom: 15px;'>بقي على تطوير المعجزة</div>";
+echo "<div id='countdown' style='font-size: 14px; font-weight: bold; display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);'>";
+echo "$days:$hours:$minutes:$seconds";
+echo "</div>";
+echo "</div>";
+?>
+
+<script>
+// Get the initial values from the PHP variables
+let days = <?php echo $days; ?>;
+let hours = <?php echo $hours; ?>;
+let minutes = <?php echo $minutes; ?>;
+let seconds = <?php echo $seconds; ?>;
+
+// Update the countdown every second
+setInterval(function() {
+    // Decrement the seconds
+    seconds--;
+    
+    // Handle minute, hour, and day decrement logic
+    if (seconds < 0) {
+        seconds = 59;
+        minutes--;
+        if (minutes < 0) {
+            minutes = 59;
+            hours--;
+            if (hours < 0) {
+                hours = 23;
+                days--;
+            }
+        }
+    }
+
+    // Display the updated countdown
+    document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+
+    // If the countdown ends, stop the timer
+    if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+        clearInterval();
+        document.getElementById('countdown').innerHTML = "The miracle has developed!";
+    }
+}, 1000);
+</script>
+
+<?php
 if ( $this->player != NULL )
 {
     if ( 1 < sizeof( $this->playerVillages ) )

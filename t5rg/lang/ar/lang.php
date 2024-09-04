@@ -896,7 +896,7 @@ $domain = WebHelper::getdomain();
   define("LANGUI_CUSTBU_RPLC_p2_t2", "إنتاج هذه القرية");
   define("LANGUI_CUSTBU_RPLC_p2_t3", "نقطة حضارية يومياً");
   define("LANGUI_CUSTBU_RPLC_p2_t4", "إنتاج جميع القرى");
-  define("LANGUI_CUSTBU_RPLC_p2_t5", "قريتك أنتجت");
+  define("LANGUI_CUSTBU_RPLC_p2_t5", "تم إنتاج ");
   define("LANGUI_CUSTBU_RPLC_p2_t6", "نقطة حضارية حتى الآن");
   define("LANGUI_CUSTBU_RPLC_p2_t7", "تأسيس أو إحتلال قرية جديدة يتطلب منك");
   define("LANGUI_CUSTBU_RPLC_p2_t8", "نقطة حضارية");

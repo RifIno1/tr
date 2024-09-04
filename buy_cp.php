@@ -7,7 +7,7 @@ class GPage extends securegamepage{
 
         public function GPage(){
                 parent::securegamepage();
-                $this->viewFile = "recources.phtml";
+                $this->viewFile = "buy_cp.phtml";
                 $this->contentCssClass = "player";
         }
 

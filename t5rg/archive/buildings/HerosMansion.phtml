@@ -1,28 +1,6 @@
 <?php
 
 
-
-?><html>
-<head>
-<script type="text/javascript">
-var ClickCount = 0;
-function countClicks() {
-        var clickLimit = 1; //Max number of clicks
-        if(ClickCount>=clickLimit) {
-                alert("انتضر قليلآ");
-                return false;
-        }
-        else
-        {
-                ClickCount++;
-                return true;
-        }
-}
-</script>
-</head>
-</html><?php
-
-
 echo "<div id=\"textmenu\">\r\n   <a href=\"build.php?id=";
 echo $this->buildingIndex; 
 echo "\"";
@@ -41,7 +19,17 @@ if ( $this->selectedTabIndex == 1 )
 }
 echo ">";
 echo LANGUI_CUSTBU_HRO_p2;
+echo "</a>\r\n | <a href=\"build.php?id=";
+echo $this->buildingIndex;
+echo "&hero=rename\"";
+echo ">";
+echo "تغيير اسم البطل";
 echo "</a>\r\n</div>\r\n";
+
+
+
+
+
 if ( $this->selectedTabIndex == 0 )
 {
 require( APP_PATH."config.php" );
@@ -158,7 +146,7 @@ $r = mysql_fetch_array($result);
 <table cellspacing="1" cellpadding="1" id="distribution"> 
         <thead>
                 <tr>
-                        <th colspan="6"><a href="build.php?id=<?php echo $this->buildingIndex; ?>&hero=rename"><?php echo $this->data['hero_name']; ?></a>  المستوى <?php echo $this->data['hero_level']; ?>  <span class="info">( <img title="<?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>" alt="<?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>" src="assets/x.gif" class="unit u<?php echo $this->data['hero_troop_id']; ?>"> <?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>) <?php if ($r['gold_num'] >= 0 and $r['hero_att'] > 0 or $r['hero_deff'] > 0 ) { ?> <a title="اعادة توزيع النقاط" href="build.php?id=<?php echo $this->buildingIndex; ?>&t=2&addgwar"> <img title="اعادة توزيع النقاط" class="little_res clock" src="assets/x.gif" alt="Duration"></a> <?php } else { } ?></span></th>
+                        <th colspan="6"><a href="build.php?id=<?php echo $this->buildingIndex; ?>&hero=rename"><?php echo $this->data['hero_name']; ?></a>  المستوى <?php echo $this->data['hero_level']; ?>  <span class="info">( <img title="<?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>" alt="<?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>" src="assets/x.gif" class="unit u<?php echo $this->data['hero_troop_id']; ?>"> <?php echo constant( "troop_".$this->data['hero_troop_id'] ); ?>) <?php if ($r['gold_num'] >= 0 and $r['hero_att'] > 0 or $r['hero_deff'] > 0 ) { ?> <a title="اعادة توزيع النقاط" href="build.php?id=<?php echo $this->buildingIndex; ?>&t=2&addgwar"><img title="اعادة توزيع النقاط" class="little_res clock" src="assets/x.gif" alt="Duration"></a> <?php } else { } ?></span></th>
                 </tr>
         </thead> 
     <tbody>
