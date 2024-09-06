@@ -664,7 +664,7 @@ class ProcessVillagePage extends VillagePage {
   $this->gameMetadata['plusTable'][5]['cost']
   );
   }
-  $this->redirect ($this->contentCssClass . ''); return;
+  $this->redirect ($this->contentCssClass . '.php'); return;
   }
   if (isset ($_GET['upz']) && $this->appConfig['system']['server_start'] < date('Y/m/d H:i:s')
   && $_GET['id'] == 39

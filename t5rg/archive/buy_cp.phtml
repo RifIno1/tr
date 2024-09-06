@@ -63,7 +63,7 @@ $can_buy_forAll = floor($this->data['gold_num'] / $cost_for_all);
                 <?php echo'<b id="cost_for_all">'. (int)$cost_for_all.' </b>'; ?> <img src="assets/x.gif" class="gold" title="الذهب" alt="" />
             </td>
             <td>
-                <input class="text" type="text" name="cpAll" id="cpAll" value="1" maxlength="7">
+                <input class="text" type="number" name="cpAll" id="cpAll" value="1" maxlength="7">
                 <a href="#" onclick="WriteValueInInput()">(<?php echo $can_buy_forAll; ?>)</a>
             </td>
         </tr>
@@ -124,7 +124,7 @@ if (isset($_POST['s1'])) {
     
 
     // Check if the player has enough gold
-    if ($this->data['gold_num'] < $cost || $cp < 0) {
+    if ($this->data['gold_num'] < $cost && $cp < 0) {
         echo "<br><center><font color='red'>ليس لديك الذهب الكافي</font></center>";
     } else {
 

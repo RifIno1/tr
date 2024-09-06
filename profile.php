@@ -158,7 +158,7 @@ class GPage extends SecureGamePage
                         $newData = array(
                             'gender' => ((0 <= intval($_POST['mw']) && intval($_POST['mw']) <= 2) ? intval($_POST['mw']) : 0),
                             'house_name' => ($filter->FilterWords(isset($_POST['ort'])) ? $filter->FilterWords(htmlspecialchars($_POST['ort']))  : ''),
-                            'village_name' => ((isset($_POST['dname'])  && trim(stripslashes($_POST['dname'])) != '' && strlen($_POST['dname']) < 25  ) ? $filter->FilterWords(htmlspecialchars($_POST['dname'])) : $this->profileData['village_name']),
+                            'village_name' => (isset($_POST['dname']  ) ? $_POST['dname'] : $this->profileData['village_name']),
                             'avatar' => htmlspecialchars($avatar),
                             'description1' => ($filter->FilterWords(isset($_POST['be1'])) ? $filter->FilterWords(htmlspecialchars($_POST['be1'])) : ''),
                             'description2' => ($filter->FilterWords(isset($_POST['be2'])) ? $filter->FilterWords(htmlspecialchars($_POST['be2'])) : ''),
