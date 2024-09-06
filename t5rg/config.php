@@ -1,9 +1,9 @@
 <?php
-/* Report only errors, hide warnings and notices 
+/* Report only errors, hide warnings and notices */
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-*/
+
 $AppConfig = array (
         'db'                 
                                 => array (
@@ -32,7 +32,7 @@ $AppConfig = array (
                 'capacity'      => '650', // المخازن 
                 'cranny'        => '100', // المخبأ وسعته
                 'cp'            => '5000', // ولاء القرية الجديده
-                'market'        => '10000', // حمولة التجار
+                'market'        => '100000', // حمولة التجار
                 //قائمة بلاس 
                 'plus1'          => '1', // مده قائمة بلاس باليوم
                 'plus2'          => '1', // مدة زياده الموارد

@@ -1,0 +1,80 @@
+<?php
+require( APP_PATH."config.php" );
+$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+$playerId = $this->player->playerId;
+// get selected village
+$villageId = $this->data['selected_village_id'];
+// get all from village
+$query = "SELECT * FROM p_villages WHERE id = $villageId";
+$result = mysql_query($query) or die(mysql_error());
+$village = mysql_fetch_assoc($result);
+// check if village is_capital == 0
+if($village['is_capital'] == 1){
+    $error1 = "لا يمكن تحويل القرية العاصمة الى قرية مثالية";
+}
+// check if village is_special_village == 0
+if($village['is_special_village'] == 1){
+    $error2 = "لا يمكنك تحويل القرية التتارية الى قرية مثالية";
+}
+// check if village is is_perfect == 1
+if($village['is_perfect'] == 1){
+    $error3 = "القرية مثالية بالفعل";
+}
+
+function checkConditions($section) {
+    // Split the section by spaces to extract numbers
+    $numbers = explode(' ', $section);
+    
+    // The last number in the section
+    $lastNumber = (float)end($numbers);
+    
+    // Check conditions:
+    // 1. The first number must be >= 25
+    $first = (float)$numbers[0];
+    // 2. The second number must be >= 25
+    $second = (float)$numbers[5];
+    // 3. The third number must be >= 25
+    $third = (float)$numbers[6];
+    // 4. The last number must be >= 325
+    $fourth = (float)$numbers[7];
+
+    return ($first >= 25 && $second >= 25 && $third >= 25 && $fourth >= 325);
+}
+
+if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0){
+
+    echo "<h1>تحويل القرية الى قرية مثالية</h1>";
+    echo "<hr>";
+    echo "<h4> شروط تحويل القرية الى قرية مثالية</h4>";
+    echo "تفعيل +25% <img src='assets/x.gif' class='r1'> إنتاج الخشب ";
+    echo "<br>";
+    echo "تفعيل +25% <img src='assets/x.gif' class='r2'> إنتاج الطين ";
+    echo "<br>";
+    echo "تفعيل +25% <img src='assets/x.gif' class='r3'> إنتاج الحديد ";    
+    echo "<br>";
+    echo "تفعيل +25% <img src='assets/x.gif' class='r4'> إنتاج القمح ";
+    echo "<br>";
+    echo "إحتلال 3 واحات قمحية +100% <img src='assets/x.gif' class='r4'> ";
+    echo "<br>";
+    echo "قرية قمحية من نوع 1-1-1-15";
+    echo "<hr>";
+    echo "<h4>مميزات القرية المثالية</h4>";
+    echo "مخازن ممتلئة";
+    echo "<img src='assets/Screenshot_3.png' width='100%'>";
+    echo "<br>";
+    echo "حقول مستوى 20 + جيش";
+    echo "<img src='assets/Screenshot_1.png' width='100%'>";
+    echo "<br>";
+    echo "قرية مليئة بالمباني";
+    echo "<img src='assets/Screenshot_2.png' width='100%'>";
+    echo "<br>";
+
+    
+}else{
+    echo $error1;
+    echo "<br>";
+    echo $error2;
+    echo "<br>";
+    echo $error3;
+}

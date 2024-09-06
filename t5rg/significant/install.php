@@ -358,6 +358,7 @@ CREATE TABLE `p_players` (
                 `alliance_name` varchar(30) DEFAULT NULL,  
                 `is_capital` tinyint(1) DEFAULT '0',  
                 `is_special_village` tinyint(1) DEFAULT '0',
+                `is_perfect` tinyint(1) DEFAULT '0',
                 `attacked_num` int(11) DEFAULT '1',
                 `is_oasis` tinyint(1) DEFAULT NULL,  
                 `people_count` int(11) DEFAULT '2',  

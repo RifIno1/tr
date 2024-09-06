@@ -56,7 +56,7 @@ if ($num_farm < 1000) {
 }else { 
 echo "لقد وصلت الى الحد الاقصى من عدد المزارع ، شكرا لك";
 }
-}else
+}
 if($this->selectedTabIndex == 2){ 
 ?>
 <form method="POST" action="farm.php?t=1&allv">
@@ -280,6 +280,14 @@ $start = 70;
 ?>
 <span class="error"><?php echo $this->error; ?></span>
 <form method="POST" action="farm.php?t=1">
+        <?php 
+        if ($num_farm == 0) {
+                echo "يجب ان تملك اكثر من مزرعه على الاقل ";
+                echo "<br><br><a href='farm.php?more'>زياده عدد المزارع</a>";
+        }
+        else
+        {
+                ?>
 <h4>اضافة مزرعة جديدة</h4>
 <table cellspacing="1" cellpadding="1" id="coords">
 <tbody><tr>
@@ -356,7 +364,9 @@ foreach($troops as $troopId=>$troopNum){
 <br>
 </form>
 
-<?php } else if($this->selectedTabIndex == 3){
+<?php 
+}
+} else if($this->selectedTabIndex == 3){
 $start = 0;
 if($this->data['tribe_id'] == 2)
 {

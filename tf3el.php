@@ -1,29 +1,40 @@
 <?php
-//\\//\\//\\//\\//\\//\\//\\//\\
-//Bazaid Invision Power Board //
-//\\//\\//\\//\\//\\//\\//\\//\\
+// Sample input string
+$input = "1 312000000 312000000 8000 1225000 50,2 312000000 312000000 8000 1225000 50,3 312000000 312000000 8000 1225000 50,4 780000000 780000000 8000 18375000 50";
 
-require_once("app/config.php");
+// Split the input string by commas to get each section
+$sections = explode(',', $input);
 
-$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
-mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+// Function to check the conditions for each section
+function checkConditions($section) {
+    // Split the section by spaces to extract numbers
+    $numbers = explode(' ', $section);
+    
+    // The last number in the section
+    $lastNumber = (float)end($numbers);
+    
+    $last = (float)end($numbers);
+    echo $last;
+    echo '<br>';
 
-//activate
+    return ($last >= 25);
+}
 
-mysql_query("update `p_players` set `is_active` = '1';");
+// Variable to store the overall result (true if all sections meet the conditions)
+$allTrue = true;
 
+// Loop through each section and check the conditions
+foreach ($sections as $section) {
+    if (!checkConditions($section)) {
+        $allTrue = false;
+        break; // No need to continue if one section fails
+    }
+}
 
-echo '<p align="center"><font color="blue" size="5">áŞÏ Êã ÊİÚíá ÍÓÇÈß ÈäÌÇÍ .. ÇäÊŞá ÇáÂä ááŞÑíÉ æÃÈÏÃ ÇáÊÍÏí</font></p>';
-echo '<p align="center">&nbsp;</p>';
-echo '<p align="center"><b><font color="red"><a rel="nofollow" target="_blank" href="http://www.albadani.net">
-<span style="text-decoration: none" lang="ar-eg"><font color="#FF0000">ÌãíÚ ÇáÍŞæŞ ãÍİæÙÉ 
-</font></span><font color="#FF0000"><span style="text-decoration: none">©<span lang="ar-eg"> 
-á</span></span></font><span lang="ar-eg" style="text-decoration: none"><font color="#FF0000">ÃÎæßã ãÍãÏ Úáí ÇáÈÚÏÇäí</font></span></a></font></b></p>';
-echo '<p align="center">&nbsp;</p>';
-echo '<p align="center">&nbsp;</p>';
-echo '<p class="f16" align="center">
-<a href="index.php"><font size="4" color="green">
-<span style="text-decoration: none">» Êã ÇáÊİÚíá ÊáŞÇÆíÇğ íÌÑí ÇáÂä äŞáß ááÕİÍÉ ÇáÑÆíÓíÉ</span></font></a></p>';
-echo "<META HTTP-EQUIV='refresh' CONTENT='1; URL=index.php'>";
-
+// Output the result
+if ($allTrue) {
+    echo "<br>True";
+} else {
+    echo "<br>False";
+}
 ?>
