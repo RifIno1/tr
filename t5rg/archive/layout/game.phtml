@@ -137,7 +137,7 @@ if($this->player != NULL && $this->isPlayerInDeletionProgress()){
     echo "</a></p>";
 }
 echo " </div></b>
-<div id=\"content\" class=\"";echo $this->contentCssClass;echo "\"><div class=\"top\"></div>";$this->printContent();echo "</div>
+<div id=\"content\" class=\"";echo $this->contentCssClass;echo "\" style='padding-bottom:40px'><div class=\"top\"></div>";$this->printContent();echo "</div>
 <div id=\"side_info\">";
 
 // get the registration date of the player id 1
@@ -297,6 +297,8 @@ echo "<tbody >";
         echo "\t\t</tbody>\r\n\t</table>\r\n\t";
     }
 }
+
+
 if ( $this->player != NULL )
 {
     
