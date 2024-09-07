@@ -1,0 +1,159 @@
+<?php
+require_once(MODEL_PATH . 'farm.php');
+$m = new FarmModel();
+$vid1 = $this->data['selected_village_id'];
+$this->myData['id'] = $this->player->playerId;
+?>
+
+<?
+if ( $this->selectedTabIndex == 0 )
+{
+
+?>
+<br  />
+<br  />
+<br  />
+<form  method="POST">
+<input type="hidden" name="e" value="2">
+
+<table cellpadding="1" cellspacing="1" id="change_mail" class="account">
+	<thead>
+		<tr><th colspan="2">البحث عن قمحيات</th></tr>
+
+   <tr><td class="note" colspan="2">البحث عن القمحيات من خلالها تستطيع بسهوله البحث عن القمحيات الكاملة او نصف قمحية .</td></tr>
+   </thead>
+
+
+</table>
+
+</input>
+</form>
+<br  />
+
+<form  method="POST">
+<input type="hidden" name="e" value="2">
+
+<table cellpadding="1" cellspacing="1" id="change_mail" class="account">
+	<thead>
+		<tr><th colspan="2">النوع</th></tr>
+
+   <tr><td class="note" colspan="2">اختر اي نوع للبحث فضلاً .</td></tr>
+   </thead>
+
+
+	<tr>
+		<td class="note" >&nbsp;1 -</td>
+		<td class="note" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="crop_finder.php?t=1"><img src="assets/default/img/m/fiu1.png" alt="" title="البحث عن قمحية كاملة" /></a></td>
+	</tr>
+	<tr>
+		<td class="note" >&nbsp;2 -</td>
+		<td class="note" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="crop_finder.php?t=2"><img src="assets/default/img/m/fiu2.png" alt="" title="البحث عن نصف قمحية" /></a></td>
+	</tr>
+</table>
+
+</input>
+</form>
+
+<?
+}
+if ( $this->selectedTabIndex == 1 )
+{
+?>
+<?
+include('app/config.php');
+$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+echo "<center>";
+echo "<a href=\"crop_finder.php?t=1\"><img src=\"assets/default/img/m/fiu1.png\" alt=\"\" title=\"البحث عن قمحية كاملة\" /></a>";
+echo "<br  />";
+echo "<br  />";
+echo "</center>";
+$bli = $this->generalData['players_count'];
+
+$result = mysql_query("SELECT id,rel_x,rel_y,image_num,player_name,player_id,player_name FROM p_villages where field_maps_id=6 and id > $vid1 and tribe_id < 500000000000 LIMIT 20");
+    echo "<tr><td colspan=\"2\" class=\"empty\"></td></tr><tr><td colspan=\"2\" class=\"desc2\"><div class=\"desc2div\">";
+    echo "</div></td></tr></tbody></table><table cellpadding=\"1\" cellspacing=\"1\" id=\"villages\">\r\n\t<thead><tr><th colspan=\"4\">";
+    echo "قمحية كاملة 15 حقل";
+    echo "</th></tr><tr><td>";
+    echo "الاحداثيات X";
+    echo "</td><td>";
+    echo "الاحداثيات Y";
+    echo "</td><td>";
+    echo "محتله من قبل";
+    echo "</td><td>";
+    echo "الى القرية";
+    echo "</thead>";
+
+while($row = mysql_fetch_array($result))
+  {
+
+  echo "<tr>";
+  echo "<td><center>" . $row['rel_x'] . "<center></td>";
+  echo "<td><center>" . $row['rel_y'] . "<center></td>";
+  if($row['player_id'] == 0){
+    echo "<td><center> - <center></td>";
+
+  }else{
+  echo "<td><center><a href=profile.php?uid=" . $row['player_id'] . " >" . $row['player_name'] . "<center></a></td>";
+ }
+
+echo "<td><center><a href=village3.php?id=" . $row['id'] . " >الى القرية<center></a></td>";
+  echo "</tr>";
+  }
+echo "</table>";
+
+
+
+?>
+<?
+}
+if ( $this->selectedTabIndex == 2 )
+{
+?>
+<?
+include('app/config.php');
+$link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
+mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
+echo "<center>";
+echo "<a href=\"crop_finder.php?t=2\"><img src=\"assets/default/img/m/fiu2.png\" alt=\"\" title=\"البحث عن نصف قمحية \" /></a>";
+echo "<br  />";
+echo "<br  />";
+echo "</center>";
+$result = mysql_query("SELECT id,rel_x,rel_y,image_num,player_name,player_id,player_name FROM p_villages where field_maps_id=1 and id > $vid1 and tribe_id < 500000000000 LIMIT 20");
+     echo "<tr><td colspan=\"2\" class=\"empty\"></td></tr><tr><td colspan=\"2\" class=\"desc2\"><div class=\"desc2div\">";
+    echo "</div></td></tr></tbody></table><table cellpadding=\"1\" cellspacing=\"1\" id=\"villages\">\r\n\t<thead><tr><th colspan=\"4\">";
+    echo "قمحية 9 حقول";
+    echo "</th></tr><tr><td>";
+    echo "الاحداثيات X";
+    echo "</td><td>";
+    echo "الاحداثيات Y";
+    echo "</td><td>";
+    echo "محتله من قبل";
+    echo "</td><td>";
+    echo "الى القرية";
+    echo "</thead>";
+while($row = mysql_fetch_array($result))
+  {
+
+  echo "<tr>";
+  echo "<td><center>" . $row['rel_x'] . "<center></td>";
+  echo "<td><center>" . $row['rel_y'] . "<center></td>";
+    if($row['player_id'] == 0){
+    echo "<td><center> - <center></td>";
+
+  }else{
+  echo "<td><center><a href=profile.php?uid=" . $row['player_id'] . " >" . $row['player_name'] . "<center></a></td>";
+ }
+echo "<td><center><a href=village3.php?id=" . $row['id'] . " >الى القرية<center></a></td>";
+  echo "</tr>";
+
+  }
+echo "</table>";
+?>
+<?
+}
+?>
+
+
+
+
