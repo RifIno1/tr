@@ -67,19 +67,7 @@ echo "register.php";
   <span class="error"><?php echo $this->err[2]; ?></span>
 <!-- code -->
   </td></tr>
-<tr class="btm"><th>
-      <?php
-echo "ألكود الامني"; echo"<img border=0 src=captcha.php>";
-
-        echo "</th>\r\n\t\t\t<td><input class=\"text\" type=\"text\" name=\"Cap\" value=\"";
-    if ( isset( $_POST['Cap'] ) )
-    {
-        echo trim( $_POST['Cap'] );
-    }
-      echo "\" maxlength=\"20\" /> ";
-?>
- <span class="error"><?php echo $this->err[5]; ?>
-</span></td></tr></tbody></table>
+</tbody></table>
 <p>
   <table cellpadding="1" cellspacing="1" id="sign_select">
   <tbody>
@@ -112,12 +100,14 @@ checked="checked" />&nbsp;عشوائي  </label></td>
 
   <ul class="important"><?php echo $this->err[3]; ?></ul>
   <ul class="important"><?php echo $this->err[4]; ?></ul>
+  <!--
   <p>
 				<input class="check" type="checkbox" name="agb" value="1" checked="checked"  />
   أصرح بقبولي 
    <b><a href="terms.php" target="_blank">
     لقوانين اللعبة</a></b>.
 			</p>
+    -->
 	
 			<p class="btn"><input type="image" value="anmelden" name="s1" id="btn_signup" class="dynamic_img" src="assets/x.gif" alt="<?php echo LANGUI_REG_T16; ?>" /></p>
   </form>

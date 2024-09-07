@@ -216,10 +216,35 @@ class GPage extends VillagePage
                     $this->errorTable = v2v_p_cannotbuildnewvill;
                     return null;
                 }
+
+                $playerId = $this->player->playerId;
+                //query to get proc_type from p_queue of the playerId
+                $plus_queue = mysql_query("SELECT q.proc_type FROM p_queue q WHERE q.player_id=$playerId");
+
+                $plus_queue_result = [];
+                while ($row = mysql_fetch_array($plus_queue)) {
+                $plus_queue_result[] = intval($row['proc_type']);
+                }
+                $resourceTypes = [
+                    1 => in_array(19, $plus_queue_result),
+                    2 => in_array(20, $plus_queue_result),
+                    3 => in_array(21, $plus_queue_result),
+                    4 => in_array(22, $plus_queue_result),
+                ];
+                
+                if(!$resourceTypes[1] or !$resourceTypes[2] or !$resourceTypes[3] or !$resourceTypes[4]){
+                    $this->errorTable = "لم يتم تفعيل زيادة الإنتاج بعد لجميع الموارد";
+                    return null;
+                }
+
                 if (!$this->_canBuildNewVillage()) {
                     $this->errorTable = v2v_p_cannotbuildnewvill1;
                     return null;
                 }
+
+                
+
+
                 if (!$this->isResourcesAvailable($this->newVillageResources)) {
                     $this->errorTable = sprintf(
                         v2v_p_cannotbuildnewvill2,
@@ -227,6 +252,10 @@ class GPage extends VillagePage
                     );
                     return null;
                 }
+
+               
+
+
                 if ($m->hasNewVillageTask($this->player->playerId)) {
                     $this->errorTable = v2v_p_cannotbuildnewvill3;
                     return null;

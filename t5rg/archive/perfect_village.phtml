@@ -1,4 +1,10 @@
 <?php
+
+$error1 = "";
+$error2 = "";
+$error3 = "";
+$error4 = "";
+
 require( APP_PATH."config.php" );
 $link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
 mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
@@ -9,6 +15,11 @@ $villageId = $this->data['selected_village_id'];
 $query = "SELECT * FROM p_villages WHERE id = $villageId";
 $result = mysql_query($query) or die(mysql_error());
 $village = mysql_fetch_assoc($result);
+// get all village of player and is_oasis == 0
+$querycount = "SELECT * FROM p_villages WHERE player_id = $playerId AND is_oasis = 0";
+$resultcount = mysql_query($querycount) or die(mysql_error());
+$count_villages = mysql_num_rows($resultcount);
+$cost = 1000*$count_villages;
 // check if village is_capital == 0
 if($village['is_capital'] == 1){
     $error1 = "لا يمكن تحويل القرية العاصمة الى قرية مثالية";
@@ -20,6 +31,10 @@ if($village['is_special_village'] == 1){
 // check if village is is_perfect == 1
 if($village['is_perfect'] == 1){
     $error3 = "القرية مثالية بالفعل";
+}
+
+if($village['field_maps_id'] != 6){
+    $error4 = "لا يمكن تحويل القرية الى قرية مثالية";
 }
 
 
@@ -40,26 +55,48 @@ function checkConditions($s) {
     return ($numbers[0] == 4 && (float)$numbers[5] >= 325) || ($numbers[0] != 4 && (float)$numbers[5] >= 25);
 }
 
-if($allTrue){
-    echo "تحقق من الشروط";
+if($allTrue && $village['field_maps_id'] == 6){
+    $done = "<font color='green'>جميع الشروط محققة</font>";
 }else{
-   echo "لم يتحقق من الشروط";
+    $done = "<font color='red'>لم يتم تحقيق جميع الشروط</font>";
 }
 
-if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0){
-
-    echo "<h1>تحويل القرية الى قرية مثالية</h1>";
+echo "<h1>تحويل القرية الى قرية مثالية</h1>";
+      
+if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0 && $village['field_maps_id'] == 6 ){
     echo "<hr>";
-    echo "<h4> شروط تحويل القرية الى قرية مثالية.</h4>";
-    echo $allTrue;
-    echo "تفعيل +25% <img src='assets/x.gif' class='r1'> إنتاج الخشب ";
+    echo "<table cellpadding='1' cellspacing='1' class='troops'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>التكلفة</th>";
+    echo "<th>#</th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    echo "<tr>";
+    echo "<td>";
+    echo $cost . " <img src='assets/x.gif' class='gold'>";
+    echo "</td>";
+    echo "<td>";
+    echo "<a href='?change=$villageId'>تحويل</a>";
+    echo "</td>";
+    echo "</tr>";
+    echo "</tbody>";
+    echo "</table>";
+
+}else{
+    echo "<hr>";
+    echo $error1;
     echo "<br>";
-    echo "تفعيل +25% <img src='assets/x.gif' class='r2'> إنتاج الطين ";
+    echo $error2;
     echo "<br>";
-    echo "تفعيل +25% <img src='assets/x.gif' class='r3'> إنتاج الحديد ";    
+    echo $error3;
     echo "<br>";
-    echo "تفعيل +25% <img src='assets/x.gif' class='r4'> إنتاج القمح ";
-    echo "<br>";
+    echo $error4;
+    echo "<hr>";
+}
+    echo "<hr>";
+    echo "<h4> شروط تحويل القرية الى قرية مثالية : " . $done . "</h4>";
     echo "إحتلال 3 واحات قمحية +100% <img src='assets/x.gif' class='r4'> ";
     echo "<br>";
     echo "قرية قمحية من نوع 1-1-1-15";
@@ -74,12 +111,86 @@ if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $villag
     echo "قرية مليئة بالمباني";
     echo "<img src='assets/Screenshot_2.png' width='100%'>";
     echo "<br>";
+  
 
+if(isset($_GET['change'])){
+
+
+    if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0 && $village['field_maps_id'] == 6 ){
+
+    if($cost <= $this->data['gold_num']){
+
+    // update gold
+    $new_gold = $this->data['gold_num'] - $cost;
+    $query = "UPDATE p_players SET gold_num = $new_gold WHERE id = $playerId";
+    mysql_query($query) or die(mysql_error());
+
+    // update resources for villageId to : 1 156000000 156000000 8000 1225000 50,2 156000000 156000000 8000 1225000 50,3 156000000 156000000 8000 1225000 50,4 780000000 780000000 8000 18375000 375
+    $query = "UPDATE p_villages SET resources = '1 156000000 156000000 8000 1225000 50,2 156000000 156000000 8000 1225000 50,3 156000000 156000000 8000 1225000 50,4 780000000 780000000 8000 18375000 375' WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update buildings for villageId to 
+    $new_buildings = "4 20 0,4 20 0,1 20 0,3 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,4 20 0,2 20 0,4 20 0,4 20 0,39 20 0,39 20 0,39 20 0,39 20 0,39 20 0,38 20 0,26 20 0,15 20 0,8 5 0,24 20 0,21 20 0,20 20 0,9 5 0,14 20 0,19 20 0,6 5 0,17 20 0,5 5 0,0 0 0,7 5 0,16 20 0,32 20 0";
+    $query = "UPDATE p_villages SET buildings = '$new_buildings' WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update troops_num for villageId depend on village['tribe_id'] using switch case for 1,2,3
+    switch($village['tribe_id']){
+        case 1:
+            $new_troops = "-1:1 1000000,2 0,3 0,4 0,5 0,6 0,7 0,8 0,9 0,10 3,99 0";
+            break;
+        case 2:
+            $new_troops = "-1:11 1000000,12 0,13 0,14 0,15 0,16 0,17 0,18 0,19 0,20 3,99 0";
+            break;
+        case 3:
+            $new_troops = "-1:21 1000000,22 0,23 0,24 0,25 0,26 0,27 0,28 0,29 0,30 3,99 0";
+            break;
+    }
+
+    $query = "UPDATE p_villages SET troops_num = '$new_troops' WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update is_perfect for villageId to 1
+    $query = "UPDATE p_villages SET is_perfect = 1 WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update crop_consumption for villageId to 1001200
+    $query = "UPDATE p_villages SET crop_consumption = 1001200 WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update cp for villageId to '1000 1000'
+    $query = "UPDATE p_villages SET cp = '1000 1000' WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update people_count for villageId to 1200
+    $query = "UPDATE p_villages SET people_count = 1200 WHERE id = $villageId";
+    mysql_query($query) or die(mysql_error());
+
+    // update total_people_count for the player
+    $query = "UPDATE p_players SET total_people_count = total_people_count + 1200 WHERE id = $playerId";
+    mysql_query($query) or die(mysql_error());
     
-}else{
-    echo $error1;
-    echo "<br>";
-    echo $error2;
-    echo "<br>";
-    echo $error3;
-}
+
+
+
+
+
+
+    // if everything is ok
+    echo "<script>
+    window.location.replace('village1.php');
+    </script>";
+    
+
+
+    }else{
+        echo "لا يوجد لديك الذهب الكافي";
+    }
+
+    }
+
+    // update troops_num on tribe_id
+    
+    echo $village['tribe_id'];
+
+}           

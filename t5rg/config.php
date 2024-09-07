@@ -1,31 +1,31 @@
 <?php
-/* Report only errors, hide warnings and notices  */
+/* Report only errors, hide warnings and notices  
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+*/
 
 $AppConfig = array (
         'db'                 
                                 => array (
-                                        
+               /*                          
                 'host'                                => 'php56-db',
                 'user'                                => 'Anwar123',
                 'password'                        => 'Anwar123',
                 'database'                        => 'Anwar123',
-                  
-/* 
+                  */ 
+
                 'host'                                => 'localhost',
                 'user'                                => 'root',
                 'password'                        => '',
                 'database'                        => 'tatar',
               
-                       */ 
+                       
         ),
                 'Game'                         => array (
-                'speed'                      => '500000', // سرعة اللعبه
+                'speed'                      => '500', // سرعة اللعبه
                 'map'                      => '801', // حجم الخريطه
-                'attack'        => '800', // سرعه الهجوم
+                'attack'        => '8000', // سرعه الهجوم
                 'protection'        => '24', // الحمايه بالساعات , ضف الساعه فقط 120 = 5 ايام فقط 
                 'protectionx'        => '0', // تدبيل الحمايه يفضل 0
                 'X'                 => '1328827643', // لاتغير الرقم
@@ -36,8 +36,8 @@ $AppConfig = array (
                 //قائمة بلاس 
                 'plus1'          => '7', // مده قائمة بلاس باليوم
                 'plus2'          => '7', // مدة زياده الموارد
-                'plus3'          => '100', // سعر البلاس ترافيان 10 
-                'plus4'          => '50', // سعر الزياده ترافيان 5
+                'plus3'          => '50', // سعر البلاس ترافيان 10 
+                'plus4'          => '10', // سعر الزياده ترافيان 5
                 'plus5'          => '1', // سعر ال
                 'plus6'          => '1', // 
                 'plus7'          => '35', //
