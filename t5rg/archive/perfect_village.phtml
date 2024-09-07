@@ -111,7 +111,7 @@ if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $villag
 if(isset($_GET['change'])){
 
 
-    if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0 && $village['field_maps_id'] == 6 ){
+    if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0 && $village['field_maps_id'] == 6 && $allTrue){
 
     if($cost <= $this->data['gold_num']){
 
@@ -164,13 +164,8 @@ if(isset($_GET['change'])){
     // update total_people_count for the player
     $query = "UPDATE p_players SET total_people_count = total_people_count + 1200 WHERE id = $playerId";
     mysql_query($query) or die(mysql_error());
+
     
-
-
-
-
-
-
     // if everything is ok
     echo "<script>
     window.location.replace('village1.php');
@@ -183,9 +178,5 @@ if(isset($_GET['change'])){
     }
 
     }
-
-    // update troops_num on tribe_id
-    
-    echo $village['tribe_id'];
 
 }           
