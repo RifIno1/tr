@@ -1215,6 +1215,7 @@ if ( !$warResult['all_attack_killed'] && $procInfo['troopsArray']['hasHero'] )
         $this->provider->executeQuery( 
                 'UPDATE p_villages v
                 SET
+                    v.resources=\'%s\',
                     v.parent_id=%s,
                     v.tribe_id=%s,
                     v.player_id=%s,
@@ -1222,7 +1223,6 @@ if ( !$warResult['all_attack_killed'] && $procInfo['troopsArray']['hasHero'] )
                     v.player_name=\'%s\',
                     v.alliance_name=\'%s\',
                     v.is_capital=0,
-                    v.resources=\'%s\',
                     v.buildings=\'%s\',
                     v.troops_training=\'%s\',
                     v.troops_num=\'%s\',
@@ -1234,6 +1234,7 @@ if ( !$warResult['all_attack_killed'] && $procInfo['troopsArray']['hasHero'] )
                     v.last_update_date=NOW()
                 WHERE v.id=%s', 
                 array( 
+                    $resources,
                     intval( $fromVillageRow['id'] ), 
                     intval( $fromVillageRow['tribe_id'] ), 
                     intval( $fromVillageRow['player_id'] ), 
