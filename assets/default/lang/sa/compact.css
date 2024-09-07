@@ -270,7 +270,7 @@ div.forum h4{margin-top:0;margin-left:0;margin-bottom:15px;margin-right:5px;}div
 div.forum table#conf_list,div.forum table#ally_list,div.forum table#user_list,div.forum table#non_conf_list,div.forum table#open_user{margin-top:15px;}
 div.statistics table{margin-top:5px;}div.statistics div#submenu{position:absolute;left:29px;top:107px;}
 div.statistics div#submenu img{float:left;margin-right:5px;}
-div.statistics div#submenu2{position:absolute;right:29px;top:107px;}
+div.statistics div#submenu2{position:absolute;right:29px;top:119px;}
 div.statistics div#submenu2 img{float:right;margin-left:5px;}
 div.statistics table.top10{margin-top:10px;margin-bottom:5px;}
 div.statistics div.graph{padding-top:20px;padding-right:60px;width:430px;height:220px;}
