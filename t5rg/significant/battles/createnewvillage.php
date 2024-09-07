@@ -66,14 +66,6 @@ class NewVillageBattleModel extends BattleModel
     ) {
         $GameMetadata = $GLOBALS["GameMetadata"];
         $SetupMetadata = $GLOBALS["SetupMetadata"];
-
-        // get the sum number village of the player
-        $villages_count = $this->provider->fetchScalar(
-            "SELECT COUNT(v.id) FROM p_villages v WHERE v.player_id=%s AND v.is_oasis=0",
-            [intval($fromVillageRow["player_id"])]
-        );
-
-
         if (
             intval(
                 $this->provider->fetchScalar(
@@ -84,8 +76,7 @@ class NewVillageBattleModel extends BattleModel
         ) {
             return false;
         }
-        // villageName is new_village_name then space then the number of the village
-        $villageName = new_village_name . " " . ($villages_count + 1);
+        $villageName = new_village_name;
         $update_key = substr(
             md5(
                 $fromVillageRow["player_id"] .
@@ -221,33 +212,6 @@ class NewVillageBattleModel extends BattleModel
                 ]
         );
 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        $villages_count = $this->provider->fetchScalar(
-            "SELECT COUNT(v.id) FROM p_villages v WHERE v.player_id=%s AND v.is_oasis=0",
-            [intval($fromVillageRow["player_id"])]
-        );
-        
-        $cp = ($villages_count-1) * 5000;
-        
-
-        // get the old cp of the village
-        $old_cp = $fromVillageRow["cp"];
-        // the cp is like number then space then number, so we need to split it
-        $old_cp_arr = explode(" ", $old_cp);
-        // get the old cp value
-        $old_cp_value = intval($old_cp_arr[0]);
-        // new cp value
-        $new_cp_value = $old_cp_value - $cp;
-        // concatenate the new cp value with the old cp rate
-        $new_cp = $new_cp_value . " " . $old_cp_arr[1];
-
-        // update fromVillageRow with new cp
-        $this->provider->executeQuery(
-            "UPDATE p_villages v\r\n\t\t\tSET\r\n\t\t\t\tv.cp='%s'\r\n\t\t\tWHERE v.id=%s",
-            [$new_cp, intval($fromVillageRow["id"])]
-        );
-
         ////////////////////////////////////////////////////////////////////////////////////////
 
         $villageRow = $this->provider->fetchRow("SELECT\r\n\t\t\t\tv.player_id,\r\n\t\t\t\tv.tribe_id,\r\n\t\t\t\tv.alliance_id,\r\n\t\t\t\tv.player_name,\r\n\t\t\t\tv.alliance_name,\r\n\t\t\t\tv.resources,\r\n\t\t\t\tv.cp,\r\n\t\t\t\tv.crop_consumption,\r\n\t\t\t\tv.village_oases_id,\r\n\t\t\t\tTIME_TO_SEC(TIMEDIFF(NOW(), v.last_update_date)) elapsedTimeInSeconds \r\n\t\t\tFROM p_villages v\r\n\t\t\tWHERE v.id=%s", array(
@@ -272,8 +236,6 @@ class NewVillageBattleModel extends BattleModel
             );
             // Get the oasis resources metadata
             $oasisRes = $GLOBALS["SetupMetadata"]["oasis"][$oasisIndex];
-
-            
 
             // Adjust the production rate percentage based on the oasis resources
             foreach ($oasisRes as $k => $v) {

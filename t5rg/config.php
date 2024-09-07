@@ -1,9 +1,9 @@
 <?php
-/* Report only errors, hide warnings and notices */
+/* Report only errors, hide warnings and notices 
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+*/
 $AppConfig = array (
         'db'                 
                                 => array (
@@ -22,7 +22,7 @@ $AppConfig = array (
               
         ),
                 'Game'                         => array (
-                'speed'                      => '500', // سرعة اللعبه
+                'speed'                      => '500000', // سرعة اللعبه
                 'map'                      => '801', // حجم الخريطه
                 'attack'        => '800', // سرعه الهجوم
                 'protection'        => '24', // الحمايه بالساعات , ضف الساعه فقط 120 = 5 ايام فقط 
