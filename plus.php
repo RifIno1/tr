@@ -134,8 +134,6 @@ class GPage extends SecureGamePage
                         $this->player->playerId,
                         $this->plusTable[intval($_GET["a"])]["time"] * 86400
                     );
-                    if (0 < intval($_GET["a"])) {
-                    }
                     $newTask->villageId = "";
                     $newTask->tag =
                         $this->plusTable[intval($_GET["a"])]["cost"];
