@@ -29,35 +29,37 @@ class NewVillageBattleModel extends BattleModel
         $resourceString,
         $elapsedTimeInSeconds,
         $crop_consumption,
-        $cp
+        $plus_queue_result
     ) {
         $resources = [];
         $r_arr = explode(",", $resourceString);
+    
+        $resourceTypes = [
+            1 => in_array(19, $plus_queue_result),
+            2 => in_array(20, $plus_queue_result),
+            3 => in_array(21, $plus_queue_result),
+            4 => in_array(22, $plus_queue_result),
+        ];
+    
         foreach ($r_arr as $r_str) {
-            $r2 = explode(" ", $r_str);
-            $prate =
-                floor($r2[4] * (1 + $r2[5] / 100)) -
-                ($r2[0] == 4 ? $crop_consumption : 0);
-            $current_value = floor(
-                $r2[1] + $elapsedTimeInSeconds * ($prate / 3600)
-            );
-            if ($r2[2] < $current_value) {
-                $current_value = $r2[2];
-            }
-            $resources[$r2[0]] = [
+            list($type, $init_value, $max_value, $init_limit, $prod_rate, $prod_bonus) = explode(" ", $r_str);
+            $prate = floor($prod_rate * (1 + $prod_bonus / 100)) - ($type == 4 ? $crop_consumption : 0);
+            $current_value = min(floor($init_value + $elapsedTimeInSeconds * ($prate / 3600)), $max_value);
+            $plus = $resourceTypes[$type] ? 25 : 0;
+    
+            $resources[$type] = [
                 "current_value" => $current_value,
-                "store_max_limit" => $r2[2],
-                "store_init_limit" => $r2[3],
-                "prod_rate" => $r2[4],
-                "prod_rate_percentage" => $r2[5],
+                "store_max_limit" => $max_value,
+                "store_init_limit" => $init_limit,
+                "prod_rate" => $prod_rate,
+                "prod_rate_percentage" => $prod_bonus + $plus,
             ];
         }
-
-        return [
-            "resources" => $resources,
-        ];
+        print_r($resourceTypes);
+        return ["resources" => $resources];
     }
-
+    
+    
     public function handleCreateNewVillage(
         $taskRow,
         $toVillageRow,
@@ -218,12 +220,19 @@ class NewVillageBattleModel extends BattleModel
             intval($toVillageRow['id'])
         ));
 
+        $playerId = intval($fromVillageRow['player_id']);
+        $plus_queue = mysql_query("SELECT q.proc_type FROM p_queue q WHERE q.player_id=$playerId");
+
+        $plus_queue_result = [];
+        while ($row = mysql_fetch_array($plus_queue)) {
+            $plus_queue_result[] = intval($row['proc_type']);
+        }
 
         $resultArr = $this->_getResourcesArray(
             $villageRow["resources"],
             $villageRow["elapsedTimeInSeconds"],
             $villageRow["crop_consumption"],
-            $villageRow["cp"]
+            $plus_queue_result
         );
 
         // split oasis_id from village_oases_id by ,
