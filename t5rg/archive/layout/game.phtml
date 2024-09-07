@@ -162,7 +162,7 @@ $days = floor($diff / (60 * 60 * 24));
 $hours = floor(($diff - $days * 60 * 60 * 24) / (60 * 60));
 $minutes = floor(($diff - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
 $seconds = $diff - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minutes * 60;
-echo "<div style='text-align: center; font-family: Tahoma, sans-serif; padding: 15px;'>";
+echo "<div style='text-align: center;padding: 15px;'>";
 echo "<div style='font-size: 18px; margin-bottom: 15px;'>بقي على تطوير المعجزة</div>";
 echo "<div id='countdown' style='font-size: 14px; font-weight: bold; display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);'>";
 echo "$days:$hours:$minutes:$seconds";

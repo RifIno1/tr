@@ -23,7 +23,10 @@ $cost = 1000*$count_villages;
 // check if village is_capital == 0
 if($village['is_capital'] == 1){
     $error1 = "لا يمكن تحويل القرية العاصمة الى قرية مثالية";
+}else if ($village['field_maps_id'] != 6){
+    $error4 = "لا يمكن تحويل القرية الى قرية مثالية";
 }
+
 // check if village is_special_village == 0
 if($village['is_special_village'] == 1){
     $error2 = "لا يمكنك تحويل القرية التتارية الى قرية مثالية";
@@ -31,10 +34,6 @@ if($village['is_special_village'] == 1){
 // check if village is is_perfect == 1
 if($village['is_perfect'] == 1){
     $error3 = "القرية مثالية بالفعل";
-}
-
-if($village['field_maps_id'] != 6){
-    $error4 = "لا يمكن تحويل القرية الى قرية مثالية";
 }
 
 
@@ -56,12 +55,12 @@ function checkConditions($s) {
 }
 
 if($allTrue && $village['field_maps_id'] == 6){
-    $done = "<font color='green'>جميع الشروط محققة</font>";
+    $done = "<font color='green'>تم تحقيق جميع الشروط</font>";
 }else{
     $done = "<font color='red'>لم يتم تحقيق جميع الشروط</font>";
 }
 
-echo "<h1>تحويل القرية الى قرية مثالية</h1>";
+echo "<h1>تحويل القرية الى قرية مثالية</h1><br>";
       
 if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0 && $village['field_maps_id'] == 6 ){
     echo "<hr>";
@@ -86,14 +85,10 @@ if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $villag
 
 }else{
     echo "<hr>";
-    echo $error1;
-    echo "<br>";
-    echo $error2;
-    echo "<br>";
-    echo $error3;
-    echo "<br>";
-    echo $error4;
-    echo "<hr>";
+    if ($error1) echo $error1 . "<br>";
+    if ($error2) echo $error1 . "<br>";
+    if ($error3) echo $error1 . "<br>";
+    if ($error4) echo $error1 . "<br>";
 }
     echo "<hr>";
     echo "<h4> شروط تحويل القرية الى قرية مثالية : " . $done . "</h4>";

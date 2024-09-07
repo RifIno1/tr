@@ -1,26 +1,26 @@
 <?php
-/* Report only errors, hide warnings and notices  
+/* Report only errors, hide warnings and notices  */
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-*/
+
 
 $AppConfig = array (
         'db'                 
                                 => array (
-               /*                          
+                                   
                 'host'                                => 'php56-db',
                 'user'                                => 'Anwar123',
                 'password'                        => 'Anwar123',
                 'database'                        => 'Anwar123',
-                  */ 
-
+                 
+/*      
                 'host'                                => 'localhost',
                 'user'                                => 'root',
                 'password'                        => '',
                 'database'                        => 'tatar',
               
-                       
+                   */      
         ),
                 'Game'                         => array (
                 'speed'                      => '500', // سرعة اللعبه
@@ -142,7 +142,7 @@ $AppConfig = array (
                                  ),
                                 array (
                                         'name'                => 'الثامنة',
-                                        'gold'                => 100000000,
+                                        'gold'                => 75000000,
                                         'cost'                => 1000,
                                         'currency'        => 'usd',
                                         'image'                => 'package_f.jpg',

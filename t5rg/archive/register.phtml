@@ -8,6 +8,7 @@ require( APP_PATH."config.php" );
   <h5><img src="assets/x.gif" class="img_u05" alt="<?php echo LANGUI_REG_T2; ?>"></h5>
 <?php
 require( APP_PATH."config.php" );
+
 $db_connect = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']);
 mysql_select_db($AppConfig['db']['database'], $db_connect);
 $query1 = mysql_query("SELECT * FROM g_summary");
@@ -213,29 +214,7 @@ CountBack(gsecs);
 </script>
 </center>
 <?php
-}else{
-
 }
-  } else {
-
-echo '
-        <p>مرحباً<b>
-'.((isset($_POST['name']))? trim($_POST['name']) : '').'</b>
-<br><br>
- تم التسجيل والتفعيل التلقائى. <br><br>
-البريد المسجل به:
-  <span class="important">
-'.((isset($_POST['email']))? trim($_POST['email']) : '').'  </span></p>
-<b>يمكنك اللعب فورا فالسرفر في انتظارك , </b>
-';
-/*
-  <span class="important">
-<?php
-      if (isset($_POST['email'])) {
-          echo trim($_POST['email']);
-      } 
-  </span> */ ?></p>
-<?php
-  }
-  }
+  } else echo "<script>window.location.replace('login.php');</script>";
+}
 ?>
