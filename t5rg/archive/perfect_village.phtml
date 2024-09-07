@@ -22,31 +22,36 @@ if($village['is_perfect'] == 1){
     $error3 = "القرية مثالية بالفعل";
 }
 
-function checkConditions($section) {
-    // Split the section by spaces to extract numbers
-    $numbers = explode(' ', $section);
-    
-    // The last number in the section
-    $lastNumber = (float)end($numbers);
-    
-    // Check conditions:
-    // 1. The first number must be >= 25
-    $first = (float)$numbers[0];
-    // 2. The second number must be >= 25
-    $second = (float)$numbers[5];
-    // 3. The third number must be >= 25
-    $third = (float)$numbers[6];
-    // 4. The last number must be >= 325
-    $fourth = (float)$numbers[7];
 
-    return ($first >= 25 && $second >= 25 && $third >= 25 && $fourth >= 325);
+$sections = explode(',', $village['resources']);
+
+$allTrue = true;
+// Loop through each section and check the conditions
+foreach ($sections as $section) {
+    if (!checkConditions($section)) {
+        $allTrue = false;
+        break; 
+    }
+}
+
+
+function checkConditions($s) {
+    $numbers = explode(' ', $s);
+    return ($numbers[0] == 4 && (float)$numbers[5] >= 325) || ($numbers[0] != 4 && (float)$numbers[5] >= 25);
+}
+
+if($allTrue){
+    echo "تحقق من الشروط";
+}else{
+   echo "لم يتحقق من الشروط";
 }
 
 if($village['is_capital'] == 0 && $village['is_special_village'] == 0 && $village['is_perfect'] == 0){
 
     echo "<h1>تحويل القرية الى قرية مثالية</h1>";
     echo "<hr>";
-    echo "<h4> شروط تحويل القرية الى قرية مثالية</h4>";
+    echo "<h4> شروط تحويل القرية الى قرية مثالية.</h4>";
+    echo $allTrue;
     echo "تفعيل +25% <img src='assets/x.gif' class='r1'> إنتاج الخشب ";
     echo "<br>";
     echo "تفعيل +25% <img src='assets/x.gif' class='r2'> إنتاج الطين ";

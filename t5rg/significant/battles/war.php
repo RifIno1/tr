@@ -1222,6 +1222,7 @@ if ( !$warResult['all_attack_killed'] && $procInfo['troopsArray']['hasHero'] )
                     v.player_name=\'%s\',
                     v.alliance_name=\'%s\',
                     v.is_capital=0,
+                    v.resources=\'%s\',
                     v.buildings=\'%s\',
                     v.troops_training=\'%s\',
                     v.troops_num=\'%s\',

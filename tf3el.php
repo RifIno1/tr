@@ -1,6 +1,6 @@
 <?php
 // Sample input string
-$input = "1 312000000 312000000 8000 1225000 25,2 312000000 312000000 8000 1225000 50,3 312000000 312000000 8000 1225000 50,4 780000000 780000000 8000 18375000 350";
+$input = "1 312000000 312000000 8000 1225000 25,2 312000000 312000000 8000 1225000 50,3 312000000 312000000 8000 1225000 50,4 780000000 780000000 8000 18375000 300";
 
 // Split the input string by commas to get each section
 $sections = explode(',', $input);
@@ -12,13 +12,18 @@ $allTrue = true;
 foreach ($sections as $section) {
     if (!checkConditions($section)) {
         $allTrue = false;
-        return; 
+        break; 
     }
 }
 
 
 /* LOGIC */
 
+if ($allTrue) {
+    echo "All sections meet the conditions.";
+} else {
+    echo "Not all sections meet the conditions.";
+}
 
 
 // Function to check the conditions for each section
