@@ -315,7 +315,12 @@ else
             echo "\">";
             echo $this->lastReports->row['from_player_name'];
             echo ReportHelper::getreportactiontext( $this->lastReports->row['rpt_cat'] );
-            echo $this->lastReports->row['to_player_name'];
+            if ($this->lastReports->row['to_player_name'] == '') {
+                echo 'واحة';
+            }else {
+                echo $this->lastReports->row['to_player_name'];
+            }
+            
             echo "</a></div>\r\n\t\t\t</td>\r\n\t\t\t<td class=\"al\">\r\n\t\t\t";
             $targetPlayerId = $this->isMemberOfAlliance( $this->lastReports->row['from_player_id'] ) ? $this->lastReports->row['to_player_id'] : $this->lastReports->row['from_player_id'];
             $aData = $this->getAllianceDataFor( $targetPlayerId );
