@@ -203,7 +203,7 @@ height: 150px;
 
     div.statistics {
          width: auto!important;
-        padding: 43px 5px 0!important;
+        padding: 43px 0px 0!important;
     }
 
     div#textmenu {
@@ -234,25 +234,9 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         top: 134px!important;
     }
 
-    
-
-    div.forum {
+    div.forum,div.forum table,div#build, div.reports, div.messages,div.player {
         width: auto!important;
-        padding: 43px 5px 0!important;
-    }
-
-    div.forum table {
-        width: 100%!important;
-    }
-
-    div.reports {
-        width: auto!important;
-        padding: 43px 5px 0!important;
-    }
-
-    div.messages {
-        width: auto!important;
-        padding: 43px 5px 0!important;
+        padding: 43px 0px 0!important;
     }
 
 
@@ -322,16 +306,6 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
          width: auto!important;
     }
 
-    div#build {
-        width : auto!important;
-        padding: 43px 5px 0;
-    }
-
-    div.player {
-        width: auto!important;
-        padding: 43px 5px 0!important;
-    }
-
     #content {
         width: 100%!important;
         min-width: auto !important;
@@ -343,6 +317,14 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
 
     div.plus {
         padding: 20px 0;
+    }
+
+    td.aligned_coords div.cox {
+        width: auto !important;
+    }
+
+    div.village1 {
+        padding-right: 0 !important;
     }
 
     
