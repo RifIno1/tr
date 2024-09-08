@@ -1,11 +1,60 @@
-<?php
 
-
-require( APP_PATH."config.php" );
-?>
-  <h1><img src="assets/x.gif" class="anmelden" alt="<?php echo LANGUI_REG_T1; ?>"></h1>
-
-  <h5><img src="assets/x.gif" class="img_u05" alt="<?php echo LANGUI_REG_T2; ?>"></h5>
+<html>
+  <head>
+    <title><?php echo $this->appConfig['page'][$this->appConfig['system']['lang'] . "_title"]; ?></title>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="pragma" content="no-cache">
+    <link href="assets/default/lang/sa/lang.css" rel="stylesheet" type="text/css">
+    <link href="assets/default/lang/sa/compact.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .text {
+        width: auto !important;
+      }
+      @media only screen and (max-width: 768px) {
+        #dynamic_header {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        #mtop {
+          display: none !important;
+        }
+        #header {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        #mid {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        .login {
+          width: 100% !important;
+          padding: 0px !important;
+        }
+        .login .img_login {
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="v35 webkit">
+        <div class="wrapper">
+      <img src="assets/x.gif" id="msfilter" alt="">
+      <div id="dynamic_header"></div>
+      <div id="header">
+        <div id="mtop">
+          <div class="clear"></div>
+        </div>
+      </div>
+      <h1 style="text-align:center;"> تسجيل حساب جديد </h1>
 <?php
 require( APP_PATH."config.php" );
 
@@ -16,30 +65,18 @@ $data1  = mysql_fetch_array($query1);
 $start_time = (time()-$data1['server_start_time']);
 $regover = ($AppConfig['Game']['RegisterOver']*24*60*60);
 
-if ($start_time > $regover){
-?>
-هذا العالم بلغ به الحد الاقصى من اللاعبين. يمكنك ان <br> تسجيل نفسك في عالم آخر<br><br><a href="login.php">التسجيل <<</a>
-<?php
-} else {
+
  if (!$this->success) {
 ?>
-  <p><?php echo LANGUI_REG_T3; ?> 
-
- <a href="#" onclick="return showManual(0,0);"><?php echo LANGUI_REG_T4; ?> </a>
-
-
-  <?php echo LANGUI_REG_T5; ?>
-
-  </p>
-  <form method="post" action="
+  <form style="padding: 20px 20px 10px 20px;" method="post" action="
 <?php if (isset ($_GET['ref'])) {
 echo "register.php?ref=".$_GET['ref'];
 } else {
 echo "register.php";
 } ?>" />
-  <table cellpadding="1" cellspacing="1" id="sign_input">
+  <table style="max-width: 600px; margin: 0 auto;border: 1px dashed #C0C0C0;padding:10px;background-color: #FFF;" cellpadding="0" cellspacing="0" id="sign_input">
   <tbody><tr class="top"><th><?php echo LANGUI_REG_T6; ?>:</td>
-  <td><input class="text" type="text" name="name" value="<?php
+  <td><input style="margin-bottom:5px" class="text" type="text" name="name" value="<?php
       if (isset($_POST['name'])) {
           echo htmlspecialchars(trim($_POST['name']));
       } else if (isset($this->SNdata['user_name'])) {
@@ -49,7 +86,7 @@ echo "register.php";
   <?php echo $this->err[0]; ?>
   </span></td></tr>
   <tr><th><?php echo LANGUI_REG_T7; ?></th>
-  <td><input class="text" type="text" name="email" value="<?php
+  <td><input style="margin-bottom:5px" class="text" type="text" name="email" value="<?php
       if (isset($_POST['email'])) {
           echo trim($_POST['email']);
       } else if (isset($this->SNdata['email'])) {
@@ -69,8 +106,8 @@ echo "register.php";
 <!-- code -->
   </td></tr>
 </tbody></table>
-<p>
-  <table cellpadding="1" cellspacing="1" id="sign_select">
+<p style="max-width: 600px; margin: 20px auto;padding:10px;border: 1px dashed #C0C0C0;background-color: #FFF;">
+  <table cellpadding="0" cellspacing="0" id="sign_select">
   <tbody>
   <tr class="top">
   <th><b>اختر القبيلة : </b></th>
@@ -99,56 +136,19 @@ checked="checked" />&nbsp;عشوائي  </label></td>
   </tbody></table>
 
 
-  <ul class="important"><?php echo $this->err[3]; ?></ul>
-  <ul class="important"><?php echo $this->err[4]; ?></ul>
-  <!--
-  <p>
-				<input class="check" type="checkbox" name="agb" value="1" checked="checked"  />
-  أصرح بقبولي 
-   <b><a href="terms.php" target="_blank">
-    لقوانين اللعبة</a></b>.
-			</p>
-    -->
+  <ul style="max-width: 600px; margin: 0 auto;" class="important"><?php echo $this->err[3]; ?></ul>
+  <ul tyle="max-width: 600px; margin: 0 auto;" class="important"><?php echo $this->err[4]; ?></ul>
 	
 			<p class="btn"><input type="image" value="anmelden" name="s1" id="btn_signup" class="dynamic_img" src="assets/x.gif" alt="<?php echo LANGUI_REG_T16; ?>" /></p>
   </form>
+  <div>
+    <span style="display:block; text-align:center;"> لديك حساب بالفعل؟ <a href="login.php">قم بتسجيل الدخول</a> </span>
+  </div>
 <?php
 require( APP_PATH."config.php" );
 if ( ($this->appConfig['system']['startdate'] > date('m/d/Y')) || ($this->appConfig['system']['START_TIME'] > date('H:i'))){
 ?>
-
-<!-- 
-<style>
-.counter{
-        width: 610px;
-}
-.counter ul.countdown{
-        list-style-type: none;
-        color: black;
-        font-weight: bold;
-        text-align: center;
-}
-.counter ul.countdown li{
-        float: right;
-        background: url(assets/digit.png) no-repeat;
-        height:110px;
-        width: 105px;
-        padding-top: 35px;
-}
-.counter ul.countdown li div{
-        font-size: 10px;
-}
-.counter ul.countdown li div.countdown_num{
-        font-size: 20px;
-}
-.counter ul.countdown li.no_countdown{
-        padding-top:4px;
-        background:transparent;
-        height:110px;
-        width:180px;
-}
-</style>
---><script language="JavaScript">
+<script language="JavaScript">
 timingnow = '<?php echo date('m/d/Y');?> <?php echo date('g:i:s A');?>';
 TargetDate = "<?php echo $this->appConfig['system']['startdate']; ?> <?php echo $this->appConfig['system']['START_TIME']; ?>";
 CountActive = true;
@@ -215,6 +215,7 @@ CountBack(gsecs);
 </center>
 <?php
 }
-  } else echo "<script>window.location.replace('login.php');</script>";
-}
+  } 
+  
+  else echo "<script>window.location.replace('login.php');</script>";
 ?>

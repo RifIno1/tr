@@ -1,45 +1,112 @@
-<?php
-
-
-if (isset($_GET['aaaaaa'])) {
-echo date('m/d/Y');
-echo "------";
-echo date('H:i');
-}
-
-?>
-<h1><img src="assets/x.gif" class="img_login" alt="تسجيل الدخول للعبه" /></h1>
-<div align="center">
-</div> <h5><img class="img_u04" src="assets/x.gif" alt="التسجيل" /></h5>
-<p><?php echo LANGUI_INDX_T3; ?></p>
-
-<form action="login.php" method="post" name="login">
-<table cellpadding="1" cellspacing="1" id="login_form">
-<tbody>
-<tr class="top"><th><?php echo LANGUI_INDX_T1;  ?>:</th><td><input class="text" maxlength="15" name="name" type="text" title="<?php echo LANGUI_INDX_T1;  ?>" value="<?php   echo $this->name; ?>"><span class="error"><?php echo $this->err[0]; ?></span></td></tr>
-<tr class="btm"><th><?php echo LANGUI_INDX_T2;  ?>:</th><td><input class="text" name="password" type="password" title="<?php echo LANGUI_INDX_T2;  ?>" value="<?php   echo $this->password;  ?>" /><span class="error"><?php echo $this->err[1]; ?></span></td></tr>
-</tbody>
-</table>
-<p class="btn"><input id="btn_login" class="dynamic_img" type="image" onClick="this.style.visibility='hidden';" alt="????" src="assets/x.gif" name="s1" value="anmelden">
-<span class="error"> <?php if ($this->error != "") { echo $this->error; } ?></span><br>
-
-
-</form>
-<table cellpadding="1" cellspacing="1">
-    <thead>
-        <tr><th colspan="2">إحصائيات سريعة : </th></tr></thead>
-
-<tbody>
-    <tr class="top">
-<td>عدد اللاعبين : </td>
-<td class="text"><?php echo $this->data['players_count']; ?></td>
-    </tr>
-    <tr class="btm">
-<td>المتصلون حاليا : </td>
-<td><?php echo $this->data['online_players_count']; ?></td>
-    </tr>
-
-
-    </tbody></table>
-    
-<p>
+<html>
+  <head>
+    <title><?php echo $this->appConfig['page'][$this->appConfig['system']['lang'] . "_title"]; ?></title>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="pragma" content="no-cache">
+    <link href="assets/default/lang/sa/lang.css" rel="stylesheet" type="text/css">
+    <link href="assets/default/lang/sa/compact.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .text {
+        width: auto !important;
+      }
+      @media only screen and (max-width: 768px) {
+        #dynamic_header {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        #mtop {
+          display: none !important;
+        }
+        #header {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        #mid {
+          width: 100% !important;
+          min-width: 100% !important;
+        }
+        .login {
+          width: 100% !important;
+          padding: 0px !important;
+        }
+        .login .img_login {
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="v35 webkit">
+    <div class="wrapper">
+      <img src="assets/x.gif" id="msfilter" alt="">
+      <div id="dynamic_header"></div>
+      <div id="header">
+        <div id="mtop">
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div id="content" class="login">
+          <h1> تسجيل الدخول للعبه </h1>
+          <div align="center"></div>
+     
+          <form action="login.php" method="post" name="login">
+            <table cellpadding="1" cellspacing="1" id="login_form">
+              <tbody>
+                <tr class="top">
+                  <th>الاسم:</th>
+                  <td>
+                    <input class="text" maxlength="15" name="name" type="text" title="الاسم" value="">
+                    <span class="error"><?php echo $this->err[0]; ?></span>
+                  </td>
+                </tr>
+                <tr class="btm">
+                  <th>كلمة المرور:</th>
+                  <td>
+                    <input class="text" name="password" type="password" title="كلمة المرور" value="">
+                    <span class="error"><?php echo $this->err[1]; ?></span>
+                  </td>
+                </tr>
+				
+              </tbody>
+            </table>
+			<br>
+			<div>
+              <center>
+			  <input style="display:block; text-align:center;" id="btn_login" class="dynamic_img" type="image" src="assets/x.gif" value="تسجيل الدخول">
+			  </center>
+        <span class="error"><?php if ($this->error != "") { echo $this->error; } ?></span>
+			  <span style="display:block; text-align:center;margin: 10px 0"> ليس لديك حساب ؟ <a href="register.php">انشاء حساب جديد</a> </span>
+			</div>
+			  
+          </form>
+          <table cellpadding="1" cellspacing="1">
+            <thead>
+              <tr>
+                <th colspan="2">إحصائيات سريعة : </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="top">
+                <td>عدد اللاعبين : </td>
+                <td class="text"> 7 </td>
+              </tr>
+              <tr class="btm">
+                <td>المتصلون حاليا : </td>
+                <td> 4 </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

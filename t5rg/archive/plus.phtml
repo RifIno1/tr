@@ -1,9 +1,9 @@
 ﻿<?php
 
 
-echo "<h1><p>";
+echo "<h1 style='margin-right: 10px;'><p>";
 echo '<b>قائمة<font color="#71D000"> p</font><font color="#FF6F0F">l</font>u<font color="#71D000">s</font></b>';
-echo "</p></h1>\r\n<div id=\"textmenu\">\r\n   <a href=\"plus.php\"";
+echo "</p></h1>\r\n<div style='margin-right: 10px;' id=\"textmenu\">\r\n   <a href=\"plus.php\"";
   if ($this->selectedTabIndex == 0) {
       echo " class=\"selected\"";
   }
@@ -26,7 +26,7 @@ echo "</p></h1>\r\n<div id=\"textmenu\">\r\n   <a href=\"plus.php\"";
   if ($this->selectedTabIndex == 0) {
 
       if ($this->packageIndex < 0) {
-          echo "<div id=\"products\">\r\n\t";  
+          echo "<div style='margin-right: 10px;' id=\"products\">\r\n\t";  
           $_c = 0;
           foreach ($this->appConfig['plus']['packages'] as $package) {
               ++$_c;

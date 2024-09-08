@@ -332,5 +332,18 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         padding: 43px 5px 0!important;
     }
 
+    #content {
+        width: 100%!important;
+        min-width: auto !important;
+    }
+
+    #products{
+        width: 100%!important;
+    }
+
+    div.plus {
+        padding: 20px 0;
+    }
+
     
 }
