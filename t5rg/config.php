@@ -90,7 +90,7 @@ $AppConfig = array (
                                 'cost'                => 5,
                                 'currency'        => 'usd',
                                 'image'                => 'package_a.jpg',
-                                'link'                => 'https://buy.stripe.com/test_aEU5lMgUt2Lxfcs9AA',
+                                'link'                => 'https://buy.stripe.com/cN29C56gNfYCfg46ow',
                         ),
                        array (
                                 'name'                => 'الثانية',
@@ -98,7 +98,7 @@ $AppConfig = array (
                                 'cost'                => 10,
                                 'currency'        => 'usd',
                                 'image'                => 'package_a.jpg',
-                                'link'                => 'https://buy.stripe.com/test_3cs6pQeMl3PB7K04gh',
+                                'link'                => 'https://buy.stripe.com/cN25lP20xaEi5Fu145',
                         ),
                        array (
                                 'name'                => 'الثالثة',
@@ -106,7 +106,7 @@ $AppConfig = array (
                                 'cost'                => 20,
                                 'currency'        => 'usd',
                                 'image'                => 'package_b.jpg',
-                                'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                'link'                => 'https://buy.stripe.com/14k01vgVreUygk8dQS',
                         ),
                        array (
                                 'name'                => 'الرابعة',
@@ -114,7 +114,7 @@ $AppConfig = array (
                                 'cost'                => 50,
                                 'currency'        => 'usd',
                                 'image'                => 'package_b.jpg',
-                                'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                'link'                => 'https://buy.stripe.com/7sI01vdJf4fU2ti003',
                         ),
                           array (
                                     'name'                => 'الخامسة',
@@ -122,7 +122,7 @@ $AppConfig = array (
                                     'cost'                => 100,
                                     'currency'        => 'usd',
                                     'image'                => 'package_c.jpg',
-                                    'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                    'link'                => 'https://buy.stripe.com/6oE15zbB75jY2ti5ko',
                            ),
                                 array (
                                         'name'                => 'السادسة',
@@ -130,7 +130,7 @@ $AppConfig = array (
                                         'cost'                => 200,
                                         'currency'        => 'usd',
                                         'image'                => 'package_d.jpg',
-                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                        'link'                => 'https://buy.stripe.com/dR6eWp34BfYC4Bq7sx',
                                  ),
                                 array (
                                         'name'                => 'السابعة',
@@ -138,7 +138,7 @@ $AppConfig = array (
                                         'cost'                => 500,
                                         'currency'        => 'usd',
                                         'image'                => 'package_d.jpg',
-                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                        'link'                => 'https://buy.stripe.com/28o3dH48F7s69VK4gm',
                                  ),
                                 array (
                                         'name'                => 'الثامنة',
@@ -146,7 +146,7 @@ $AppConfig = array (
                                         'cost'                => 1000,
                                         'currency'        => 'usd',
                                         'image'                => 'package_f.jpg',
-                                        'link'                => 'https://buy.stripe.com/test_3cs3dE33DadZ4xOaEG',
+                                        'link'                => 'https://buy.stripe.com/8wMdSleNj3bQ8RG14b',
                                  ),
 
                        

@@ -783,6 +783,8 @@ else if ( $this->selectedTabIndex == 2 )
 }
 else if ( $this->selectedTabIndex == 3 )
 {
+
+    if (isset($_POST['m1'])) echo '<span style="margin: 14px 0; color: green; display: block;">تم توزيع الموارد بنجاح مقابل 1 ذهب.</span>';
     echo "<s";
     echo "cript language=\"JavaScript\">\r\nvar overall;\r\nfunction calculateRes() {\r\n\tresObj=document.getElementsByName(\"m2\");\r\n\toverall=0;\r\n\tfor (i=0; i<resObj.length; i++) {\r\n\t\tvar tmp=\"\";\r\n\t\tfor (j=0; j<resObj[i].value.length; j++)\r\n\t\t\tif ((resObj[i].value.charAt(j)>=\"0\") && (resObj[i].value.charAt(j)<=\"9\")) tmp=tmp+resObj[i].value.charAt(j);\r\n\t\tresObj[i].value=tmp;\r\n\t\tif (tmp==\"\") tmp=\"0\";\r\n\t\tnewRes=Math.round";
     echo "(parseInt(tmp)*summe/100);\r\n\t\tif (((i<3) && (newRes<=max123)) || ((i==3) && (newRes<=max4)))\r\n\t\t\tnewHTML=newRes;\r\n\t\telse\r\n\t\t\tnewHTML=\"";
