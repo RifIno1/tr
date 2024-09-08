@@ -39,8 +39,8 @@ if ( $this->pageState == 1 )
 
 ?>
 
-<div style="width: 100%; display: flex; justify-content: space-between;">
-<div style="width: 35%;background:#f8f8f8;">
+<div class="v2vStyle">
+<div class="hadafAndIrssal">
     <table style="width: 100%; border: none !important;" cellpadding="1" cellspacing="1">
         <tbody>
             <tr>
@@ -141,7 +141,7 @@ if ( $this->pageState == 1 )
     </table>
 </div>
 
-    <div style="width: 60%;">
+    <div class="alqowat">
         <table style="width: 100%; border: none !important;" cellpadding="1" cellspacing="1">
             <tbody>
                 <tr>
@@ -413,7 +413,7 @@ else if ( $this->pageState == 2 )
 {
     echo "<h1><p>";
     echo $this->targetVillage['transferType'];
-    echo "</p></h1>\r\n<form method=\"post\" name=\"snd\" action=\"v2v.php?t=2\">\r\n<table id=\"short_info\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<th>";
+    echo "</p></h1>\r\n<form method=\"post\" name=\"snd\" style='overflow-x:auto;' action=\"v2v.php?t=2\">\r\n<table id=\"short_info\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<th>";
     echo LANGUI_V2V_T6;
     echo ":</th>\r\n\t\t\t<td><a href=\"village3.php?id=";
     echo $this->targetVillage['villageId'];

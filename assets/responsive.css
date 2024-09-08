@@ -28,12 +28,69 @@ div#build {
     width: 100%;
 }
 
+.v2vStyle{
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+.hadafAndIrssal{
+    width: 35%;
+    background:#f8f8f8;
+}
+
+.alqowat{
+    width: 60%;
+}
+
+div.alliance table#edit td.desc1 textarea {
+
+    margin: auto!important;
+}
+
+div.alliance table#edit td.desc2 textarea {
+height: 150px;
+   margin: auto!important;
+}
 
 
 /* Responsive CSS for mobile devices */
 
 
 @media only screen and (max-width: 768px){
+
+    div.alliance table#edit td.desc1 textarea {
+         width: 95%;
+    }
+
+    div.alliance table#edit td.desc2 textarea {
+        width: 95%;
+   }
+
+    div.alliance {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.warsim {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+    
+    .alqowat{
+        width: auto; 
+    }
+
+.hadafAndIrssal{
+    width: auto;
+    margin-bottom: 10px;
+}
+
+    
+    .v2vStyle{
+        width: 100%;
+        display: table;
+    }
 
     div.village3 {
         width: auto!important;
