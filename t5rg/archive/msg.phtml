@@ -173,14 +173,7 @@ else
         echo $this->messageTime;
         echo "</div>\r\t\t</div>\r\t\t";
     }
-    else
-    {
-        echo "\t\t<a id=\"adbook\" href=\"#\" onclick=\"toggleFriendsList(); return false;\"><img src=\"assets/x.gif\" alt=\"";
-        echo LANGUI_MSG_T13;
-        echo "\" title=\"";
-        echo LANGUI_MSG_T13;
-        echo "\"></a>\r\t\t";
-    }
+    
     echo "\t\t<div class=\"clear\"></div>\r\t\t<div id=\"line\"></div>\r\t\t<textarea class=\"textarea write\" name=\"message\" id=\"igm\" onkeyup=\"copyElement('body')\" tabindex=\"3;\"";
     if ( $this->viewOnly )
     {

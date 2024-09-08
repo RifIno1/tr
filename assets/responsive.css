@@ -28,27 +28,41 @@ div#build {
     width: 100%;
 }
 
-div.player table#edit td.desc2 textarea {
-    width: 95%!important;
-}
-
-div.player table#edit td.desc1 textarea {
-    width: 95%!important;
-}
-
-div.player table#links td.nam input.text {
-    width: auto!important;
-}
-
-div.player table#links td.link input.text {
-    width: auto!important;
-}
 
 
 /* Responsive CSS for mobile devices */
 
 
 @media only screen and (max-width: 768px){
+
+    div.village3 {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.a2b {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.player table#edit td.desc2 textarea {
+        width: 95%!important;
+    }
+    
+    div.player table#edit td.desc1 textarea {
+        width: 95%!important;
+    }
+    
+    div.player table#links td.nam input.text {
+        width: auto!important;
+    }
+    
+    div.player table#links td.link input.text {
+        width: auto!important;
+    }
+    
+
+
     div#build p.build_desc {
         margin-top: 70px!important;
     }
