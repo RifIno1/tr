@@ -66,17 +66,6 @@ height: 150px;
     div.alliance table#edit td.desc2 textarea {
         width: 95%;
    }
-
-    div.alliance {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-
-    div.warsim {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-    
     .alqowat{
         width: auto; 
     }
@@ -90,16 +79,6 @@ height: 150px;
     .v2vStyle{
         width: 100%;
         display: table;
-    }
-
-    div.village3 {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-
-    div.a2b {
-        width: auto!important;
-        padding: 43px 5px 0;
     }
 
     div.player table#edit td.desc2 textarea {
@@ -234,7 +213,7 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         top: 134px!important;
     }
 
-    div.forum,div.forum table,div#build, div.reports, div.messages,div.player {
+    .village3, div.forum,div.forum table,div#build, div.reports, div.messages,div.player, div.alliance, div.village3, div.a2b ,div.warsim {
         width: auto!important;
         padding: 43px 0px 0!important;
     }
@@ -325,6 +304,10 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
 
     div.village1 {
         padding-right: 0 !important;
+    }
+
+    div.logout {
+        padding: 0 !important;
     }
 
     
