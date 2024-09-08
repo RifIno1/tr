@@ -5,165 +5,6 @@ require( APP_PATH."config.php" );
 $link = mysql_connect($AppConfig['db']['host'],$AppConfig['db']['user'],$AppConfig['db']['password']) or die(mysql_error());
 mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
 
-if (isset($_GET['cropfinder'])) {
-
-$uid = $this->player->playerId;
-$Voxs = mysql_query("SELECT * From p_players WHERE id='$uid'");
-$this->CropFinder = mysql_fetch_array($Voxs);
-            if ( $this->CropFinder['club'] == 1 ) {
-$uids = $this->data['selected_village_id'];
-$Voxss = mysql_query("SELECT * From p_villages WHERE id='$uids'");
-$this->CropFinders = mysql_fetch_array($Voxss);
-$vid1 = $this->data['selected_village_id'];
-$this->myData['id'] = $this->player->playerId;
-?>
-
-<h1>بحث عن قمحيات</h1>
-<img width="200" src="assets/default/img/g/f6.jpg" />
-<img width="200" src="assets/default/img/g/f1.jpg" />
-</center>
-<br /><br />
-<form id="cropfinder_form" action="map.php?cropfinder" method="post">
-<div class="cropfinder_input">
-<div class="row">
-<span class="cropfinder">موقع البداية :</span>
-<span>X</span><input class="text" maxlength="4" value="<?php echo $this->data['rel_x'];?>" name="y">
-<span>Y</span><input class="text" maxlength="4" value="<?php echo $this->data['rel_y'];?>" name="x">
-</div><div class="row">
-<span class="cropfinder">النوع :</span>
-&nbsp;<input type="radio" value="9" <?php if($_POST['get'] == 9) { print 'checked="checked"'; } ?> name="get" class="radio"> قمحية 9 حقول
-&nbsp;<input type="radio" value="15" <?php if($_POST['get'] == 15) { print 'checked="checked"'; } ?> name="get" class="radio"> قمحية 15 حقل
-</div>
-<p class="btn">
-<input type="image" id="btn_search" name='submit' class="dynamic_img " src="assets/x.gif">
-</p> </div>
-</form><?php 
-$playerid = $this->data['selected_village_id'];
-if( strip_tags($_POST['get'] == "9")){
-$ys = is_numeric(addslashes($_POST['y']));
-$xs= addslashes(is_numeric($_POST['x']));
-$player_id = NULL;
-
-$result = mysql_query("SELECT rel_x,rel_y,image_num,player_name,player_id,id FROM p_villages where field_maps_id=1");
-$resultx = mysql_fetch_array(mysql_query("SELECT rel_x,rel_y FROM p_villages where rel_x=$xs and rel_y=$ys" ));
-
-echo "<table id=\"croplist\" cellspacing=\"1\" cellpadding=\"1\">\n";
-echo "<thead>\n";
-echo "<tr>\n";
-echo "<th colspan=\"5\">القرى القمحية</th>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td>الاحداثيات</td>\n";
-echo "<td>النوع</td>\n";
-echo "<td>اللاعب</td>\n";
-echo "<td>محتلة</td>\n";
-echo "<td>المسافة</td>\n";
-echo "</tr>\n";
-echo "</thead>\n";
-echo "<tbody>\n";
-while($row = mysql_fetch_array($result))
-  {
-
-  $distance = WebHelper::getDistance($resultx['rel_x'], $resultx['rel_y'], $row['rel_x'], $row['rel_y'], $this->setupMetadata['map_size']/1);
-
-  $rows[$distance] = $row;
- 
-  }
-  ksort($rows);
-$s = 0;
-  foreach($rows as $distance => $row) {
-$s++;
-if ($s == 20) {
-break;
-}
- ?>
-<tr>
-<td class="aligned_coords center"><a href="village3.php?id=<?php echo $row['id'];?>"><div class="cox">(<?php echo $row['rel_x'];?></div><div class="pi"> | </div><div class="coy"><?php echo $row['rel_y'];?>)</div></a></td>
-<td class="typ center">9<img src="assets/x.gif" class="cropfinder_icon"></td>
-                        <td class="owned"><center><?php if ( $row['player_name'] == "" ){  echo "-"; }else { echo '<a href="profile.php?uid='.$row['player_id'].'">'; echo $row['player_name']; echo '</a>'; } ?></center></td>
-<td class="dist center">
-<?php
-if ( $row['player_name'] == "" ){
-echo "<b style=\"color:green;\">غير محتلة</b>\n";
- }else {
-echo "<b style=\"color:red;\">محتلة</b>\n";
-}
-?>
-</td>
-<td class="dist center"><?php echo round(WebHelper::getdistance($this->CropFinders['rel_x'], $this->CropFinders['rel_y'], $row['rel_x'], $row['rel_y'], $this->setupMetadata['map_size'] / 2));?></td>
-</tr>
-  <?php
-  }
-echo "</table>";
-
-}
-if( strip_tags($_POST['get'] == "15")){
-$ys = $_POST['y'];
-$xs= $_POST['x'];
-$player_id = '1';
-if ($_POST['love'] == '1') {
-$result = mysql_query("SELECT rel_x,rel_y,image_num,player_name,player_id,id FROM p_villages where field_maps_id=6");
-$resultx = mysql_fetch_array(mysql_query("SELECT rel_x,rel_y FROM p_villages where rel_x=$xs and rel_y=$ys" ));
-}else {
-$result = mysql_query("SELECT rel_x,rel_y,image_num,player_name,player_id,id FROM p_villages where field_maps_id=6");
-$resultx = mysql_fetch_array(mysql_query("SELECT rel_x,rel_y FROM p_villages where rel_x=$xs and rel_y=$ys" ));
-}
-
-echo "<table id=\"croplist\" cellspacing=\"1\" cellpadding=\"1\">\n";
-echo "<thead>\n";
-echo "<tr>\n";
-echo "<th colspan=\"5\">القرى القمحية</th>\n";
-echo "</tr>\n";
-echo "<tr>\n";
-echo "<td>الاحداثيات</td>\n";
-echo "<td>النوع</td>\n";
-echo "<td>اللاعب</td>\n";
-echo "<td>محتلة</td>\n";
-echo "<td>المسافة</td>\n";
-echo "</tr>\n";
-echo "</thead>\n";
-echo "<tbody>\n";
-while($row = mysql_fetch_array($result))
-  {
-
-  $distance = WebHelper::getDistance($resultx['rel_x'], $resultx['rel_y'], $row['rel_x'], $row['rel_y'], $this->setupMetadata['map_size']/1);
-
-  $rows[$distance] = $row;
- 
-  }
-  ksort($rows);
-$s = 0;
-  foreach($rows as $distance => $row) {
-$s++;
-if ($s == 20) {
-break;
-}
- ?>
-<tr>
-<td class="aligned_coords center"><a href="village3.php?id=<?php echo $row['id'];?>"><div class="cox">(<?php echo $row['rel_x'];?></div><div class="pi"> | </div><div class="coy"><?php echo $row['rel_y'];?>)</div></a></td>
-<td class="typ center">15<img src="assets/x.gif" class="cropfinder_icon"></td>
-                        <td class="owned"><center><?php if ( $row['player_name'] == "" ){  echo "-"; }else { echo '<a href="profile.php?uid='.$row['player_id'].'">'; echo $row['player_name']; echo '</a>'; } ?></center></td>
-<td class="dist center">
-<?php
-if ( $row['player_name'] == "" ){
-echo "<b style=\"color:green;\">غير محتلة</b>\n";
- }else {
-echo "<b style=\"color:red;\">محتلة</b>\n";
-}
-?>
-</td>
-<td class="dist center"><?php echo round(WebHelper::getdistance($this->CropFinders['rel_x'], $this->CropFinders['rel_y'], $row['rel_x'], $row['rel_y'], $this->setupMetadata['map_size'] / 2));?></td>
-</tr>
-  <?php
-  }
-echo "</table>";
-}
- }else {
-echo "Hi";
-}
-
-
-}else {
 echo "<h1>";
 echo LANGUI_MAP_T1;
 echo " (";
@@ -174,7 +15,19 @@ echo "</span>|";
 echo "<s";
 echo "pan id=\"y\">";
 echo $this->y;
-echo "</span>)</h1>\r\n\r\n<div id=\"map\">\r\n\r\n";
+echo "</span>)</h1>";
+?>
+
+<div class="cropfinder_icon">
+        <a href="crop_finder.php">
+<img title="البحث عن قمحية 9/15
+" alt="البحث عن قمحية 9/15
+" src="assets/x.gif" class="cropfinder_icon">
+        </a>
+</div>
+
+<?php
+echo "\r\n\r\n<div id=\"map\">\r\n\r\n";
 echo "<s";
 echo "cript type=\"text/javascript\">\r\n<!--\r\nvar textb = {};\r\ntextb.t1 = '";
 echo LANGUI_MAP_T2;
@@ -404,28 +257,9 @@ echo LANGUI_MAP_T12;
 echo ":</th><td id=\"mbx_12\">-</td></tr>\r\n\t\t<tr><th>";
 echo LANGUI_MAP_T13;
 echo ":</th><td id=\"mbx_13\">-</td></tr>\r\n\t</tbody>\r\n</table>\r\n</div>\r\n\r\n";
-$Id = $this->player->playerId;
-$result = mysql_query("SELECT club FROM p_players where id='".$Id."'");
-while($row = mysql_fetch_array($result))
-{
-$club = $row['club'];
-}
-if ( $club == '1' )
-{
-?>
-<div class="cropfinder_icon">
-        <a href="map.php?cropfinder">
-<img title="البحث عن قمحية 9/15
-" alt="البحث عن قمحية 9/15
-" src="assets/x.gif" class="cropfinder_icon">
-        </a>
-</div>
-
-<?php
-}
 echo "<s";
 echo "cript type=\"text/javascript\">\r\n<!--\r\n";
 echo $this->getClientScript( );
 echo "// -->\r\n</script>";
-}
+
 ?>

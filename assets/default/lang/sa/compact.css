@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap'); 
-*{font-family: "Readex Pro", sans-serif !important;line-height: 150%;}
+*{/*font-family: "Readex Pro", sans-serif !important;*/line-height: 150%;}
 body{text-align:right;direction:rtl;margin:0;background-color:#FFF;}
 img{border:0;}h1,h2,span,form,img,li{margin:0;padding:0;}h1{margin-bottom:8px;}p{margin:14px 0;padding:0;}
 label{white-space:nowrap;}#msfilter{width:1px;height:1px;position:absolute;z-index:99;}
@@ -111,7 +111,8 @@ div.map div#map div#map_coords{bottom:26px;right:30px;}div#mbig div#map div#map_
 div#map div#map_coords span,div#map div#map_coords input{float:right;margin-left:5px;}
 div#map div#map_coords input.text{width:28px;margin-left:8px;}div#map table#map_infobox{position:absolute;z-index:50;}
 div.map div#map table#map_infobox{top:0;left:20px;}div#mbig div#map table#map_infobox{top:10px;left:50px;}
-div.map div.cropfinder_icon{z-index:100;position:absolute;right:493px;top:312px;}
+div.map div.cropfinder_icon{z-index:100;position:absolute;right: 80px;
+    top: 100px;}
 div.map div#map div#map_content div#i_0_0{z-index:1;left:16px;top:104px;}div.map div#map div#map_content div#i_0_1{z-index:2;left:52px;top:84px;}
 div.map div#map div#map_content div#i_0_2{z-index:3;left:88px;top:64px;}div.map div#map div#map_content div#i_0_3{z-index:4;left:124px;top:44px;}
 div.map div#map div#map_content div#i_0_4{z-index:5;left:160px;top:24px;}div.map div#map div#map_content div#i_0_5{z-index:6;left:196px;top:4px;}

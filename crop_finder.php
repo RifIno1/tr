@@ -25,7 +25,7 @@ class GPage extends ProcessVillagePage{
     public function load( )
     {
         parent::load( );
-        $this->selectedTabIndex = isset( $_GET['t'] ) && is_numeric( $_GET['t'] ) && 0 <= intval( $_GET['t'] ) && intval( $_GET['t'] ) <= 2 ? intval( $_GET['t'] ) : 0;
+        $this->selectedTabIndex = isset( $_GET['t'] ) && is_numeric( $_GET['t'] ) && 0 <= intval( $_GET['t'] ) && intval( $_GET['t'] ) <= 3 ? intval( $_GET['t'] ) : 0;
         if ( $this->selectedTabIndex == 0 )
         {
             $this->packageIndex = isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) && 0 < intval( $_GET['id'] ) && intval( $_GET['id'] ) <= sizeof( $this->appConfig['plus']['packages'] ) ? intval( $_GET['id'] ) - 1 : 0 - 1;
@@ -52,6 +52,12 @@ class GPage extends ProcessVillagePage{
             case 7 :
                 $this->queueModel->finishTasks( $this->player->playerId, $this->plusTable[intval( $_GET['a'] )]['cost'], intval( $_GET['a'] ) == 7 );
             }
+        }else if ( $this->selectedTabIndex == 3 )
+        {
+            
+            
+
+            
         }
     }
 
