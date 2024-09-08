@@ -20,13 +20,38 @@
     background-color: #6adc74;
 }
 
+div#build {
+    width: 440px!important;
+}
 
+.profil_image {
+    width: 100%;
+}
+
+div.player table#edit td.desc2 textarea {
+    width: 95%!important;
+}
+
+div.player table#edit td.desc1 textarea {
+    width: 95%!important;
+}
+
+div.player table#links td.nam input.text {
+    width: auto!important;
+}
+
+div.player table#links td.link input.text {
+    width: auto!important;
+}
 
 
 /* Responsive CSS for mobile devices */
 
 
 @media only screen and (max-width: 768px){
+    div#build p.build_desc {
+        margin-top: 70px!important;
+    }
 
     body{
         zoom : 100%;
@@ -116,20 +141,26 @@
 
 div.statistics table#top10_offs, div.statistics table#top10_climbers {
         width: auto;
+        margin: auto;
+        float: none;
+        margin-bottom: 10px;
     }
 
     div.statistics table#top10_defs, div.statistics table#top10_raiders {
         width: auto;
+        margin: auto;
+        float: none;
+        margin-bottom: 10px;
     }
 
     div.statistics div#submenu2 {
         right: 10px!important;
-        top: 125px!important;
+        top: 134px!important;
     }
 
     div.statistics div#submenu {
         left: 10px!important;
-        top: 125px!important;
+        top: 134px!important;
     }
 
     
@@ -137,6 +168,10 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
     div.forum {
         width: auto!important;
         padding: 43px 5px 0!important;
+    }
+
+    div.forum table {
+        width: 100%!important;
     }
 
     div.reports {
@@ -149,9 +184,6 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         padding: 43px 5px 0!important;
     }
 
-    div.forum table {
-        width: auto!important;
-    }
 
     div.messages div.msg_head {
         width: auto!important;
@@ -209,6 +241,25 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         
     }
     
+
+    div.map div#map_details {
+        float: right;
+        margin-right: 30px;
+    }
+
+    div.build {
+         width: auto!important;
+    }
+
+    div#build {
+        width : auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.player {
+        width: auto!important;
+        padding: 43px 5px 0!important;
+    }
 
     
 }
