@@ -61,6 +61,17 @@ if($this->selectedTabIndex == 2){
 ?>
 <form method="POST" action="farm.php?t=1&allv">
 <h4>اضافة جميع قرى لاعب</h4>
+
+<?php 
+        if ($num_farm == 0) {
+                echo "يجب ان تملك اكثر من مزرعه على الاقل ";
+                echo "<br><br><a href='farm.php?more'>زياده عدد المزارع</a>";
+        }
+        else
+        {
+                ?>
+
+
 <div class="option" style="padding: 12px;">
 <?php 
 $t_arr = explode( '|', $this->data['troops_num'] );
@@ -116,6 +127,7 @@ foreach($troops as $troopId=>$troopNum){
 <button type="submit" value="اضافة مزرعة" name="s1" id="btn_ok"><div class="button-container"><div class="button-position"><div class="btl"><div class="btr"><div class="btc"></div></div></div><div class="bml"><div class="bmr"><div class="bmc"></div></div></div><div class="bbl"><div class="bbr"><div class="bbc"></div></div></div></div><div class="button-contents">اضافة مزرعة</div></div></button>
 </div>
 <?php
+}
 }else 
 if($this->selectedTabIndex == 0){ 
 ?>
@@ -280,6 +292,7 @@ $start = 70;
 ?>
 <span class="error"><?php echo $this->error; ?></span>
 <form method="POST" action="farm.php?t=1">
+<h4>اضافة مزرعة جديدة</h4>
         <?php 
         if ($num_farm == 0) {
                 echo "يجب ان تملك اكثر من مزرعه على الاقل ";
@@ -288,7 +301,7 @@ $start = 70;
         else
         {
                 ?>
-<h4>اضافة مزرعة جديدة</h4>
+
 <table cellspacing="1" cellpadding="1" id="coords">
 <tbody><tr>
 <td>

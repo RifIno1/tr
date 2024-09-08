@@ -143,6 +143,7 @@ $result = mysql_query("SELECT * FROM p_players where id='".$Id."'");
 $r = mysql_fetch_array($result);
 ?>
 
+
 <table cellspacing="1" cellpadding="1" id="distribution"> 
         <thead>
                 <tr>
@@ -208,7 +209,7 @@ header("Location:build.php?id=".$this->buildingIndex."");
 $Id = $this->player->playerId;
 $atpo = $r['hero_att'];
 $atde = $r['hero_deff'];
-mysql_query("UPDATE  `p_players` SET  `gold_num` =gold_num where id='".$Id."'");
+mysql_query("UPDATE  `p_players` SET  `gold_num` =gold_num-20 where id='".$Id."'");
 mysql_query("UPDATE  `p_players` SET  `hero_att` =0 where id='".$Id."'");
 mysql_query("UPDATE  `p_players` SET  `hero_deff` =0 where id='".$Id."'");
 mysql_query("UPDATE  `p_players` SET  `h2ero_points` =".$atpo."+".$atde."+h2ero_points where id='".$Id."'");
@@ -266,6 +267,11 @@ echo "<p>";
 }
 else if ( $this->selectedTabIndex == 1 )
 {
+    
+    echo "العدد الأقصى للواحات التي يمكنك امتلاكها هو <b> 3 </b> واحات";
+    echo "<br>";
+    echo "تأثير الواحات يكون على <b style='color:green;'> جميع القرى </b> التي تمتلكها ، بمجرد إحتلالك لواحة، يتم إضافتها تلقائيا لجميع القرى. ";
+    echo "<br><br>";
     echo "<table id=\"oases\" cellpadding=\"1\" cellspacing=\"1\">\r\n\t<thead>\r\n\t\t<tr><th colspan=\"5\">";
     echo LANGUI_CUSTBU_HRO_p2_t1;
     echo "</th></tr>\r\n\t\t<tr>\r\n\t\t\t<td> </td>\r\n\t\t\t<td>";
