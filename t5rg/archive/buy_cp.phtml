@@ -3,14 +3,10 @@
 require(APP_PATH . "config.php");
 
 $link = mysql_connect($AppConfig['db']['host'], $AppConfig['db']['user'], $AppConfig['db']['password']);
-if (!$link) {
-    die('Could not connect: ' . mysql_error());
-}
+if (!$link) die('Could not connect: ' . mysql_error());
 
 $db_selected = mysql_select_db($AppConfig['db']['database'], $link);
-if (!$db_selected) {
-    die('Can\'t use database: ' . mysql_error());
-}
+if (!$db_selected) die('Can\'t use database: ' . mysql_error());
 
 $playerId = $this->player->playerId;
 $villageId = intval($this->data['selected_village_id']);
@@ -19,19 +15,18 @@ $villageId = intval($this->data['selected_village_id']);
 // Count all villages of player
 $query_all = "SELECT COUNT(*) AS village_count FROM p_villages WHERE player_id = $playerId AND is_oasis = 0";
 $result_all = mysql_query($query_all);
-if (!$result_all) {
-    die('Query failed: ' . mysql_error());
-}
+if (!$result_all) die('Query failed: ' . mysql_error());
+
 $row_all = mysql_fetch_assoc($result_all);
 $num_rows_all = $row_all['village_count'];
 
 // Get sum cp of all villages
 $query_cp = "SELECT cp FROM p_villages WHERE player_id = $playerId AND is_oasis = 0";
 $result_cp = mysql_query($query_cp);
-if (!$result_cp) {
-    die('Query failed: ' . mysql_error());
-}
+if (!$result_cp) die('Query failed: ' . mysql_error());
+
 $cp_sum = 0;
+
 while ($row_cp = mysql_fetch_assoc($result_cp)) {
     $cp = explode(" ", $row_cp['cp']);
     $cp_sum += $cp[0];
@@ -57,7 +52,7 @@ $can_buy_forAll = floor($this->data['gold_num'] / $cost_for_all);
     <tbody>
         <tr>
             <td style="padding:6px 2px">
-                <?php echo (int)$cp_sum; ?> نقطة
+                <span id="currentCP"><?php echo (int)$cp_sum; ?></span> نقطة
             </td>
             <td>
                 <?php echo'<b id="cost_for_all">'. (int)$cost_for_all.' </b>'; ?> <img src="assets/x.gif" class="gold" title="الذهب" alt="" />
@@ -108,9 +103,10 @@ $can_buy_forAll = floor($this->data['gold_num'] / $cost_for_all);
         document.getElementById('cost_for_all').innerHTML = parseInt(cost_for_all);
     });
 
-
-
-
+    function updateCurrentCP() {
+        let cpAll = parseInt(document.getElementById('currentCP').innerText);
+        document.getElementById('currentCP').innerText = cpAll + parseInt(<?php echo intval($_POST['cpAll']); ?>);
+    }
 </script>
 
 <?php
@@ -124,8 +120,14 @@ if (isset($_POST['s1'])) {
     
 
     // Check if the player has enough gold
-    if ($this->data['gold_num'] < $cost && $cp < 0) {
+    if($cost <= 0) {
+        echo "<br><center><font color='red'>يجب ادخال قيمة موجبة للاستفادة من هذه الميزة.</font></center>";
+        return;
+    }
+
+    if ($this->data['gold_num'] < $cost) {
         echo "<br><center><font color='red'>ليس لديك الذهب الكافي</font></center>";
+        return;
     } else {
 
         // Update the player's gold
@@ -160,5 +162,7 @@ if (isset($_POST['s1'])) {
         
 
         echo "<br><center><font color='green'>تم شراء $cp نقطة حضارية مقابل " .(int)$cost. " ذهب <img src='assets/x.gif' class='gold' title='الذهب' alt=''> بنجاح</font></center>";
+        echo "<script>updateCurrentCP();</script>";
     }
 }
+?>
