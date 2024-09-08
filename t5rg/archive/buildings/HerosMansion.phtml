@@ -203,52 +203,58 @@ $r = mysql_fetch_array($result);
     </tbody> 
 </table>
 
+<script>
+    function refresh() {
+        window.location.replace("build.php?id=<?php echo $this->buildingIndex; ?>");
+    }
+</script>
+
 <?php
 if (isset($_GET['addgwar'])) {
-header("Location:build.php?id=".$this->buildingIndex."");
-$Id = $this->player->playerId;
-$atpo = $r['hero_att'];
-$atde = $r['hero_deff'];
-mysql_query("UPDATE  `p_players` SET  `gold_num` =gold_num-20 where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `hero_att` =0 where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `hero_deff` =0 where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `h2ero_points` =".$atpo."+".$atde."+h2ero_points where id='".$Id."'");
- }
+    $Id = $this->player->playerId;
+    $atpo = $r['hero_att'];
+    $atde = $r['hero_deff'];
+    mysql_query("UPDATE  `p_players` SET  `gold_num` =gold_num-20 where id='".$Id."'");
+    mysql_query("UPDATE  `p_players` SET  `hero_att` =0 where id='".$Id."'");
+    mysql_query("UPDATE  `p_players` SET  `hero_deff` =0 where id='".$Id."'");
+    mysql_query("UPDATE  `p_players` SET  `h2ero_points` =".$atpo."+".$atde."+h2ero_points where id='".$Id."'");
+    echo "<script>refresh();</script>";
+}
 
 if (isset($_GET['addatt'])) {
-header("Location:build.php?id=".$this->buildingIndex."");
-$Id = $this->player->playerId;
-if ($r['h2ero_points'] >= 9) {
-mysql_query("UPDATE  `p_players` SET  `hero_att` =hero_att+10 where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-10 where id='".$Id."'");
-}
+    $Id = $this->player->playerId;
+    if ($r['h2ero_points'] >= 9) {
+        mysql_query("UPDATE  `p_players` SET  `hero_att` =hero_att+10 where id='".$Id."'");
+        mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-10 where id='".$Id."'");
+    }
+    echo "<script>refresh();</script>";
 }
 
 if (isset($_GET['addattp'])) {
-header("Location:build.php?id=".$this->buildingIndex."");
-$Id = $this->player->playerId;
-$rr = $r['h2ero_points']-1;
-if ($r['h2ero_points'] >= $rr) {
-mysql_query("UPDATE  `p_players` SET  `hero_att` =hero_att+h2ero_points where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-h2ero_points where id='".$Id."'");
-}
+    $Id = $this->player->playerId;
+    $rr = $r['h2ero_points']-1;
+    if ($r['h2ero_points'] >= $rr) {
+        mysql_query("UPDATE  `p_players` SET  `hero_att` =hero_att+h2ero_points where id='".$Id."'");
+        mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-h2ero_points where id='".$Id."'");
+        echo "<script>refresh();</script>";
+    }
 }
 
 if (isset($_GET['adddeff'])) {
-if ($r['h2ero_points'] >= 9) {
-header("Location:build.php?id=".$this->buildingIndex."");
-mysql_query("UPDATE  `p_players` SET  `hero_deff` =hero_deff+10 where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-10 where id='".$Id."'");
-}
+    if ($r['h2ero_points'] >= 9) {
+        mysql_query("UPDATE  `p_players` SET  `hero_deff` =hero_deff+10 where id='".$Id."'");
+        mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-10 where id='".$Id."'");
+        echo "<script>refresh();</script>";
+    }
 }
 
 if (isset($_GET['adddeffp'])) {
-$r1 = $r['h2ero_points']-1;
-if ($r['h2ero_points'] >= $r1) {
-header("Location:build.php?id=".$this->buildingIndex."");
-mysql_query("UPDATE  `p_players` SET  `hero_deff` =hero_deff+h2ero_points where id='".$Id."'");
-mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-h2ero_points where id='".$Id."'");
-}
+    $r1 = $r['h2ero_points']-1; 
+    if ($r['h2ero_points'] >= $r1) {
+        mysql_query("UPDATE  `p_players` SET  `hero_deff` =hero_deff+h2ero_points where id='".$Id."'");
+        mysql_query("UPDATE  `p_players` SET  `h2ero_points` =h2ero_points-h2ero_points where id='".$Id."'");
+        echo "<script>refresh();</script>";
+    }
 }
 if ($_GET['hero'] == 'rename') {
 echo "<p>";
