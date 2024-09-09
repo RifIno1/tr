@@ -71,39 +71,19 @@ height: 150px;
         width: 95%;
    }
 
-    div.alliance {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-
-    div.warsim {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-    
     .alqowat{
         width: auto; 
     }
 
-.hadafAndIrssal{
-    width: auto;
-    margin-bottom: 10px;
-}
+    .hadafAndIrssal{
+        width: auto;
+        margin-bottom: 10px;
+    }
 
     
     .v2vStyle{
         width: 100%;
         display: table;
-    }
-
-    div.village3 {
-        width: auto!important;
-        padding: 43px 5px 0;
-    }
-
-    div.a2b {
-        width: auto!important;
-        padding: 43px 5px 0;
     }
 
     div.player table#edit td.desc2 textarea {
@@ -315,7 +295,6 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         display: flex !important;
         
     }
-    
 
     div.map div#map_details {
         float: right;
@@ -326,19 +305,9 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
          width: auto!important;
     }
 
-    div#build {
-        width : auto!important;
-        padding: 43px 5px 0;
-    }
-
     div.player {
         width: auto!important;
         padding: 43px 5px 0!important;
-    }
-
-    div.plus {
-        width: auto!important;
-        padding: 43px 5px 0;
     }
 
     div.plus div#products {
@@ -354,6 +323,11 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         display: flex;
     }
 
+
+    div.plus, .village3, div.forum,div.forum table,div#build, div.reports, div.messages,div.player, div.alliance, div.village3, div.a2b ,div.warsim {
+        width: auto!important;
+        padding: 43px 0px 0!important;
+    }
 
 
     
