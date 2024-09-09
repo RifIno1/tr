@@ -35,14 +35,17 @@
 <div class="logo_bar"><a href="msg.php?uid=1">
 <img src="assets/support_bar.png" alt="الدعم" title="الدعم" width="24px" height="24px" />
 </a></div>
-<div class="logo_bar"><a href="shop.php">
-<img src="assets/chariot.png" alt="المتجر" title="المتجر" width="24px" height="24px" />
+<div class="logo_bar"><a href="perfect_village.php">
+<img src="assets/chateau.png" alt="القرية المثالية" title="القرية المثالية" width="24px" height="24px" />
 </a></div>
 <div class="logo_bar"><a href="farm.php">
 <img src="assets/sac-de-ble.png" alt="المزارع" title="المزارع" width="24px" height="24px" />
 </a></div>
 <div class="logo_bar"><a href="village4.php">
 <img src="assets/village3.png" alt="القرى" title="القرى" width="24px" height="24px" />
+</a></div>
+<div class="logo_bar"><a href="plus.php?t=2">
+<img src="assets/or1.png" alt="الذهب" title="الذهب" width="24px" height="24px" />
 </a></div>
 <div class="logo_bar"><a href="logout.php">
 <img src="assets/logout.png" alt="تسجيل الخروج" title="تسجيل الخروج" width="24px" height="24px" />
@@ -91,9 +94,10 @@ $m1 = new IndexModel();
 $this->datastats = $m1->getIndexSummary();
 $m1->dispose( );
 echo "<br><p><a href=\"index.php\">";echo LANGUI_GAME_MENU1;echo "</a>";
-if($this->player != NULL){echo "
-<a href=\"#\" onclick=\"return showManual(0,0);\">";echo LANGUI_GAME_MENU2;echo "</a>
-<a href=\"profile.php\">"; echo LANGUI_GAME_MENU3;echo "</a>";
+echo "<a href=\"chat.php\">الشات</a>"; 
+echo "<a href=\"profile.php\">"; 
+echo LANGUI_GAME_MENU3;
+echo "</a>";
 echo "
 <a href=\"logout.php\">"; echo LANGUI_GAME_MENU4; echo "</a>
 </p>
@@ -108,14 +112,10 @@ if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
 echo "<a href=\"farm.php\">";
 echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
 echo "</a>";
-echo"<a href=\"chat.php\">الشات</a>"; 
-echo "<a href=\"protection.php\">الحماية</a>";
-echo "<a href=\"buy_cp.php\">النقاط الحضارية</a>";
-echo "<a href=\"perfect_village.php\">القرى المثالية</a>";
+echo "<a href=\"perfect_village.php\">القرية المثالية</a>";
 
 echo"<a href=\"msg.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
 
-}
 echo "<p>";
                 $postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
 if ($postfix == "d") {
@@ -315,47 +315,43 @@ if ( $this->player != NULL )
 ?>
         <div id="res">
             <div id="resWrap">
-                <table cellpadding="1" cellspacing="1">
-                    <tbody>
-                        <tr class="res">
-                            <td>
-                                <img src="assets/x.gif" class="r1" title="<?php echo item_title_1; ?> " />
-                            </td>
-                            <td id="l4" class="res" alt="51000" title="<?php echo $this->resources[1]['calc_prod_rate']; ?>">
-                                <?php echo $this->resources[1]['current_value'];?> 
-                                <span style="display: none;"><?php echo '/' . $this->resources[1]['store_max_limit']; ?></span> 
-                            </td>
+            <div class="resources" style="display: flex; justify-content: space-evenly; align-items: center;">
+    <div class="res">
+        <img src="assets/x.gif" class="r1" title="<?php echo item_title_1; ?>" />
+        <div id="l4" class="res" alt="51000" title="<?php echo $this->resources[1]['calc_prod_rate']; ?>">
+            <?php echo $this->resources[1]['current_value']; ?>
+            <span style="display: none;"><?php echo '/' . $this->resources[1]['store_max_limit']; ?></span>
+        </div>
+    </div>
 
-                            <td>
-                                <img src="assets/x.gif" class="r2" title="<?php echo item_title_2; ?>" />
-                            </td>
-                            <td id="l3" class="res" title="<?php echo $this->resources[2]['calc_prod_rate']; ?>">
-                                <?php echo $this->resources[2]['current_value']; ?>
-                                <span style="display: none;"><?php echo '/' . $this->resources[2]['store_max_limit']; ?></span> 
-                            </td>   
+    <div class="res">
+        <img src="assets/x.gif" class="r2" title="<?php echo item_title_2; ?>" />
+        <div id="l3" class="res" title="<?php echo $this->resources[2]['calc_prod_rate']; ?>">
+            <?php echo $this->resources[2]['current_value']; ?>
+            <span style="display: none;"><?php echo '/' . $this->resources[2]['store_max_limit']; ?></span>
+        </div>
+    </div>
 
-                            <td>
-                                <img src="assets/x.gif" class="r3" title="<?php echo item_title_3; ?>" />
-                            </td>
-                            <td id="l2" class="res" title="<?php echo $this->resources[3]['calc_prod_rate']; ?>">
-                                <?php echo $this->resources[3]['current_value']; ?>
-                                <span style="display: none;"><?php echo '/' . $this->resources[3]['store_max_limit']; ?></span> 
-                            </td>
-                            
-                            <td>
-                                <img src="assets/x.gif" class="r4" class="res" title="<?php echo item_title_4; ?>" />
-                            </td>
-                            <td id="l1" class="res" title=" <?php echo $this->resources[4]['calc_prod_rate']; ?>">
-                                <?php echo $this->resources[4]['current_value']; ?>
-                                <span style="display: none;"><?php echo '/' . $this->resources[4]['store_max_limit']; ?></span> 
-                            </td>
-                            
+    <div class="res">
+        <img src="assets/x.gif" class="r3" title="<?php echo item_title_3; ?>" />
+        <div id="l2" class="res" title="<?php echo $this->resources[3]['calc_prod_rate']; ?>">
+            <?php echo $this->resources[3]['current_value']; ?>
+            <span style="display: none;"><?php echo '/' . $this->resources[3]['store_max_limit']; ?></span>
+        </div>
+    </div>
 
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="res">
+        <img src="assets/x.gif" class="r4" title="<?php echo item_title_4; ?>" />
+        <div id="l1" class="res" title="<?php echo $this->resources[4]['calc_prod_rate']; ?>">
+            <?php echo $this->resources[4]['current_value']; ?>
+            <span style="display: none;"><?php echo '/' . $this->resources[4]['store_max_limit']; ?></span>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
+
 <?php
 echo "
 </div>

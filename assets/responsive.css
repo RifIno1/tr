@@ -66,6 +66,17 @@ height: 150px;
     div.alliance table#edit td.desc2 textarea {
         width: 95%;
    }
+
+    div.alliance {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.warsim {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+    
     .alqowat{
         width: auto; 
     }
@@ -79,6 +90,16 @@ height: 150px;
     .v2vStyle{
         width: 100%;
         display: table;
+    }
+
+    div.village3 {
+        width: auto!important;
+        padding: 43px 5px 0;
+    }
+
+    div.a2b {
+        width: auto!important;
+        padding: 43px 5px 0;
     }
 
     div.player table#edit td.desc2 textarea {
@@ -167,7 +188,7 @@ height: 150px;
 
     div.village2 {
         width: auto!important;
-        padding: 43px 0px 0!important;
+        padding: 43px 5px 0!important;
     }
 
 
@@ -182,7 +203,7 @@ height: 150px;
 
     div.statistics {
          width: auto!important;
-        padding: 43px 0px 0!important;
+        padding: 43px 5px 0!important;
     }
 
     div#textmenu {
@@ -213,9 +234,25 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         top: 134px!important;
     }
 
-    .village3, div.forum,div.forum table,div#build, div.reports, div.messages,div.player, div.alliance, div.village3, div.a2b ,div.warsim {
+    
+
+    div.forum {
         width: auto!important;
-        padding: 43px 0px 0!important;
+        padding: 43px 5px 0!important;
+    }
+
+    div.forum table {
+        width: 100%!important;
+    }
+
+    div.reports {
+        width: auto!important;
+        padding: 43px 5px 0!important;
+    }
+
+    div.messages {
+        width: auto!important;
+        padding: 43px 5px 0!important;
     }
 
 
@@ -285,30 +322,31 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
          width: auto!important;
     }
 
-    #content {
-        width: 100%!important;
-        min-width: auto !important;
+    div#build {
+        width : auto!important;
+        padding: 43px 5px 0;
     }
 
-    #products{
-        width: 100%!important;
+    div.player {
+        width: auto!important;
+        padding: 43px 5px 0!important;
     }
 
     div.plus {
-        padding: 20px 0;
+        width: auto!important;
+        padding: 43px 5px 0;
     }
 
-    td.aligned_coords div.cox {
-        width: auto !important;
-    }
-
-    div.village1 {
-        padding-right: 0 !important;
+    div.plus div#products {
+        width: auto!important;
+        margin-right: -6px!important;
     }
 
     div.logout {
-        padding: 0 !important;
+        width: auto;
     }
+
+
 
     
 }
