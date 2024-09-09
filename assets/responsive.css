@@ -53,6 +53,10 @@ height: 150px;
    margin: auto!important;
 }
 
+.protectionAndMiracle{
+    display: none;
+}
+
 
 /* Responsive CSS for mobile devices */
 
@@ -344,6 +348,10 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
 
     div.logout {
         width: auto;
+    }
+
+    .protectionAndMiracle{
+        display: flex;
     }
 
 

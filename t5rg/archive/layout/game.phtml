@@ -26,6 +26,7 @@
 <img src="assets/x.gif" id="msfilter" alt="" />
 
 <div class="phone_bar" style="display: none;">
+
 <div class="logo_bar"><a href="profile.php">
 <img src="assets/profile.png" alt="الملف الشخصي" title="الملف الشخصي" width="24px" height="24px" />
 </a></div>
@@ -50,14 +51,22 @@
 <div class="logo_bar"><a href="logout.php">
 <img src="assets/logout.png" alt="تسجيل الخروج" title="تسجيل الخروج" width="24px" height="24px" />
 </a></div>
+
 </div>
+<?php 
+
+
+?>
 
 <div id="dynamic_header"></div>
 <div id="header">
 <div id="mtop" style="width: 600px;">
 <?php
 
+
+
 if($this->player != NULL){
+
 
 echo '<a href="village1.php" id="n1" accesskey="1">';
 
@@ -72,7 +81,9 @@ echo '<a href="village1.php" id="n1" accesskey="1">';
 
 ?>
 
-<?php } ?>
+<?php } 
+
+?>
 <a href="plus.php" id="plus" style="background: none;display: block; font-size: 13px; height: 40px; padding-right: 12px; padding-top: 21px; position: relative; width: 120px;">
     <b>
         <font style="padding: 5px 10px;border: 1px solid rgb(255, 111, 15); border-top-left-radius: 10px; border-bottom-right-radius: 10px;" color="#FF6F0F">
@@ -87,59 +98,7 @@ echo '<a href="village1.php" id="n1" accesskey="1">';
 </div>
 </div>
 <div id="mid">
-<div id="side_navi">
-<a id="logo" href="#"><img src="assets/x.gif" alt="<?php echo LANGUI_GAME_GNAME;?>" /></a><?php
-require_once(MODEL_PATH."index.php");
-$m1 = new IndexModel();
-$this->datastats = $m1->getIndexSummary();
-$m1->dispose( );
-echo "<br><p><a href=\"index.php\">";echo LANGUI_GAME_MENU1;echo "</a>";
-echo "<a href=\"chat.php\">الشات</a>"; 
-echo "<a href=\"profile.php\">"; 
-echo LANGUI_GAME_MENU3;
-echo "</a>";
-echo "
-<a href=\"logout.php\">"; echo LANGUI_GAME_MENU4; echo "</a>
-</p>
-<p>";
-
-if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
-        echo "<p> <a href=\"gamal11111.php\">";echo LANGUI_GAME_MENU13;echo "</a>
-<a href=\"adminweb.php\">";echo "ادارة اللعبه";echo "</a><p>";
-    }
-	
-
-echo "<a href=\"farm.php\">";
-echo 'قائمة <b><font color="#71D000">المزارع</font><font color="#FF6F0F"></font><font color="#71D000"></font><font color="#FF6F0F"></font></b>';
-echo "</a>";
-echo "<a href=\"perfect_village.php\">القرية المثالية</a>";
-
-echo"<a href=\"msg.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
-
-echo "<p>";
-                $postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
-if ($postfix == "d") {
-echo "";
-}else {
-echo "ستنتهي الحمايه بعد ";
-echo "<b><span id=\"timer1\">";
-echo WebHelper::secondsToString($this->dataGame['protection_remain_sec']);
-echo "</span></b>";
-echo " ساعه";
-}
-
-if($this->player != NULL && $this->isPlayerInDeletionProgress()){
-    echo "<p class=\"deltimer\"><a href=\"profile.php?t=4\">";
-    echo LANGUI_GAME_PLAYERDEL;
-    echo " ";
-    echo "<span id=\"timer1\">";echo $this->getPlayerDeletionTime();echo "</span>";
-    echo time_hour_lang;
-    echo "</a></p>";
-}
-echo " </div></b>
-<div id=\"content\" class=\"";echo $this->contentCssClass;echo "\" style='padding-bottom:40px'><div class=\"top\"></div>";$this->printContent();echo "</div>
-<div id=\"side_info\">";
-
+<?php
 // get the registration date of the player id 1
 require(APP_PATH . "config.php");
 $link = mysql_connect($AppConfig['db']['host'], $AppConfig['db']['user'], $AppConfig['db']['password']);
@@ -162,6 +121,99 @@ $days = floor($diff / (60 * 60 * 24));
 $hours = floor(($diff - $days * 60 * 60 * 24) / (60 * 60));
 $minutes = floor(($diff - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
 $seconds = $diff - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minutes * 60;
+echo "<div class='protectionAndMiracle'>";
+$postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
+if ($postfix == "d") {
+echo "<div id='countdown' style='position: absolute;
+    left: 0;
+    width: 70px;
+    top: 0;
+    margin-top: 19px;
+    background-color: #fefefe;
+    border-radius: 0 0 10px 0;
+    border-right: 1px solid #ccc;
+    padding: 3px 10px;'>";
+echo "بناء المعجزة بعد ";
+echo "<b>";
+echo "$days:$hours:$minutes:$seconds";
+echo "</b>";
+echo "</div>";
+
+}else {
+echo "<div style='position: absolute;
+    left: 0;
+    width: 70px;
+    top: 0;
+    margin-top: 19px;
+    background-color: #fefefe;
+    border-radius: 0 0 10px 0;
+    border-right: 1px solid #ccc;
+    padding: 3px 10px;'>";
+echo "ستنتهي <a style='font-weight:400!important;' href='protection.php'>الحمايه</a> بعد ";
+echo "<b><span id=\"timer1\">";
+echo WebHelper::secondsToString($this->dataGame['protection_remain_sec']);
+echo "</span></b>";
+echo "</div>";
+}
+
+echo "</div>";
+
+
+?>
+<div id="side_navi">
+<a id="logo" href="#"><img src="assets/x.gif" alt="<?php echo LANGUI_GAME_GNAME;?>" /></a><?php
+require_once(MODEL_PATH."index.php");
+$m1 = new IndexModel();
+$this->datastats = $m1->getIndexSummary();
+$m1->dispose( );
+
+echo "<br><p><a href=\"index.php\">";echo LANGUI_GAME_MENU1;echo "</a>";
+echo "<a href=\"chat.php\">الشات</a>"; 
+echo "<a href=\"profile.php\">"; 
+echo LANGUI_GAME_MENU3;
+echo "</a>";
+echo "
+<a href=\"logout.php\">"; echo LANGUI_GAME_MENU4; echo "</a>
+</p>
+<p>";
+
+if ( $this->data['player_type'] == PLAYERTYPE_ADMIN ){
+        echo "<p> <a href=\"gamal11111.php\">";echo LANGUI_GAME_MENU13;echo "</a>
+<a href=\"adminweb.php\">";echo "ادارة اللعبه";echo "</a><p>";
+    }
+	
+
+echo "<a href=\"plus.php?t=2\">";
+echo 'قائمة <b><font color="#71D000">P</font><font color="#FF6F0F">L</font><font color="black">U</font><font color="#FF6F0F">S</font></b>';
+echo "</a>";
+echo "<a href=\"perfect_village.php\">القرية المثالية</a>";
+echo "<a href=\"farm.php\">المزارع</a>";
+
+echo"<a href=\"msg.php?uid=1\"><b>"; echo '<font style="color: rgb(0, 0, 255);">الدعم</font>';echo "</b></a>";
+
+echo "<p>";
+$postfix = 0 < $this->dataGame['protection_remain_sec'] ? "" : "d";
+if ($postfix == "d") {
+echo "";
+}else {
+echo "ستنتهي الحمايه بعد ";
+echo "<b><span id=\"timer1\">";
+echo WebHelper::secondsToString($this->dataGame['protection_remain_sec']);
+echo "</span></b>";
+echo " ساعه";
+}
+
+if($this->player != NULL && $this->isPlayerInDeletionProgress()){
+    echo "<p class=\"deltimer\"><a href=\"profile.php?t=4\">";
+    echo LANGUI_GAME_PLAYERDEL;
+    echo " ";
+    echo "<span id=\"timer1\">";echo $this->getPlayerDeletionTime();echo "</span>";
+    echo time_hour_lang;
+    echo "</a></p>";
+}
+echo " </div></b>
+<div id=\"content\" class=\"";echo $this->contentCssClass;echo "\" style='padding-bottom:40px'><div class=\"top\"></div>";$this->printContent();echo "</div>
+<div id=\"side_info\">";
 echo "<div style='text-align: center;padding: 15px;'>";
 echo "<div style='font-size: 18px; margin-bottom: 15px;'>بقي على تطوير المعجزة</div>";
 echo "<div id='countdown' style='font-size: 14px; font-weight: bold; display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #ff7e5f, #feb47b); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);'>";
@@ -197,12 +249,13 @@ setInterval(function() {
     }
 
     // Display the updated countdown
-    document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+    document.getElementById('countdown').innerHTML = "بناء المعجزة بعد <b>" +
+     days + ":" + hours + ":" + minutes + ":" + seconds + "</b>";
 
     // If the countdown ends, stop the timer
     if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
         clearInterval();
-        document.getElementById('countdown').innerHTML = "The miracle has developed!";
+        document.getElementById('countdown').innerHTML = "يمكنك الآن بناء المعجزة";
     }
 }, 1000);
 </script>
