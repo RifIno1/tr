@@ -329,6 +329,10 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
         padding: 43px 0px 0!important;
     }
 
+    #change_mail {
+        width: 100% !important;
+    }
+
 
     
 }
