@@ -20,8 +20,8 @@
     background-color: #6adc74;
 }
 
-div#build {
-    width: 440px!important;
+div#build p.build_desc {
+    padding-top: 35px;
 }
 
 .profil_image {
@@ -102,11 +102,6 @@ height: 150px;
         width: auto!important;
     }
     
-
-
-    div#build p.build_desc {
-        margin-top: 70px!important;
-    }
 
     body{
         zoom : 100%;
@@ -324,9 +319,13 @@ div.statistics table#top10_offs, div.statistics table#top10_climbers {
     }
 
 
-    div.plus, .village3, div.forum,div.forum table,div#build, div.reports, div.messages,div.player, div.alliance, div.village3, div.a2b ,div.warsim {
+    div.plus, .village3, div.forum,div#build, div.reports, div.messages,div.player, div.alliance, div.village3, div.a2b ,div.warsim {
         width: auto!important;
         padding: 43px 0px 0!important;
+    }
+
+    div.forum table{
+        width: auto!important;
     }
 
     #change_mail {

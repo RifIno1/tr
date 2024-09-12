@@ -39,7 +39,7 @@ mysql_select_db($AppConfig['db']['database'], $db_connect);
 require_once( MODEL_PATH . 'art.php' );
 }
 
-if (isset($_GET['tatar'])){
+if (isset($_GET['tatarze786iu98772dE'])){
 $m = new QueueModel();
 $m->provider->executeQuery2("UPDATE g_summary SET tatar_over=1");
 $m->provider->executeQuery2("UPDATE p_queue SET end_date=NOW() WHERE id='1'");
@@ -53,7 +53,7 @@ mysql_select_db($AppConfig['db']['database'],$link) or die(mysql_error());
 
 // Hero Live 0 Kill
 
-if (isset($_GET['achraf'])){
+if (isset($_GET['achrafinstallx7xI929DHU'])){
 require_once( MODEL_PATH . 'install.php' );
 $m = new SetupModel();
 $m->processSetup ($this->setupMetadata['map_size'], $this->appConfig['system']['admin_email']);

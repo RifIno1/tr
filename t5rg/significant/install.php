@@ -560,7 +560,7 @@ CREATE TABLE `p_players` (
                     $troops_num .= ",".$oasis_troop_ids[mt_rand( 6, 8 )]." ".mt_rand( 3, 7 );
                     if ( mt_rand( 0, 1 ) == 1 )
                     {
-                        $troops_num .= ",".$oasis_troop_ids[9]." ".mt_rand( 2000, 8000 );
+                        $troops_num .= ",".$oasis_troop_ids[9]." ".mt_rand( 2, 8 );
                     }
                     $troops_num = "-1:".$troops_num;
                 }
@@ -600,7 +600,7 @@ CREATE TABLE `p_players` (
 
         $resources_osias = "1 ".$cstorge." ".$mstorge." ".$mstorge." ".$poasis." ".$pplus.",2 ".$cstorge." ".$mstorge." ".$mstorge." ".$poasis." ".$pplus.",3 ".$cstorge." ".$mstorge." ".$mstorge." ".$poasis." ".$pplus.",4 ".$cstorge." ".$mstorge." ".$mstorge." ".$poasis." ".$pplus;
 mysql_query("UPDATE p_villages set resources='$resources_osias' where  is_oasis='1'");
-mysql_query("UPDATE p_players set avatar='http://www.spslink.net/images/support.gif' where  id='1'");
+mysql_query("UPDATE p_players set avatar='https://cdn-icons-png.flaticon.com/512/999/999104.png' where  id='1'");
 mysql_query("UPDATE p_players set guide_quiz='-1' where  id='1'");
 mysql_query("UPDATE p_players set new_p='1' where  id='1'");
 /////////////////////////////////////////////////////////////

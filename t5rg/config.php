@@ -8,13 +8,7 @@ ini_set('display_startup_errors', 1);
 $AppConfig = array (
         'db'                 
                                 => array (
-                       /*        
                      
-                'host'                                => 'php56-db',
-                'user'                                => 'Anwar123',
-                'password'                        => 'Anwar123',
-                'database'                        => 'Anwar123',
-       */ 
                 'host'                                => 'localhost',
                 'user'                                => 'root',
                 'password'                        => '',
@@ -25,14 +19,14 @@ $AppConfig = array (
                 'Game'                         => array (
                 'speed'                      => '500', // سرعة اللعبه
                 'map'                      => '801', // حجم الخريطه
-                'attack'        => '8000', // سرعه الهجوم
+                'attack'        => '8', // سرعه الهجوم
                 'protection'        => '24', // الحمايه بالساعات , ضف الساعه فقط 120 = 5 ايام فقط 
                 'protectionx'        => '0', // تدبيل الحمايه يفضل 0
                 'X'                 => '1328827643', // لاتغير الرقم
                 'capacity'      => '650', // المخازن 
                 'cranny'        => '100', // المخبأ وسعته
                 'cp'            => '5000', // ولاء القرية الجديده
-                'market'        => '100000', // حمولة التجار
+                'market'        => '50000', // حمولة التجار
                 //قائمة بلاس 
                 'plus1'          => '7', // مده قائمة بلاس باليوم
                 'plus2'          => '7', // مدة زياده الموارد
@@ -45,16 +39,16 @@ $AppConfig = array (
                 'plus9'          => '10', // البطل انهاء البطل 
                 'plus10'          => '600',// نادي الذهب
                 //سوق المحاربين
-                'piyadeh1'        => '0.1', // سعر الجندي
-                'piyadeh2'        => '0.3', // سعر الجندي
-                'piyadeh3'        => '0.5', // سعر الجندي
-                'piyadeh4'        => '0.1', // سعر الجندي
+                'piyadeh1'        => '0.01', // سعر الجندي
+                'piyadeh2'        => '0.03', // سعر الجندي
+                'piyadeh3'        => '0.05', // سعر الجندي
+                'piyadeh4'        => '0.01', // سعر الجندي
 
-                'savareh1'        => '0.7',// سعر الفارس
-                'savareh2'        => '0.9',// سعر الفارس القوس
+                'savareh1'        => '0.07',// سعر الفارس
+                'savareh2'        => '0.09',// سعر الفارس القوس
 
-                'shovalieh1'      => '1.1',// سعر المقلاع
-                'shovalieh2'      => '1.3',// سعر 
+                'shovalieh1'      => '0.11',// سعر المقلاع
+                'shovalieh2'      => '0.13',// سعر 
                 //3am
                 'bonous'        => '200',// 
                 'day_game'        => '(2013/07/21)',//
@@ -76,7 +70,7 @@ $AppConfig = array (
                 'adminName'         => 'admin', 
                 'adminPassword'          => 'admin',
                 'lang'                                => 'ar',
-                'admin_email'                => 'admin@tatars.com',
+                'admin_email'                => 'info@xtwar.com',
                 'email'                         => 'Tatar-WaR',
                 'installkey'                 => 'achraf',
                 'startdate'             => '', //09/20/2012 05/20/2013------17:22
@@ -152,17 +146,7 @@ $AppConfig = array (
                        
                 ),
                 'payments' => array (
-                        'cashu'        => array (
-                                'testMode'                => FALSE,
-                                'name'                        => 'CashU',
-                                'image'                        => 'cashu.gif',
-                                'serviceName'         => 'tc1-gold',
-                                'merchant_id'        => 'راسل الادارة',
-                                'key'                        => 'jhgf',
-                                'testKey'                => 'yrf',
-                                'returnKey'                => 'fff',
-                                'currency'                => 'usd'
-                                ),
+                        
                 )
         )
 
